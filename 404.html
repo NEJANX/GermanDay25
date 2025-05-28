@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found | Tag Der Deutschen Sprache '25</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white overflow-x-hidden">
+    <!-- Animated background elements -->
+    <div class="fixed inset-0 z-0">
+      <div class="absolute rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-3xl w-96 h-96 top-20 left-20" style="animation: float 15s ease-in-out 0s infinite alternate;"></div>
+      <div class="absolute rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-3xl w-64 h-64 bottom-20 right-20" style="animation: float 15s ease-in-out 5s infinite alternate;"></div>
+      <div class="absolute rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-3xl w-80 h-80 top-1/2 right-1/3" style="animation: float 15s ease-in-out 2s infinite alternate;"></div>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-1 z-10 flex items-center justify-center p-4">
+      <div class="backdrop-blur-xl bg-white/15 border border-white/20 rounded-2xl p-8 md:p-12 max-w-3xl shadow-2xl text-center">
+        <!-- Logo -->
+        <div class="flex justify-center mb-6">
+          <img src="/rc.svg" alt="German Day Logo" class="h-24 w-auto animate-float">
+        </div>
+
+        <!-- Error message -->
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-lg">404</h1>
+        <h2 class="text-2xl md:text-3xl font-bold mb-4 text-yellow-300">Seite Nicht Gefunden</h2>
+        <p class="text-white/90 text-lg mb-8 max-w-2xl mx-auto">The page you're looking for doesn't exist or has been moved to a different location.</p>
+        
+        <!-- Return home button -->
+        <a href="/" class="inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300">
+          Return to Homepage
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="backdrop-blur-lg bg-black/40 border-t border-white/10 py-6 z-10">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <div class="text-white/60 text-sm">
+          © 2025 Tag Der Deutschen Sprache | Royal College German Unit
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
