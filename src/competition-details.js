@@ -1,6 +1,10 @@
 import './style.css';
 import { db } from './firebase-config';
 import { collection, addDoc, serverTimestamp } from '@firebase/firestore';
+import Alert from './components/Alert';
+
+// Create a single alert instance for the entire app
+const alertManager = new Alert();
 
 document.addEventListener('DOMContentLoaded', () => {
   const detailsContainer = document.getElementById('competition-details');
@@ -254,11 +258,11 @@ function CompetitionDetails() {
       await addDoc(competitionRef, data);
       
       // Show success message (you can customize this)
-      alert("Registration successful!");
+      alertManager.show("Registration successful!", "success");
       registrationForm.reset();
     } catch (error) {
       console.error("Error saving registration: ", error);
-      alert("Failed to register. Please try again later.");
+      alertManager.show("Failed to register. Please try again later.", "error");
     }
   });
   
@@ -280,12 +284,6 @@ function CompetitionDetails() {
       label: "Previous Experience", 
       required: false,
       placeholder: "Tell us about your background and experience with German language and culture"
-    },
-    { 
-      type: "checkbox", 
-      name: "agreeTerms", 
-      label: "I agree to the terms and conditions", 
-      required: true 
     }
   ];
   

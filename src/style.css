@@ -234,3 +234,38 @@ html, body {
   background-color: rgba(250, 204, 21, 0.25);
   color: rgba(250, 204, 21, 1);
 }
+
+/* Custom Alert Component Styles */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.alert-enter {
+  animation: slideInRight 0.3s forwards;
+}
+
+.alert-exit {
+  animation: slideOutRight 0.3s forwards;
+}
+
+.alert-container {
+  z-index: 9999;
+}
