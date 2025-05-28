@@ -96,7 +96,7 @@ export function App() {
   heroBtnContainer.className = "flex flex-col sm:flex-row justify-center gap-4 sm:gap-6";
   
   const registerBtn = document.createElement("a");
-  registerBtn.href = "#register";
+  registerBtn.href = "#competitions";
   registerBtn.className = "bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold px-8 py-3 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300";
   registerBtn.textContent = "Register Now";
   
@@ -290,54 +290,54 @@ export function App() {
   gallerySection.querySelector(".section-content").appendChild(gallery);
   
   // Registration section
-  const registerSection = createSection("register", "Registration", "Secure your spot for German Day Competitions 2025");
+  // const registerSection = createSection("register", "Registration", "Secure your spot for German Day Competitions 2025");
   
-  const registerCard = document.createElement("div");
-  registerCard.className = "backdrop-blur-xl bg-white/15 border border-white/20 rounded-2xl p-8 mt-10 max-w-3xl mx-auto";
+  // const registerCard = document.createElement("div");
+  // registerCard.className = "backdrop-blur-xl bg-white/15 border border-white/20 rounded-2xl p-8 mt-10 max-w-3xl mx-auto";
   
-  const registerText = document.createElement("p");
-  registerText.className = "mb-6 text-white/80";
-  registerText.textContent = "Registration opens February 1, 2025. Enter your email to be notified when registration begins.";
+  // const registerText = document.createElement("p");
+  // registerText.className = "mb-6 text-white/80";
+  // registerText.textContent = "Registration opens February 1, 2025. Enter your email to be notified when registration begins.";
   
-  const form = document.createElement("form");
-  form.className = "flex flex-col sm:flex-row gap-4";
-  form.addEventListener("submit", (e) => e.preventDefault());
+  // const form = document.createElement("form");
+  // form.className = "flex flex-col sm:flex-row gap-4";
+  // form.addEventListener("submit", (e) => e.preventDefault());
   
-  const emailInput = document.createElement("input");
-  emailInput.type = "email";
-  emailInput.placeholder = "Your email address";
-  emailInput.className = "flex-1 px-4 py-3 rounded-lg bg-white/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-yellow-400/50";
+  // const emailInput = document.createElement("input");
+  // emailInput.type = "email";
+  // emailInput.placeholder = "Your email address";
+  // emailInput.className = "flex-1 px-4 py-3 rounded-lg bg-white/20 border border-white/10 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-yellow-400/50";
   
-  const submitBtn = document.createElement("button");
-  submitBtn.type = "submit";
-  submitBtn.className = "px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-medium rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 whitespace-nowrap";
-  submitBtn.textContent = "Notify Me";
+  // const submitBtn = document.createElement("button");
+  // submitBtn.type = "submit";
+  // submitBtn.className = "px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black font-medium rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 whitespace-nowrap";
+  // submitBtn.textContent = "Notify Me";
   
-  form.append(emailInput, submitBtn);
-  registerCard.append(registerText, form);
-  registerSection.querySelector(".section-content").appendChild(registerCard);
+  // form.append(emailInput, submitBtn);
+  // registerCard.append(registerText, form);
+  // registerSection.querySelector(".section-content").appendChild(registerCard);
   
   // Footer
   const footer = document.createElement("footer");
-  footer.className = "backdrop-blur-lg bg-black/40 border-t border-white/10 py-8 mt-20";
+  footer.className = "backdrop-blur-lg bg-black/40 border-t border-white/10 py-4 mt-20";
   
   const footerContent = document.createElement("div");
   footerContent.className = "max-w-7xl mx-auto px-4 text-center";
   
   const footerLogo = document.createElement("div");
-  footerLogo.className = "text-2xl font-bold mb-4";
-  footerLogo.innerHTML = "Tag Der Deutschen Sprache '25";
+  // footerLogo.className = "text-2xl font-bold mb-4";
+  // footerLogo.innerHTML = "Tag Der Deutschen Sprache '25";
   
   const footerLinks = document.createElement("div");
-  footerLinks.className = "flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-sm text-white/70";
+  // footerLinks.className = "flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-sm text-white/70";
   
-  ["Home", "Events", "Schedule", "Gallery", "Contact", "Privacy Policy", "Terms"].forEach(link => {
-    const a = document.createElement("a");
-    a.href = link.toLowerCase() === "home" ? "#" : `#${link.toLowerCase().replace(" ", "-")}`;
-    a.className = "hover:text-yellow-300 transition-colors";
-    a.textContent = link;
-    footerLinks.appendChild(a);
-  });
+  // ["Home", "Events", "Schedule", "Gallery", "Contact", "Privacy Policy", "Terms"].forEach(link => {
+  //   const a = document.createElement("a");
+  //   a.href = link.toLowerCase() === "home" ? "#" : `#${link.toLowerCase().replace(" ", "-")}`;
+  //   a.className = "hover:text-yellow-300 transition-colors";
+  //   a.textContent = link;
+  //   footerLinks.appendChild(a);
+  // });
   
   const copyright = document.createElement("div");
   copyright.className = "text-white/60 text-sm";
@@ -377,7 +377,8 @@ export function App() {
   }
   
   // Append all sections to content
-  content.append(heroSection, eventsSection, scheduleSection, gallerySection, registerSection);
+  content.append(heroSection, eventsSection, scheduleSection, gallerySection);
+  // content.append(heroSection, eventsSection, scheduleSection, gallerySection, registerSection);
   
   // Assemble the page
   container.append(navbar, content, footer);

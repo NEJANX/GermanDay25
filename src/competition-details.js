@@ -489,7 +489,7 @@ function createNavigation() {
   const logo = document.createElement("a");
   logo.href = "/";
   logo.className = "text-xl font-bold flex items-center";
-  logo.innerHTML = "<span class='text-2xl mr-2'>🇩🇪</span> German Day";
+  logo.innerHTML = "Tag Der Deutschen Sprache '25";
   
   const navLinks = document.createElement("div");
   navLinks.className = "hidden md:flex space-x-8";
@@ -517,29 +517,29 @@ function createNavigation() {
 // Helper function to create footer
 function createFooter() {
   const footer = document.createElement("footer");
-  footer.className = "backdrop-blur-lg bg-black/40 border-t border-white/10 py-8";
+  footer.className = "backdrop-blur-lg bg-black/40 border-t border-white/10 py-4";
   
   const footerContent = document.createElement("div");
   footerContent.className = "max-w-7xl mx-auto px-4 text-center";
   
   const footerLogo = document.createElement("div");
-  footerLogo.className = "text-2xl font-bold mb-4";
-  footerLogo.innerHTML = "<span class='text-2xl mr-2'>🇩🇪</span> German Day Competitions";
+//   footerLogo.className = "text-2xl font-bold mb-4";
+//   footerLogo.innerHTML = "<span class='text-2xl mr-2'>🇩🇪</span> German Day Competitions";
   
   const footerLinks = document.createElement("div");
-  footerLinks.className = "flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-sm text-white/70";
+//   footerLinks.className = "flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-sm text-white/70";
   
-  ["Home", "Competitions", "Schedule", "Gallery", "Contact", "Privacy Policy", "Terms"].forEach(link => {
-    const a = document.createElement("a");
-    a.href = link.toLowerCase() === "home" ? "/" : `/#${link.toLowerCase().replace(" ", "-")}`;
-    a.className = "hover:text-yellow-300 transition-colors";
-    a.textContent = link;
-    footerLinks.appendChild(a);
-  });
+//   ["Home", "Competitions", "Schedule", "Gallery", "Contact", "Privacy Policy", "Terms"].forEach(link => {
+//     const a = document.createElement("a");
+//     a.href = link.toLowerCase() === "home" ? "/" : `/#${link.toLowerCase().replace(" ", "-")}`;
+//     a.className = "hover:text-yellow-300 transition-colors";
+//     a.textContent = link;
+//     footerLinks.appendChild(a);
+//   });
   
   const copyright = document.createElement("div");
   copyright.className = "text-white/60 text-sm";
-  copyright.textContent = `© ${new Date().getFullYear()} German Day Competitions. All rights reserved.`;
+  copyright.textContent = `© 2025 Royal College German Unit`;
   
   footerContent.append(footerLogo, footerLinks, copyright);
   footer.appendChild(footerContent);
