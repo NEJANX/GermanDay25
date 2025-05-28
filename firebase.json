@@ -8,6 +8,14 @@
     ],
     "rewrites": [
       {
+        "source": "/competitions/**",
+        "destination": "/competition-details.html"
+      },
+      {
+        "source": "/404",
+        "destination": "/404.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
