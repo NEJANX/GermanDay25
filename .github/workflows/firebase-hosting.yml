@@ -13,6 +13,7 @@ jobs:
 
       - run: npm install -g firebase-tools
       - run: npm i && npm run build
+      - run: firebase init hosting --project "germanday25" --public "dist" --site "1:263383965515:web:1498af146f1721c1c352ce" --token "1//0g6PJYgW61rBKCgYIARAAGBASNwF-L9IreAiNHABlvqANA7GcOwnMkhzfLvrLM6q2kipKz8WyzGcBbAXCLywjOa9MREJwIc3J9vY" --non-interactive
       - run: firebase deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
