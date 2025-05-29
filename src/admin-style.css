@@ -1,0 +1,188 @@
+/* Admin-specific styles */
+
+/* Enhanced dropdowns */
+.admin-dropdown {
+  @apply relative w-full;
+}
+
+.admin-dropdown select {
+  @apply appearance-none w-full px-4 py-3 bg-white/20 border border-white/10 rounded-lg text-white pr-8;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.admin-dropdown select:focus {
+  @apply outline-none ring-2 ring-yellow-400/50 border-transparent;
+}
+
+/* Custom dropdown animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* Admin panel card styles */
+.admin-card {
+  @apply backdrop-blur-xl bg-white/10 border border-white/10 rounded-xl p-6 transition-all duration-300;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.admin-card:hover {
+  @apply bg-white/15;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Stats card */
+.stats-card {
+  @apply bg-white/10 border border-white/10 rounded-lg p-4 transition-all duration-300;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stats-card:hover {
+  @apply bg-white/15 border-white/20;
+  transform: translateY(-3px);
+}
+
+/* Table styling */
+.admin-table {
+  @apply min-w-full divide-y divide-white/10;
+}
+
+.admin-table thead {
+  @apply bg-white/5;
+}
+
+.admin-table th {
+  @apply px-6 py-3 text-left text-xs font-medium text-white/70 uppercase tracking-wider;
+}
+
+.admin-table tbody {
+  @apply bg-white/5 divide-y divide-white/10;
+}
+
+.admin-table tr {
+  @apply transition-colors duration-150;
+}
+
+.admin-table tr:hover {
+  @apply bg-white/15;
+}
+
+.admin-table td {
+  @apply px-6 py-4 whitespace-nowrap;
+}
+
+/* Button styles */
+.admin-btn {
+  @apply px-4 py-2 rounded-lg transition-all duration-300;
+}
+
+.admin-btn-primary {
+  @apply bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold;
+}
+
+.admin-btn-secondary {
+  @apply bg-white/10 hover:bg-white/20 text-white;
+}
+
+.admin-btn-danger {
+  @apply bg-red-500 hover:bg-red-600 text-white;
+}
+
+/* Pill badge */
+.category-pill {
+  @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-400/20 text-yellow-200;
+}
+
+/* Form controls */
+.admin-input {
+  @apply w-full px-4 py-3 bg-white/20 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50;
+}
+
+/* Search input with icon */
+.search-input-container {
+  @apply relative;
+}
+
+.search-input-container input {
+  @apply pl-10 pr-4 py-3 bg-white/20 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 w-full;
+}
+
+.search-input-container svg {
+  @apply absolute left-3 top-3.5 h-4 w-4 text-white/50;
+}
+
+/* Background effects */
+.admin-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #1e3a8a, #172554);
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
+  animation: float-around 20s infinite ease-in-out;
+}
+
+.gradient-orb-1 {
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.7) 0%, rgba(91, 33, 182, 0) 70%);
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.gradient-orb-2 {
+  width: 35vw;
+  height: 35vw;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.7) 0%, rgba(91, 33, 182, 0) 70%);
+  bottom: 10%;
+  right: 15%;
+  animation-delay: -5s;
+}
+
+.gradient-orb-3 {
+  width: 25vw;
+  height: 25vw;
+  background: radial-gradient(circle, rgba(250, 204, 21, 0.5) 0%, rgba(91, 33, 182, 0) 70%);
+  top: 60%;
+  left: 25%;
+  animation-delay: -10s;
+}
+
+@keyframes float-around {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(3vw, 2vh) scale(1.05);
+  }
+  50% {
+    transform: translate(-2vw, 5vh) scale(0.95);
+  }
+  75% {
+    transform: translate(-4vw, -3vh) scale(1.1);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}

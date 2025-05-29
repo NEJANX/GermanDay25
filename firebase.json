@@ -12,6 +12,14 @@
         "destination": "/competition-details.html"
       },
       {
+        "source": "/admin/dashboard",
+        "destination": "/admin.html"
+      },
+      {
+        "source": "/admin/registration/**",
+        "destination": "/admin.html"
+      },
+      {
         "source": "/404",
         "destination": "/404.html"
       },

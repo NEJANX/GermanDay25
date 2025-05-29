@@ -12,6 +12,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         'competition-details': resolve(__dirname, 'competition-details.html'),
+        'admin': resolve(__dirname, 'admin.html'),
         'not-found': resolve(__dirname, '404.html'),
       }
     }
@@ -25,6 +26,7 @@ export default defineConfig({
     alias: {
       '@': '/src'
     },
+    extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx', '.json']
   },
   // Handle route rewrites for clean URLs
   plugins: [
@@ -35,6 +37,14 @@ export default defineConfig({
           // Handle /competitions/:id routes
           if (req.url.startsWith('/competitions/') && !req.url.includes('.')) {
             req.url = '/competition-details.html';
+            return next();
+          }
+          
+          // Handle /admin/dashboard and other admin routes
+          if ((req.url.startsWith('/admin/dashboard') || 
+               req.url.startsWith('/admin/registration/')) && 
+              !req.url.includes('.')) {
+            req.url = '/admin.html';
             return next();
           }
           

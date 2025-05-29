@@ -16,6 +16,10 @@
   },
   "dependencies": {
     "@firebase/app": "^0.13.0",
-    "@firebase/firestore": "^4.7.16"
+    "@firebase/auth": "^1.10.6",
+    "@firebase/firestore": "^4.7.16",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.1"
   }
 }
