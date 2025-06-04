@@ -18,34 +18,46 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function CompetitionDetails() {
-  // Get competition ID from URL path instead of query params
+  // Get competition ID from URL path
   const path = window.location.pathname;
   const pathParts = path.split('/');
   const competitionId = pathParts[pathParts.length - 1] || 'poetry-recitation'; // Default to first competition if no ID
 
   // Container for the entire page
   const container = document.createElement("div");
-  container.className = "min-h-screen flex flex-col bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white overflow-x-hidden";
+  container.className = "min-h-screen flex flex-col bg-slate-900 text-white overflow-x-hidden";
   
-  // Add animated background elements
-  const bubbles = document.createElement("div");
-  bubbles.className = "fixed inset-0 z-0";
-  for (let i = 0; i < 6; i++) {
-    const bubble = document.createElement("div");
-    const size = Math.random() * 200 + 50;
+  // Add professional German-themed background
+  const backgroundOverlay = document.createElement("div");
+  backgroundOverlay.className = "fixed inset-0 z-0";
+  backgroundOverlay.innerHTML = `
+    <div class="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
+    <div class="absolute inset-0 opacity-5" style="background: url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&q=80') center/cover no-repeat fixed"></div>
+    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-black via-red-800 to-yellow-600"></div>
+  `;
+  container.appendChild(backgroundOverlay);
+  
+  // Add subtle glass elements
+  const glassElements = document.createElement("div");
+  glassElements.className = "fixed inset-0 z-0 overflow-hidden";
+  
+  // Create fewer, more professional glass elements
+  for (let i = 0; i < 5; i++) {
+    const element = document.createElement("div");
+    const size = Math.random() * 300 + 100;
     const posX = Math.random() * 100;
     const posY = Math.random() * 100;
-    const delay = Math.random() * 10;
     
-    bubble.className = "absolute rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-3xl";
-    bubble.style.width = `${size}px`;
-    bubble.style.height = `${size}px`;
-    bubble.style.left = `${posX}%`;
-    bubble.style.top = `${posY}%`;
-    bubble.style.animation = `float 15s ease-in-out ${delay}s infinite alternate`;
-    bubbles.appendChild(bubble);
+    element.className = "absolute rounded-full backdrop-blur-md bg-white/[0.02]";
+    element.style.width = `${size}px`;
+    element.style.height = `${size}px`;
+    element.style.left = `${posX}%`;
+    element.style.top = `${posY}%`;
+    element.style.animation = `float 30s ease-in-out ${Math.random() * 10}s infinite alternate`;
+    
+    glassElements.appendChild(element);
   }
-  container.appendChild(bubbles);
+  container.appendChild(glassElements);
   
   // Create navigation
   container.appendChild(createNavigation());
@@ -64,7 +76,7 @@ function CompetitionDetails() {
   // Back button
   const backLink = document.createElement("a");
   backLink.href = "/";
-  backLink.className = "inline-flex items-center text-white/70 hover:text-white mb-6 transition-colors";
+  backLink.className = "inline-flex items-center text-slate-300 hover:text-yellow-200 mb-6 transition-colors";
   backLink.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -82,24 +94,33 @@ function CompetitionDetails() {
   leftColumn.className = "lg:col-span-2 fade-in-element";
   
   const card = document.createElement("div");
-  card.className = "backdrop-blur-xl bg-white/15 border border-white/20 rounded-2xl p-8 shadow-2xl";
+  card.className = "backdrop-blur-sm bg-slate-800/40 border border-slate-700 rounded-xl p-8 shadow-2xl";
   
   const header = document.createElement("div");
   header.className = "mb-8";
+  
+  // Add German flag mini-element
+  const flagBar = document.createElement("div");
+  flagBar.className = "h-1 w-16 mb-6 flex rounded-full overflow-hidden";
+  flagBar.innerHTML = `
+    <div class="flex-1 bg-black"></div>
+    <div class="flex-1 bg-red-700"></div>
+    <div class="flex-1 bg-yellow-500"></div>
+  `;
   
   const competitionIcon = document.createElement("div");
   competitionIcon.className = "text-5xl mb-4";
   competitionIcon.textContent = competition.icon;
   
   const competitionTitle = document.createElement("h1");
-  competitionTitle.className = "text-3xl md:text-4xl font-bold mb-3";
+  competitionTitle.className = "text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200";
   competitionTitle.textContent = competition.title;
   
   const categories = document.createElement("div");
-  categories.className = "inline-block px-3 py-1 rounded-full bg-yellow-400/20 text-yellow-300 text-sm font-medium mb-4";
+  categories.className = "inline-block px-3 py-1 rounded-full bg-slate-700/70 text-yellow-300 text-sm font-medium mb-4";
   categories.textContent = competition.categories;
   
-  header.append(competitionIcon, competitionTitle, categories);
+  header.append(flagBar, competitionIcon, competitionTitle, categories);
   
   const descriptionSection = document.createElement("div");
   descriptionSection.className = "mb-8";
@@ -109,7 +130,7 @@ function CompetitionDetails() {
   descriptionTitle.textContent = "About This Competition";
   
   const description = document.createElement("div");
-  description.className = "text-white/80 space-y-4";
+  description.className = "text-slate-300 space-y-4";
   description.innerHTML = competition.fullDescription;
   
   descriptionSection.append(descriptionTitle, description);
@@ -155,13 +176,13 @@ function CompetitionDetails() {
     detailItem.className = "flex items-start space-x-3";
     
     const iconWrapper = document.createElement("div");
-    iconWrapper.className = "bg-white/10 rounded-full p-2 flex-shrink-0";
+    iconWrapper.className = "bg-slate-700/50 rounded-full p-2 flex-shrink-0";
     iconWrapper.innerHTML = item.icon;
     
     const textWrapper = document.createElement("div");
     
     const itemTitle = document.createElement("div");
-    itemTitle.className = "text-white/60 text-sm";
+    itemTitle.className = "text-slate-400 text-sm";
     itemTitle.textContent = item.title;
     
     const itemValue = document.createElement("div");
@@ -185,21 +206,21 @@ function CompetitionDetails() {
   prizesGrid.className = "grid grid-cols-3 gap-3";
   
   const prizePositions = [
-    { position: "1st Place", amount: competition.prizes.first, color: "from-yellow-300 to-amber-500" },
-    { position: "2nd Place", amount: competition.prizes.second, color: "from-gray-300 to-gray-400" },
-    { position: "3rd Place", amount: competition.prizes.third, color: "from-amber-600 to-amber-700" }
+    { position: "1st Place", amount: competition.prizes.first, color: "from-yellow-500/80 to-amber-600/80" },
+    { position: "2nd Place", amount: competition.prizes.second, color: "from-slate-400/80 to-slate-500/80" },
+    { position: "3rd Place", amount: competition.prizes.third, color: "from-yellow-700/80 to-amber-800/80" }
   ];
   
   prizePositions.forEach(prize => {
     const prizeCard = document.createElement("div");
-    prizeCard.className = `bg-gradient-to-b ${prize.color} text-black rounded-lg p-4 text-center transform transition-transform hover:scale-105`;
+    prizeCard.className = `bg-gradient-to-b ${prize.color} backdrop-blur-sm rounded-lg p-4 text-center transform transition-transform hover:scale-105`;
     
     const prizePosition = document.createElement("div");
-    prizePosition.className = "text-sm font-medium";
+    prizePosition.className = "text-sm font-medium text-white/80";
     prizePosition.textContent = prize.position;
     
     const prizeAmount = document.createElement("div");
-    prizeAmount.className = "text-2xl font-bold";
+    prizeAmount.className = "text-2xl font-bold text-white";
     prizeAmount.textContent = prize.amount;
     
     prizeCard.append(prizePosition, prizeAmount);
@@ -217,7 +238,7 @@ function CompetitionDetails() {
   rulesTitle.textContent = "Rules & Requirements";
   
   const rulesList = document.createElement("ul");
-  rulesList.className = "list-disc pl-5 text-white/80 space-y-2";
+  rulesList.className = "list-disc pl-5 text-slate-300 space-y-2";
   
   competition.rules.forEach(rule => {
     const ruleItem = document.createElement("li");
@@ -236,7 +257,16 @@ function CompetitionDetails() {
   rightColumn.className = "lg:col-span-1 fade-in-element";
   
   const formCard = document.createElement("div");
-  formCard.className = "backdrop-blur-xl bg-white/15 border border-white/20 rounded-2xl p-8 shadow-2xl sticky top-24";
+  formCard.className = "backdrop-blur-sm bg-slate-800/40 border border-slate-700 rounded-xl p-8 shadow-2xl sticky top-24";
+  
+  // Add German flag mini-element
+  const formFlagBar = document.createElement("div");
+  formFlagBar.className = "h-1 w-12 mb-6 flex rounded-full overflow-hidden";
+  formFlagBar.innerHTML = `
+    <div class="flex-1 bg-black"></div>
+    <div class="flex-1 bg-red-700"></div>
+    <div class="flex-1 bg-yellow-500"></div>
+  `;
   
   const formTitle = document.createElement("h2");
   formTitle.className = "text-xl font-bold mb-6";
@@ -257,7 +287,7 @@ function CompetitionDetails() {
       const competitionRef = collection(db, "competitions", competitionId, "registrations");
       await addDoc(competitionRef, data);
       
-      // Show success message (you can customize this)
+      // Show success message
       alertManager.show("Registration successful!", "success");
       registrationForm.reset();
     } catch (error) {
@@ -311,7 +341,7 @@ function CompetitionDetails() {
       
       const label = document.createElement("label");
       label.htmlFor = field.name;
-      label.className = "block text-sm text-white/80";
+      label.className = "block text-sm text-slate-300";
       label.textContent = field.label;
       
       // Create custom select container
@@ -320,7 +350,7 @@ function CompetitionDetails() {
       
       // Selected option display
       const selectedDisplay = document.createElement("div");
-      selectedDisplay.className = "flex items-center justify-between w-full px-4 py-3 bg-white/20 border border-white/10 rounded-lg text-white cursor-pointer hover:bg-white/25 transition-all custom-select-selected";
+      selectedDisplay.className = "flex items-center justify-between w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white cursor-pointer hover:bg-slate-600/50 transition-all custom-select-selected";
       selectedDisplay.tabIndex = 0; // Make it focusable
       
       // Text display
@@ -343,14 +373,14 @@ function CompetitionDetails() {
       
       // Options dropdown
       const optionsContainer = document.createElement("div");
-      optionsContainer.className = "custom-select-options";
+      optionsContainer.className = "custom-select-options absolute w-full mt-1 bg-slate-700 border border-slate-600 rounded-lg overflow-hidden shadow-lg z-50 hidden";
       
       // Add options
       field.options.forEach((option, index) => {
         if (option.value === "") return; // Skip the placeholder option
         
         const optionEl = document.createElement("div");
-        optionEl.className = "custom-select-option";
+        optionEl.className = "px-4 py-2 hover:bg-slate-600 cursor-pointer";
         optionEl.textContent = option.label;
         optionEl.dataset.value = option.value;
         
@@ -359,12 +389,13 @@ function CompetitionDetails() {
           selectedText.dataset.value = option.value;
           
           // Update selected state for all options
-          optionsContainer.querySelectorAll('.custom-select-option').forEach(opt => {
-            opt.classList.remove('selected');
+          optionsContainer.querySelectorAll('div').forEach(opt => {
+            opt.classList.remove('bg-slate-600');
           });
-          optionEl.classList.add('selected');
+          optionEl.classList.add('bg-slate-600');
           
-          optionsContainer.classList.remove("active");
+          optionsContainer.classList.remove("block");
+          optionsContainer.classList.add("hidden");
           arrowIcon.classList.remove("rotate-180");
           
           // Create/update hidden input for form submission
@@ -383,20 +414,23 @@ function CompetitionDetails() {
       // Toggle dropdown on click
       selectedDisplay.addEventListener("click", (e) => {
         e.stopPropagation();
-        const isActive = optionsContainer.classList.contains("active");
+        const isActive = !optionsContainer.classList.contains("hidden");
         
-        if (!isActive) {
-          optionsContainer.classList.add("active");
-          arrowIcon.classList.add("rotate-180");
-        } else {
-          optionsContainer.classList.remove("active");
+        if (isActive) {
+          optionsContainer.classList.remove("block");
+          optionsContainer.classList.add("hidden");
           arrowIcon.classList.remove("rotate-180");
+        } else {
+          optionsContainer.classList.remove("hidden");
+          optionsContainer.classList.add("block");
+          arrowIcon.classList.add("rotate-180");
         }
       });
       
       // Close dropdown when clicking outside
       document.addEventListener("click", () => {
-        optionsContainer.classList.remove("active");
+        optionsContainer.classList.remove("block");
+        optionsContainer.classList.add("hidden");
         arrowIcon.classList.remove("rotate-180");
       });
       
@@ -426,20 +460,20 @@ function CompetitionDetails() {
       
       const label = document.createElement("label");
       label.htmlFor = field.name;
-      label.className = "block text-sm text-white/80";
+      label.className = "block text-sm text-slate-300";
       label.textContent = field.label;
       
       let input;
       
       if (field.type === "textarea") {
         input = document.createElement("textarea");
-        input.className = "w-full px-4 py-3 bg-white/20 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50";
+        input.className = "w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/50";
         input.rows = 4;
         if (field.placeholder) input.placeholder = field.placeholder;
       } else {
         input = document.createElement("input");
         input.type = field.type;
-        input.className = "w-full px-4 py-3 bg-white/20 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-yellow-400/50";
+        input.className = "w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/50";
         if (field.placeholder) input.placeholder = field.placeholder;
       }
       
@@ -456,12 +490,12 @@ function CompetitionDetails() {
   // Submit button
   const submitButton = document.createElement("button");
   submitButton.type = "submit";
-  submitButton.className = "w-full py-3 px-6 mt-6 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold rounded-lg transition-all duration-300 transform hover:scale-105";
+  submitButton.className = "w-full py-3 px-6 mt-6 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-black font-bold rounded-lg transition-all duration-300 transform hover:translate-y-[-2px]";
   submitButton.textContent = "Submit Application";
   
   registrationForm.appendChild(submitButton);
   
-  formCard.append(formTitle, registrationForm);
+  formCard.append(formFlagBar, formTitle, registrationForm);
   rightColumn.appendChild(formCard);
   
   // Assemble details section
@@ -478,10 +512,10 @@ function CompetitionDetails() {
   return container;
 }
 
-// Helper function to create navigation
+// Helper function to create navigation with German flag elements
 function createNavigation() {
   const navbar = document.createElement("nav");
-  navbar.className = "sticky top-0 z-50 backdrop-blur-lg bg-white/10 border-b border-white/10 px-6 py-4";
+  navbar.className = "sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4";
   
   const navContent = document.createElement("div");
   navContent.className = "flex justify-between items-center max-w-7xl mx-auto";
@@ -489,15 +523,24 @@ function createNavigation() {
   const logo = document.createElement("a");
   logo.href = "/";
   logo.className = "text-xl font-bold flex items-center";
-  logo.innerHTML = "Tag Der Deutschen Sprache '25";
+  
+  // Add German flag colors to the logo
+  logo.innerHTML = `
+    <span class="mr-2 flex">
+      <span class="h-5 w-2 bg-black rounded-l"></span>
+      <span class="h-5 w-2 bg-red-700"></span>
+      <span class="h-5 w-2 bg-yellow-500 rounded-r"></span>
+    </span>
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Tag Der Deutschen Sprache '25</span>
+  `;
   
   const navLinks = document.createElement("div");
   navLinks.className = "hidden md:flex space-x-8";
   
-  ["Home", "Competitions", "Schedule", "Gallery", "Register"].forEach(link => {
+  ["Home", "Competitions", "Schedule", "Gallery"].forEach(link => {
     const a = document.createElement("a");
     a.href = link.toLowerCase() === "home" ? "/" : `/#${link.toLowerCase()}`;
-    a.className = "hover:text-yellow-300 transition-all duration-300";
+    a.className = "font-medium text-slate-300 hover:text-yellow-200 transition-all duration-300";
     a.textContent = link;
     navLinks.appendChild(a);
   });
@@ -514,34 +557,98 @@ function createNavigation() {
   return navbar;
 }
 
-// Helper function to create footer
+// Helper function to create footer with German theme
 function createFooter() {
   const footer = document.createElement("footer");
-  footer.className = "backdrop-blur-lg bg-black/40 border-t border-white/10 py-4";
+  footer.className = "backdrop-blur-md bg-slate-900/90 border-t border-slate-800 py-12 mt-20";
   
   const footerContent = document.createElement("div");
-  footerContent.className = "max-w-7xl mx-auto px-4 text-center";
+  footerContent.className = "max-w-7xl mx-auto px-6";
+  
+  const footerGrid = document.createElement("div");
+  footerGrid.className = "grid grid-cols-1 md:grid-cols-3 gap-8 mb-8";
+  
+  // About column
+  const aboutColumn = document.createElement("div");
   
   const footerLogo = document.createElement("div");
-//   footerLogo.className = "text-2xl font-bold mb-4";
-//   footerLogo.innerHTML = "<span class='text-2xl mr-2'>🇩🇪</span> German Day Competitions";
+  footerLogo.className = "flex items-center mb-4";
   
-  const footerLinks = document.createElement("div");
-//   footerLinks.className = "flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-sm text-white/70";
+  // Logo with German flag elements
+  footerLogo.innerHTML = `
+    <span class="mr-2 flex">
+      <span class="h-4 w-1.5 bg-black rounded-l"></span>
+      <span class="h-4 w-1.5 bg-red-700"></span>
+      <span class="h-4 w-1.5 bg-yellow-500 rounded-r"></span>
+    </span>
+    <span class="text-lg font-bold">Tag Der Deutschen Sprache</span>
+  `;
   
-//   ["Home", "Competitions", "Schedule", "Gallery", "Contact", "Privacy Policy", "Terms"].forEach(link => {
-//     const a = document.createElement("a");
-//     a.href = link.toLowerCase() === "home" ? "/" : `/#${link.toLowerCase().replace(" ", "-")}`;
-//     a.className = "hover:text-yellow-300 transition-colors";
-//     a.textContent = link;
-//     footerLinks.appendChild(a);
-//   });
+  const aboutText = document.createElement("p");
+  aboutText.className = "text-slate-400 text-sm mb-4";
+  aboutText.textContent = "The annual celebration of German language and culture at Royal College, showcasing student achievements and promoting German heritage.";
+  
+  aboutColumn.append(footerLogo, aboutText);
+  
+  // Quick links column
+  const linksColumn = document.createElement("div");
+  
+  const linksTitle = document.createElement("h4");
+  linksTitle.className = "text-sm font-semibold uppercase tracking-wider text-slate-300 mb-4";
+  linksTitle.textContent = "Quick Links";
+  
+  const linksList = document.createElement("ul");
+  linksList.className = "space-y-2";
+  
+  ["Competitions", "Schedule", "Gallery"].forEach(link => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = link.toLowerCase().replace(/\s+/g, '-') === "contact-us" ? `/pages/contact-us` : `/#${link.toLowerCase().replace(/\s+/g, '-')}`;
+    a.className = "text-sm text-slate-400 hover:text-yellow-300 transition-colors";
+    a.textContent = link;
+    li.appendChild(a);
+    linksList.appendChild(li);
+  });
+  
+  linksColumn.append(linksTitle, linksList);
+  
+  // Contact info column
+  const contactColumn = document.createElement("div");
+  
+  const contactTitle = document.createElement("h4");
+  contactTitle.className = "text-sm font-semibold uppercase tracking-wider text-slate-300 mb-4";
+  contactTitle.textContent = "Contact";
+  
+  const contactInfo = document.createElement("ul");
+  contactInfo.className = "space-y-3 text-sm text-slate-400";
+  
+  const contactItems = [
+    { icon: "", text: "info@germanday.lk" },
+    { icon: "", text: "+94 11 111 1111" }
+  ];
+  
+  contactItems.forEach(item => {
+    const li = document.createElement("li");
+    li.className = "flex items-start";
+    li.innerHTML = `
+      <span class="mr-2">${item.icon}</span>
+      <span>${item.text}</span>
+    `;
+    contactInfo.appendChild(li);
+  });
+  
+  contactColumn.append(contactTitle, contactInfo);
+  
+  footerGrid.append(aboutColumn, linksColumn, contactColumn);
+  
+  const footerBottom = document.createElement("div");
+  footerBottom.className = "pt-6 mt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center";
   
   const copyright = document.createElement("div");
-  copyright.className = "text-white/60 text-sm";
-  copyright.textContent = `© 2025 Royal College German Unit`;
+  copyright.className = "text-slate-400 text-sm";
+  copyright.innerHTML = `&copy; ${new Date().getFullYear()} Royal College German Unit. All rights reserved.`;
   
-  footerContent.append(footerLogo, footerLinks, copyright);
+  footerContent.append(footerGrid, footerBottom, copyright);
   footer.appendChild(footerContent);
   
   return footer;

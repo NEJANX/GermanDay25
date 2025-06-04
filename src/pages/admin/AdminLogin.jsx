@@ -55,44 +55,86 @@ export default function AdminLogin() {
   };
   
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="max-w-md w-full backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-8 shadow-2xl transform transition-all duration-500 hover:shadow-yellow-500/10">
-        {/* Logo or Brand mark */}
+    // Updated main container background
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-b from-black to-gray-900">
+      {/* Background elements - REMOVED German flag theme, using styles from admin-style.css or similar */}
+      <div className="fixed inset-0 z-0">
+        {/* Dark gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black to-gray-900"></div>
+        {/* REMOVED German flag image background */}
+        {/* REMOVED German flag top border */}
+      </div>
+      
+      {/* Subtle glass elements - these should be styled by admin-style.css or similar for dark theme */}
+      <div className="fixed inset-0 z-0 overflow-hidden">
+        {[...Array(3)].map((_, i) => {
+          const size = Math.random() * 300 + 100;
+          const posX = Math.random() * 100;
+          const posY = Math.random() * 100;
+          
+          return (
+            <div 
+              key={i}
+              // Adjusted for darker theme - more subtle white/grey with low opacity
+              className="absolute rounded-full backdrop-blur-lg bg-white/[0.01]" 
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                left: `${posX}%`,
+                top: `${posY}%`,
+                animation: `float 30s ease-in-out ${Math.random() * 10}s infinite alternate`
+              }}
+            />
+          );
+        })}
+      </div>
+      
+      {/* Login form container - Updated for black glass theme */}
+      <div className="max-w-md w-full relative z-10 backdrop-blur-lg bg-black/50 border border-gray-700/50 rounded-xl p-8 shadow-2xl transform transition-all duration-500">
+        {/* REMOVED German flag themed logo - replaced with simple text or a new SVG icon */}
         <div className="text-center mb-8">
-          {/* <div className="mb-4">
-            <div className="mx-auto h-16 w-16 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg">
-              <span className="text-2xl">🇩🇪</span>
-            </div>
-          </div> */}
-          <h1 className="text-3xl font-bold text-white mb-2">Admin Login</h1>
-          <div className="w-16 h-1 bg-yellow-400 mx-auto rounded-full mb-2"></div>
-          <p className="text-white/70">Sign in to manage German Day registrations</p>
+          {/* Optional: A simple monochrome icon or logo */}
+          <div className="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          
+          {/* Updated title and subtitle text color */}
+          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500 mb-2">Admin Login</h1>
+          <p className="text-gray-400">Sign in to manage German Day registrations</p>
+          
+          {/* REMOVED German flag bar - Optional: subtle dark-themed accent */}
+          {/* <div className="h-1 w-16 mx-auto mt-4 mb-6 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full"></div> */}
         </div>
         
+        {/* Error Message - Updated styles */}
         {error && (
-          <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mb-6 animate-pulse">
-            <p className="text-white text-sm">{error}</p>
+          <div className="bg-red-900/40 border border-red-700/60 rounded-lg p-4 mb-6">
+            <p className="text-red-300 text-sm">{error}</p>
           </div>
         )}
         
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
+            {/* Updated label text color */}
+            <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">
               Email
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white/40" viewBox="0 0 20 20" fill="currentColor">
+                {/* Updated icon color */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg> */}
+                </svg>
               </div>
               <input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="admin-input pl-10"
+                className="w-full px-4 pl-10 py-3 bg-gray-800/60 border border-gray-700/70 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500/50 focus:border-gray-500"
                 placeholder="admin@example.com"
                 required
               />
@@ -100,48 +142,51 @@ export default function AdminLogin() {
           </div>
           
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-white mb-1">
+            {/* Updated label text color */}
+            <label htmlFor="password" className="block text-sm font-medium text-gray-400 mb-1">
               Password
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                {/* <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white/40" viewBox="0 0 20 20" fill="currentColor">
+                {/* Updated icon color */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                </svg> */}
+                </svg>
               </div>
               <input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="admin-input pl-10"
+                className="w-full px-4 pl-10 py-3 bg-gray-800/60 border border-gray-700/70 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500/50 focus:border-gray-500"
                 placeholder='********'
                 required
               />
             </div>
           </div>
           
+          {/* Updated button style */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-6 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-bold rounded-lg transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="w-full py-3 px-6 mt-4 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded-lg transition-all duration-300 transform hover:translate-y-[-2px] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
           >
             {loading ? (
               <div className="flex justify-center items-center">
-                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-black"></div>
+                {/* Updated spinner color */}
+                <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
                 <span className="ml-2">Signing In...</span>
               </div>
             ) : (
               'Sign In'
             )}
           </button>
-          
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent my-6"></div>
         </form>
         
-        <div className="mt-8 text-center text-sm text-white/50">
-          <p>German Day Admin Panel</p>
-          <p className="mt-1">© {new Date().getFullYear()}</p>
+        {/* Updated footer text color */}
+        <div className="mt-8 text-center text-sm text-gray-500">
+          <p>Tag Der Deutschen Sprache '25</p>
+          <p className="mt-1">© {new Date().getFullYear()} Royal College German Unit</p>
         </div>
       </div>
     </div>

@@ -16,6 +16,10 @@
         "destination": "/admin.html"
       },
       {
+        "source": "/admin",
+        "destination": "/admin.html"
+      },
+      {
         "source": "/admin/registration/**",
         "destination": "/admin.html"
       },

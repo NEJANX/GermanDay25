@@ -38,8 +38,8 @@ export default function BackgroundAnimation() {
       
       // Create gradient background
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      gradient.addColorStop(0, 'rgba(30, 58, 138, 0.05)'); // blue-900 with low opacity
-      gradient.addColorStop(1, 'rgba(23, 37, 84, 0.05)'); // blue-950 with low opacity
+      gradient.addColorStop(0, 'rgba(10, 10, 10, 0.1)'); // Dark grey, low opacity
+      gradient.addColorStop(1, 'rgba(0, 0, 0, 0.1)');    // Black, low opacity
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -110,7 +110,7 @@ export default function BackgroundAnimation() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 z-0 pointer-events-none"
-      style={{ opacity: 0.8 }}
+      style={{ opacity: 0.6 }} // Slightly reduced opacity for a more subtle effect on black
     />
   );
 }

@@ -49,22 +49,22 @@ export default function CustomDropdown({
   return (
     <div ref={dropdownRef} className={`relative ${className}`}>
       {label && (
-        <label className="block text-sm text-white/70 mb-1">{label}</label>
+        <label className="block text-sm text-gray-400 mb-1">{label}</label> // Adjusted label color
       )}
       
       <div 
         className={`cursor-pointer rounded-lg px-4 py-3 flex items-center justify-between
-                   bg-white/20 border border-white/10 text-white
-                   ${isOpen ? 'ring-2 ring-yellow-400/50 border-transparent' : ''}
+                   bg-black/30 border border-gray-700/70 text-gray-200 // Adjusted background, border, text
+                   ${isOpen ? 'ring-2 ring-gray-500/60 border-transparent' : ''} // Adjusted ring
                    transition-all duration-150 ease-in-out`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className={selectedValue ? 'text-white' : 'text-white/50'}>
+        <span className={selectedValue ? 'text-gray-200' : 'text-gray-500'}>
           {getSelectedLabel()}
         </span>
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
-          className={`h-5 w-5 text-white/70 transition-transform duration-200 
+          className={`h-5 w-5 text-gray-400 transition-transform duration-200 // Adjusted icon color
                      ${isOpen ? 'transform rotate-180' : ''}`}
           viewBox="0 0 20 20" 
           fill="currentColor"
@@ -80,15 +80,15 @@ export default function CustomDropdown({
       {isOpen && (
         <div className="absolute w-full mt-1 z-50 top-full left-0 overflow-hidden">
           <div className={`max-h-60 overflow-auto rounded-lg backdrop-blur-xl
-                          bg-gray-800/95 border border-white/20 shadow-2xl
+                          bg-black/80 border border-gray-700/50 shadow-2xl // Adjusted background and border
                           transition-opacity duration-150 ease-in-out animate-fadeIn
-                          scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent`}>
+                          scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent`}>
             {options.map((option, index) => (
               <div
                 key={option.value}
-                className={`px-4 py-3 cursor-pointer hover:bg-white/10 transition-colors duration-150
-                          ${selectedValue === option.value ? 'bg-yellow-500/20 text-yellow-300' : 'text-white'}
-                          ${index !== options.length - 1 ? 'border-b border-white/5' : ''}`}
+                className={`px-4 py-3 cursor-pointer hover:bg-gray-700/50 transition-colors duration-150 // Adjusted hover
+                          ${selectedValue === option.value ? 'bg-gray-600/70 text-gray-100' : 'text-gray-300'} // Adjusted selected and text
+                          ${index !== options.length - 1 ? 'border-b border-gray-700/30' : ''}`} // Adjusted border
                 onClick={() => handleSelect(option)}
               >
                 {option.label}

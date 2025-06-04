@@ -144,20 +144,22 @@ export default function RegistrationDetails() {
   
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-950 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-400"></div>
+      // Updated loading state background and spinner
+      <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-400"></div>
       </div>
     );
   }
   
   if (!registration) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-950 flex flex-col items-center justify-center text-white p-4">
-        <h2 className="text-2xl font-bold mb-4">Registration Not Found</h2>
-        <p className="mb-6">The registration you're looking for doesn't exist or has been removed.</p>
+      // Updated not found state background and button
+      <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 flex flex-col items-center justify-center text-white p-4">
+        <h2 className="text-2xl font-bold mb-4 text-gray-200">Registration Not Found</h2>
+        <p className="mb-6 text-gray-400">The registration you're looking for doesn't exist or has been removed.</p>
         <button
           onClick={handleBack}
-          className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 rounded-lg font-medium"
+          className="admin-btn admin-btn-primary" // Use admin button style
         >
           Back to Dashboard
         </button>
@@ -166,16 +168,17 @@ export default function RegistrationDetails() {
   }
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-950 text-white">
-      {/* Header */}
-      <header className="bg-black/30 backdrop-blur-md border-b border-white/10 py-4 px-6 sticky top-0 z-10">
+    // Updated main page container background
+    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white">
+      {/* Header - Updated styles */}
+      <header className="bg-black/70 backdrop-blur-md border-b border-gray-700/50 py-4 px-6 sticky top-0 z-10">
         <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Registration Details</h1>
+          <h1 className="text-2xl font-bold text-gray-200">Registration Details</h1>
           
           <div>
             <button
               onClick={handleBack}
-              className="admin-btn admin-btn-secondary"
+              className="admin-btn admin-btn-secondary" // Already using admin style, should be fine
             >
               Back to Dashboard
             </button>
@@ -184,38 +187,38 @@ export default function RegistrationDetails() {
       </header>
       
       <main className="container mx-auto py-6 px-4">
-        <div className="admin-card">
-          {/* Competition Info */}
+        <div className="admin-card"> {/* This class should provide the black glass effect from admin-style.css */}
+          {/* Competition Info - Updated text colors */}
           {competition && (
-            <div className="mb-6">
+            <div className="mb-6 pb-6 border-b border-gray-700/50">
               <div className="flex items-center space-x-3">
-                <span className="text-yellow-400 text-3xl">{competition.icon || '🏆'}</span>
+                <span className="text-gray-400 text-3xl">{competition.icon || '🏆'}</span>
                 <div>
-                  <h3 className="text-lg font-semibold">{competition.title || 'Unknown Competition'}</h3>
-                  <p className="text-white/70">{competition.description || ''}</p>
+                  <h3 className="text-lg font-semibold text-gray-200">{competition.title || 'Unknown Competition'}</h3>
+                  <p className="text-gray-400 text-sm">{competition.description || ''}</p>
                 </div>
               </div>
             </div>
           )}
           
-          {/* Error Message */}
+          {/* Error Message - Updated styles */}
           {error && (
-            <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mb-4">
-              <p className="text-white text-sm">{error}</p>
+            <div className="bg-red-900/40 border border-red-700/60 rounded-lg p-4 mb-4">
+              <p className="text-red-300 text-sm">{error}</p>
             </div>
           )}
           
-          {/* Success Message */}
+          {/* Success Message - Updated styles */}
           {success && (
-            <div className="bg-green-500/20 border border-green-500/50 rounded-lg p-4 mb-4 animate-pulse">
-              <p className="text-white text-sm">{success}</p>
+            <div className="bg-green-900/40 border border-green-700/60 rounded-lg p-4 mb-4 animate-pulse">
+              <p className="text-green-300 text-sm">{success}</p>
             </div>
           )}
           
-          {/* Registration Details */}
-          <div className="bg-white/10 rounded-lg border border-white/10 overflow-hidden shadow-lg">
-            <div className="p-4 bg-white/5 border-b border-white/10 flex justify-between items-center">
-              <h3 className="font-medium">Registration Information</h3>
+          {/* Registration Details - Updated container and header styles */}
+          <div className="bg-black/30 rounded-lg border border-gray-700/50 overflow-hidden shadow-lg">
+            <div className="p-4 bg-black/40 border-b border-gray-700/50 flex justify-between items-center">
+              <h3 className="font-medium text-gray-200">Registration Information</h3>
               
               <div>
                 {isEditing ? (
@@ -230,11 +233,12 @@ export default function RegistrationDetails() {
                       form="registration-form"
                       type="submit"
                       disabled={saving}
-                      className="admin-btn admin-btn-primary text-sm flex items-center"
+                      className="admin-btn admin-btn-primary text-sm flex items-center" // Ensure spinner inside matches dark theme
                     >
                       {saving ? (
                         <>
-                          <div className="animate-spin h-4 w-4 border-t-2 border-b-2 border-black rounded-full mr-2"></div>
+                          {/* Spinner color updated */}
+                          <div className="animate-spin h-4 w-4 border-t-2 border-b-2 border-white rounded-full mr-2"></div>
                           Saving
                         </>
                       ) : 'Save'}
@@ -256,7 +260,7 @@ export default function RegistrationDetails() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Name */}
                   <div>
-                    <label className="block text-sm font-medium text-white/70 mb-2">
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
                       Full Name
                     </label>
                     <input
@@ -271,7 +275,7 @@ export default function RegistrationDetails() {
                   
                   {/* Email */}
                   <div>
-                    <label className="block text-sm font-medium text-white/70 mb-2">
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
                       Email
                     </label>
                     <input
@@ -286,7 +290,7 @@ export default function RegistrationDetails() {
                   
                   {/* Phone */}
                   <div>
-                    <label className="block text-sm font-medium text-white/70 mb-2">
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
                       Phone Number
                     </label>
                     <input
@@ -327,7 +331,7 @@ export default function RegistrationDetails() {
                 
                 {/* Experience */}
                 <div>
-                  <label className="block text-sm font-medium text-white/70 mb-2">
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
                     Experience
                   </label>
                   <textarea
@@ -342,50 +346,53 @@ export default function RegistrationDetails() {
                 {/* Add additional fields as needed */}
               </form>
             ) : (
-              <div className="divide-y divide-white/10">
+              <div className="divide-y divide-gray-700/50"> {/* Updated divider color */}
                 {/* Name */}
                 <div className="grid grid-cols-1 md:grid-cols-3 p-4">
-                  <div className="text-white/70 mb-2 md:mb-0">Full Name</div>
-                  <div className="md:col-span-2 font-medium">{registration.fullName || 'N/A'}</div>
+                  <div className="text-gray-400 mb-2 md:mb-0">Full Name</div>
+                  <div className="md:col-span-2 font-medium text-gray-200">{registration.fullName || 'N/A'}</div>
                 </div>
                 
                 {/* Email */}
                 <div className="grid grid-cols-1 md:grid-cols-3 p-4">
-                  <div className="text-white/70 mb-2 md:mb-0">Email</div>
-                  <div className="md:col-span-2 font-medium">{registration.email || 'N/A'}</div>
+                  <div className="text-gray-400 mb-2 md:mb-0">Email</div>
+                  <div className="md:col-span-2 font-medium text-gray-200">{registration.email || 'N/A'}</div>
                 </div>
                 
                 {/* Phone */}
                 <div className="grid grid-cols-1 md:grid-cols-3 p-4">
-                  <div className="text-white/70 mb-2 md:mb-0">Phone</div>
-                  <div className="md:col-span-2 font-medium">{registration.phone || 'N/A'}</div>
+                  <div className="text-gray-400 mb-2 md:mb-0">Phone</div>
+                  <div className="md:col-span-2 font-medium text-gray-200">{registration.phone || 'N/A'}</div>
                 </div>
                 
                 {/* Category */}
                 <div className="grid grid-cols-1 md:grid-cols-3 p-4">
-                  <div className="text-white/70 mb-2 md:mb-0">Category</div>
+                  <div className="text-gray-400 mb-2 md:mb-0">Category</div>
                   <div className="md:col-span-2">
                     {registration.category ? (
-                      <span className="category-pill">
+                      <span className="category-pill"> {/* category-pill style from admin-style.css should be dark */}
                         {registration.category}
                       </span>
-                    ) : 'N/A'}
+                    ) : (
+                      <span className="text-gray-500">N/A</span>
+                    )}
                   </div>
                 </div>
                 
                 {/* Registration Date */}
                 <div className="grid grid-cols-1 md:grid-cols-3 p-4">
-                  <div className="text-white/70 mb-2 md:mb-0">Registration Date</div>
-                  <div className="md:col-span-2 font-medium">
-                    {registration.timestamp ? registration.timestamp.toLocaleString() : 'N/A'}
+                  <div className="text-gray-400 mb-2 md:mb-0">Registration Date</div>
+                  <div className="md:col-span-2 font-medium text-gray-200">
+                    {registration.timestamp ? registration.timestamp.toLocaleString() : <span className="text-gray-500">N/A</span>}
                   </div>
                 </div>
                 
                 {/* Experience */}
                 {registration.experience && (
                   <div className="p-4">
-                    <div className="text-white/70 mb-2">Experience</div>
-                    <div className="bg-white/5 p-4 rounded-lg whitespace-pre-wrap border border-white/5">
+                    <div className="text-gray-400 mb-2">Experience</div>
+                    {/* Updated background and border for experience display */}
+                    <div className="bg-black/20 p-4 rounded-lg whitespace-pre-wrap border border-gray-700/50 text-gray-300">
                       {registration.experience}
                     </div>
                   </div>
