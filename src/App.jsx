@@ -227,12 +227,12 @@ export function App() {
   
   const competitions = [
     {
-      title: "German Poetry Recitation",
+      title: "Singing Competition",
       icon: "🎭",
       description: "Recite classic and modern German poetry with perfect pronunciation and expressive delivery.",
       categories: "Junior, Intermediate, Advanced",
       prizes: "1st: €500, 2nd: €300, 3rd: €150",
-      id: "poetry-recitation"
+      id: "singing"
     },
     {
       title: "German Spelling Bee",
