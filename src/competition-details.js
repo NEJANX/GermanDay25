@@ -373,7 +373,8 @@ function CompetitionDetails() {
       
       // Options dropdown
       const optionsContainer = document.createElement("div");
-      optionsContainer.className = "custom-select-options absolute w-full mt-1 bg-slate-700 border border-slate-600 rounded-lg overflow-hidden shadow-lg z-50 hidden";
+      optionsContainer.className = "custom-select-options";
+      optionsContainer.style.display = "none";
       
       // Add options
       field.options.forEach((option, index) => {
@@ -394,9 +395,9 @@ function CompetitionDetails() {
           });
           optionEl.classList.add('bg-slate-600');
           
-          optionsContainer.classList.remove("block");
-          optionsContainer.classList.add("hidden");
+          optionsContainer.classList.remove("active");
           arrowIcon.classList.remove("rotate-180");
+          optionsContainer.style.display = "none";
           
           // Create/update hidden input for form submission
           const hiddenInput = customSelect.querySelector('input[type="hidden"]');
@@ -414,24 +415,24 @@ function CompetitionDetails() {
       // Toggle dropdown on click
       selectedDisplay.addEventListener("click", (e) => {
         e.stopPropagation();
-        const isActive = !optionsContainer.classList.contains("hidden");
+        const isActive = optionsContainer.classList.contains("active");
         
         if (isActive) {
-          optionsContainer.classList.remove("block");
-          optionsContainer.classList.add("hidden");
+          optionsContainer.classList.remove("active");
           arrowIcon.classList.remove("rotate-180");
         } else {
-          optionsContainer.classList.remove("hidden");
-          optionsContainer.classList.add("block");
+          optionsContainer.classList.add("active");
           arrowIcon.classList.add("rotate-180");
+          optionsContainer.style.display = "block"; // Ensure it's visible
         }
       });
       
       // Close dropdown when clicking outside
-      document.addEventListener("click", () => {
-        optionsContainer.classList.remove("block");
-        optionsContainer.classList.add("hidden");
-        arrowIcon.classList.remove("rotate-180");
+      document.addEventListener("click", (e) => {
+        if (!customSelect.contains(e.target)) {
+          optionsContainer.classList.remove("active");
+          arrowIcon.classList.remove("rotate-180");
+        }
       });
       
       // Also handle keyboard navigation
