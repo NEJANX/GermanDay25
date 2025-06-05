@@ -1,0 +1,152 @@
+{
+  "competitions": [
+    {
+      "id": "poetry-recitation",
+      "title": "German Poetry Recitation",
+      "icon": "🎭",
+      "description": "Recite classic and modern German poetry with perfect pronunciation and expressive delivery.",
+      "categories": "Junior, Intermediate, Advanced",
+      "datetime": "May 30, 2025 • 11:30 AM - 2:00 PM",
+      "location": "Goethe Hall, Cultural Center",
+      "eligibility": "Open to all German learners",
+      "deadline": "April 15, 2025",
+      "fullDescription": "<p>The German Poetry Recitation Competition is one of the most prestigious events of German Day. Participants will recite poetry from memory, showcasing their mastery of pronunciation, intonation, and artistic interpretation.</p><p>Participants will select poems from our curated collection or may propose their own selection (subject to approval). Performances will be judged on pronunciation, memorization, artistic interpretation, and stage presence.</p><p>This competition offers a unique opportunity to engage deeply with German literary culture and demonstrate your language proficiency in a creative and expressive way.</p>",
+      "rules": [
+        "Participants must recite from memory (no reading allowed).",
+        "Performance time limit: 4 minutes maximum.",
+        "Props are not allowed, but appropriate gestures and movement are encouraged.",
+        "Participants must provide 3 printed copies of their poem for the judges.",
+        "Participants will be judged on pronunciation, memorization, artistic interpretation, and stage presence."
+      ],
+      "categoryOptions": [
+        { "value": "", "label": "Select a category" },
+        { "value": "junior", "label": "Junior (Ages 12-15)" },
+        { "value": "intermediate", "label": "Intermediate (Ages 16-18)" },
+        { "value": "advanced", "label": "Advanced (Ages 19+)" }
+      ]
+    },
+    {
+      "id": "spelling-bee",
+      "title": "German Spelling Bee",
+      "icon": "📝",
+      "description": "Test your German spelling skills with increasingly difficult words in this competitive spelling challenge.",
+      "categories": "All Levels",
+      "datetime": "May 31, 2025 • 10:00 AM - 12:30 PM",
+      "location": "Schiller Auditorium, Cultural Center",
+      "eligibility": "All German language students",
+      "deadline": "April 15, 2025",
+      "fullDescription": "<p>The German Spelling Bee challenges participants to correctly spell increasingly difficult German words. This competition tests your knowledge of German orthography, including special characters, compound words, and grammatical rules.</p><p>Participants will compete in rounds, with words becoming progressively more challenging. You'll need to spell each word correctly, including proper capitalization and umlauts where applicable.</p><p>This competition is perfect for language enthusiasts who take pride in their attention to detail and precision in written German.</p>",
+      "rules": [
+        "Each participant will have 30 seconds to spell a word after it is announced.",
+        "Contestants may ask for the definition, language of origin, and usage in a sentence.",
+        "Once you begin spelling a word, you cannot start over.",
+        "Correct capitalization and all special characters (ä, ö, ü, ß) must be included.",
+        "Three rounds of increasing difficulty will be conducted."
+      ],
+      "categoryOptions": [
+        { "value": "", "label": "Select a category" },
+        { "value": "beginner", "label": "Beginner (1-2 years of study)" },
+        { "value": "intermediate", "label": "Intermediate (3-4 years of study)" },
+        { "value": "advanced", "label": "Advanced (5+ years of study)" }
+      ]
+    },
+    {
+      "id": "cultural-quiz",
+      "title": "Cultural Knowledge Quiz",
+      "icon": "🧠",
+      "description": "Show your knowledge of German history, culture, geography, and current events in this challenging quiz.",
+      "categories": "Individual, Team",
+      "datetime": "June 1, 2025 • 1:30 PM - 4:00 PM",
+      "location": "Einstein Conference Hall, Cultural Center",
+      "eligibility": "Open to all participants",
+      "deadline": "April 30, 2025",
+      "fullDescription": "<p>The Cultural Knowledge Quiz tests your understanding of German-speaking countries' history, geography, politics, art, literature, music, sports, and current events. This comprehensive challenge will separate casual enthusiasts from true German culture aficionados.</p><p>Participants may compete individually or in teams of up to three people. The quiz consists of multiple rounds featuring various question formats including multiple choice, short answer, identification, and lightning rounds.</p><p>This competition rewards both breadth and depth of knowledge about German-speaking countries and their global influence.</p>",
+      "rules": [
+        "Individual participants compete alone; teams may have up to 3 members.",
+        "Electronic devices are not permitted during the competition.",
+        "The quiz will cover German history, geography, arts, literature, music, sports, politics, and current events.",
+        "Judges' decisions are final on all answers.",
+        "In case of a tie, a sudden-death question round will determine the winner."
+      ],
+      "categoryOptions": [
+        { "value": "", "label": "Select a category" },
+        { "value": "individual", "label": "Individual Participant" },
+        { "value": "team", "label": "Team (2-3 members)" }
+      ]
+    },
+    {
+      "id": "cuisine-contest",
+      "title": "German Cuisine Cook-Off",
+      "icon": "🍽️",
+      "description": "Prepare authentic German dishes judged on taste, presentation, and cultural authenticity.",
+      "categories": "Amateur, Professional",
+      "datetime": "May 29, 2025 • 2:00 PM - 6:00 PM",
+      "location": "Culinary Pavilion, Festival Grounds",
+      "eligibility": "Open to all cooking enthusiasts",
+      "deadline": "April 15, 2025",
+      "fullDescription": "<p>The German Cuisine Cook-Off invites culinary enthusiasts to showcase their skills in preparing authentic German dishes. From regional specialties to classic favorites, this competition celebrates the rich gastronomic traditions of Germany.</p><p>Participants will prepare their dishes in a timed setting, bringing their own ingredients. Each entry will be judged on taste, presentation, technical skill, and cultural authenticity by a panel of professional chefs and German cuisine experts.</p><p>This competition offers food lovers a chance to demonstrate their passion for German cooking techniques, flavors, and traditions.</p>",
+      "rules": [
+        "Participants must prepare one main dish and one side dish or dessert.",
+        "All major preparation must be completed on-site within the 2-hour time limit.",
+        "Participants must provide their own ingredients and tools.",
+        "Dishes must represent authentic German cuisine - regional variations are encouraged.",
+        "Judges will evaluate based on taste (50%), presentation (25%), and authenticity (25%)."
+      ],
+      "categoryOptions": [
+        { "value": "", "label": "Select a category" },
+        { "value": "amateur", "label": "Amateur Chef" },
+        { "value": "professional", "label": "Professional Chef" }
+      ]
+    },
+    {
+      "id": "language-debate",
+      "title": "German Language Debate",
+      "icon": "💬",
+      "description": "Debate various topics entirely in German, showcasing your fluency and persuasive speaking skills.",
+      "categories": "Beginner, Intermediate, Advanced",
+      "datetime": "May 30, 2025 • 3:30 PM - 6:00 PM",
+      "location": "Humboldt Forum, Cultural Center",
+      "eligibility": "German language students of all levels",
+      "deadline": "April 15, 2025",
+      "fullDescription": "<p>The German Language Debate Competition challenges participants to articulate and defend positions on various topics entirely in German. This competition tests not only language proficiency but also critical thinking, research skills, and persuasive speaking.</p><p>Participants will be assigned to debate teams and given topics in advance. During the competition, they will present arguments, counter opposing points, and respond to questions from judges - all in German.</p><p>This competition is ideal for developing advanced language skills in a dynamic, intellectually challenging context.</p>",
+      "rules": [
+        "All debates must be conducted entirely in German.",
+        "Each team will have two members who will work together.",
+        "Topics will be announced two weeks before the competition.",
+        "Each team will have 5 minutes for opening arguments, 3 minutes for rebuttal, and 2 minutes for closing statements.",
+        "Judges will evaluate based on language proficiency, argument quality, evidence, and presentation style."
+      ],
+      "categoryOptions": [
+        { "value": "", "label": "Select a category" },
+        { "value": "beginner", "label": "Beginner (1-2 years of study)" },
+        { "value": "intermediate", "label": "Intermediate (3-4 years of study)" },
+        { "value": "advanced", "label": "Advanced (5+ years of study)" }
+      ]
+    },
+    {
+      "id": "film-media",
+      "title": "German Film & Media Creation",
+      "icon": "🎬",
+      "description": "Create original short films or media projects that highlight German culture, language, or history.",
+      "categories": "Individual, Group",
+      "datetime": "Projects due May 15, Screening June 1, 2025",
+      "location": "Media Center, Cultural Center",
+      "eligibility": "Open to all creative media enthusiasts",
+      "deadline": "April 1, 2025 (for intent to participate)",
+      "fullDescription": "<p>The German Film & Media Creation Competition invites participants to produce original short films, documentaries, animations, or digital media projects that explore aspects of German language, culture, or history.</p><p>Projects should be 3-8 minutes in length and may incorporate various media elements. While the primary language should be German, limited use of other languages with subtitles is permitted.</p><p>This competition offers creative individuals and teams the opportunity to express their connection to German culture through visual storytelling and digital arts.</p>",
+      "rules": [
+        "Projects must be 3-8 minutes in length.",
+        "Content must relate to German language, culture, or history.",
+        "Primary language should be German (limited use of other languages with German subtitles is permitted).",
+        "Projects must be original work created for this competition.",
+        "All necessary permissions for music, images, or footage must be secured and documented."
+      ],
+      "categoryOptions": [
+        { "value": "", "label": "Select a category" },
+        { "value": "individual", "label": "Individual Creator" },
+        { "value": "small-group", "label": "Small Group (2-4 people)" },
+        { "value": "large-group", "label": "Large Group (5+ people)" }
+      ]
+    }
+  ]
+}
