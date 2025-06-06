@@ -51,7 +51,7 @@ export function App() {
       <span class="h-5 w-2 bg-red-700"></span>
       <span class="h-5 w-2 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Tag Der Deutschen Sprache '25</span>
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Zeit für Deutschland '25</span>
   `;
   
   const navLinks = document.createElement("div");
@@ -123,8 +123,8 @@ export function App() {
   brandingContainer.appendChild(logo1);
   
   const heroTitle = document.createElement("h1");
-  heroTitle.className = "text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200";
-  heroTitle.textContent = "Tag Der Deutschen Sprache '25";
+  heroTitle.className = "title text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200";
+  heroTitle.textContent = "Zeit für Deutschland '25";
   
   const heroSubtitle = document.createElement("p");
   heroSubtitle.className = "text-xl font-light text-slate-300 mb-2";
@@ -136,7 +136,7 @@ export function App() {
   
   const heroDescription = document.createElement("p");
   heroDescription.className = "text-slate-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed";
-  heroDescription.textContent = "Experience the vibrant spirit of German culture with exciting competitions, authentic cuisine, and unforgettable performances. Join us for the most anticipated German cultural celebration of the year!";
+  heroDescription.textContent = "Experience the vibrant spirit of German culture with exciting competitions, delightful company, and unforgettable performances. Join us for the most anticipated German cultural celebration of the year!";
   
   // Add countdown timer for professional touch
   const countdownContainer = document.createElement("div");
@@ -227,19 +227,10 @@ export function App() {
   
   const competitions = [
     {
-      title: "Singing Competition",
-      icon: "🎭",
-      description: "Recite classic and modern German poetry with perfect pronunciation and expressive delivery.",
-      categories: "Junior, Intermediate, Advanced",
-      prizes: "1st: €500, 2nd: €300, 3rd: €150",
-      id: "singing"
-    },
-    {
       title: "German Spelling Bee",
       icon: "📝",
       description: "Test your German spelling skills with increasingly difficult words in this competitive spelling challenge.",
-      categories: "All Levels",
-      prizes: "1st: €400, 2nd: €250, 3rd: €100",
+      categories: "Beginner, Intermediate, Advanced",
       id: "spelling-bee"
     },
     {
@@ -247,31 +238,13 @@ export function App() {
       icon: "🧠",
       description: "Show your knowledge of German history, culture, geography, and current events in this challenging quiz.",
       categories: "Individual, Team",
-      prizes: "1st: €600, 2nd: €350, 3rd: €200",
       id: "cultural-quiz"
-    },
-    {
-      title: "German Cuisine Cook-Off",
-      icon: "🍽️",
-      description: "Prepare authentic German dishes judged on taste, presentation, and cultural authenticity.",
-      categories: "Amateur, Professional",
-      prizes: "1st: €800, 2nd: €500, 3rd: €250",
-      id: "cuisine-contest"
-    },
-    {
-      title: "German Language Debate",
-      icon: "💬",
-      description: "Debate various topics entirely in German, showcasing your fluency and persuasive speaking skills.",
-      categories: "Beginner, Intermediate, Advanced",
-      prizes: "1st: €700, 2nd: €400, 3rd: €200",
-      id: "language-debate"
     },
     {
       title: "German Film & Media Creation",
       icon: "🎬",
       description: "Create original short films or media projects that highlight German culture, language, or history.",
       categories: "Individual, Group",
-      prizes: "1st: €1000, 2nd: €600, 3rd: €300",
       id: "film-media"
     }
   ];
@@ -312,7 +285,7 @@ export function App() {
     
     const competitionPrizes = document.createElement("div");
     competitionPrizes.className = "text-sm text-green-300 mb-4";
-    competitionPrizes.innerHTML = `<span class="font-semibold">Prizes:</span> ${competition.prizes}`;
+    // competitionPrizes.innerHTML = `<span class="font-semibold">Prizes:</span> ${competition.prizes}`;
     
     const learnMoreLink = document.createElement("a");
     learnMoreLink.href = `/competitions/${competition.id}`;
@@ -326,7 +299,7 @@ export function App() {
   competitionsSection.querySelector(".section-content").appendChild(competitionsGrid);
   
   // Schedule section
-  const scheduleSection = createSection("schedule", "Event Schedule", "Plan your German Day experience with our comprehensive schedule");
+  const scheduleSection = createSection("schedule", "Event Schedule", "Know your German Day experience with our comprehensive schedule");
   
   const schedule = document.createElement("div");
   schedule.className = "mt-12 space-y-6";
@@ -359,31 +332,28 @@ export function App() {
     
     // Different events for each day
     let eventTimes;
-    if (index === 0) {
-      eventTimes = [
-        { time: "09:00 AM", event: "Opening Ceremony", location: "Main Stage" },
-        { time: "10:30 AM", event: "German Culture Exhibition", location: "Exhibition Hall" },
-        { time: "01:00 PM", event: "Poetry Competition Preliminaries", location: "Goethe Hall" },
-        { time: "03:30 PM", event: "German Cuisine Workshop", location: "Culinary Center" },
-        { time: "06:00 PM", event: "Film Screening: German Cinema", location: "Auditorium" }
-      ];
-    } else if (index === 1) {
-      eventTimes = [
-        { time: "09:30 AM", event: "Spelling Bee Competition", location: "Main Hall" },
-        { time: "11:00 AM", event: "German Business Forum", location: "Conference Center" },
-        { time: "02:00 PM", event: "Cultural Knowledge Quiz", location: "Amphitheater" },
-        { time: "04:30 PM", event: "German Wine Tasting", location: "Garden Terrace" },
-        { time: "07:00 PM", event: "Classical Music Concert", location: "Concert Hall" }
-      ];
-    } else {
-      eventTimes = [
-        { time: "10:00 AM", event: "Language Debate Finals", location: "Main Auditorium" },
-        { time: "12:30 PM", event: "German Food Festival", location: "Festival Grounds" },
-        { time: "03:00 PM", event: "Award Ceremony", location: "Grand Hall" },
-        { time: "05:00 PM", event: "Networking Reception", location: "Banquet Hall" },
-        { time: "07:30 PM", event: "Closing Celebration", location: "Main Stage" }
-      ];
-    }
+    eventTimes = [
+      { time: "01:10 PM", event: "Arrival of Guest Schools", location: "Royal College Boake Gate" },
+      { time: "01:30 PM", event: "Lunch", location: "Royal College Main Hall" },
+      { time: "02:30 PM", event: "Arrival of the Chief Guest", location: "Royal College Boake Gate" },
+      { time: "02:35 PM", event: "Lighting of the Oil Lamp", location: "Royal College Main Hall" },
+      { time: "02:40 PM", event: "School song by Royal College Western Band", location: "Royal College Main Hall" },
+      { time: "02:45 PM", event: "Welcome Speech", location: "Royal College Main Hall" },
+      { time: "02:50 PM", event: "Dance Act", location: "Royal College Main Hall" },
+      { time: "02:55 PM", event: "Principal's speech", location: "Royal College Main Hall" },
+      { time: "03:05 PM", event: "Song by the Grade 6 students", location: "Royal College Main Hall" },
+      { time: "03:10 PM", event: "Special Surprise Performance", location: "Royal College Main Hall" },
+      { time: "03:20 PM", event: "Germany - an informative outlook into carrer and education", location: "Royal College Main Hall" },
+      { time: "03:40 PM", event: "Q&A session with the experts", location: "Royal College Main Hall" },
+      { time: "03:50 PM", event: "Song by the Grade 8 and 9 students", location: "Royal College Main Hall" },
+      { time: "03:55 PM", event: "Invited Schools' performances", location: "Royal College Main Hall" },
+      { time: "04:05 PM", event: "German Drama", location: "Royal College Main Hall" },
+      { time: "04:15 PM", event: "Chief Guest's Speech", location: "Royal College Main Hall" },
+      { time: "04:25 PM", event: "Awarding Ceremony", location: "Royal College Main Hall" },
+      { time: "04:45 PM", event: "Vote of Thanks", location: "Royal College Main Hall" },
+      { time: "04:50 PM", event: "National Anthem", location: "Royal College Main Hall" },
+      { time: "04:55 PM", event: "Refreshments", location: "Royal College Main Hall" }
+    ];
     
     eventTimes.forEach(item => {
       const eventItem = document.createElement("div");
@@ -423,14 +393,10 @@ export function App() {
   
   // Professional gallery with diverse German cultural imagery
   const galleryImages = [
-    { emoji: "🏰", title: "German Architecture", year: "2024" },
-    { emoji: "🎭", title: "Cultural Performances", year: "2024" },
-    { emoji: "🎻", title: "Classical Music Night", year: "2023" },
-    { emoji: "🥨", title: "Cuisine Exhibition", year: "2023" },
-    { emoji: "📚", title: "German Literature", year: "2022" },
-    { emoji: "🎪", title: "Festival Activities", year: "2022" },
-    { emoji: "🍺", title: "Oktoberfest Celebration", year: "2021" },
-    { emoji: "🇩🇪", title: "Flag Ceremony", year: "2021" }
+    { emoji: "🏰", title: "German Day", year: "2023" },
+    { emoji: "🎭", title: "Youth Camp - India", year: "2024" },
+    { emoji: "🎪", title: "Youth Camp - Hamburg", year: "2024" },
+    { emoji: "🥨", title: "Youth Camp - Nürnberg", year: "2023" },
   ];
   
   galleryImages.forEach(item => {
@@ -582,7 +548,7 @@ export function App() {
       <span class="h-4 w-1.5 bg-red-700"></span>
       <span class="h-4 w-1.5 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="text-lg font-bold">Tag Der Deutschen Sprache</span>
+    <span class="text-lg font-bold">Zeit für Deutschland</span>
   `;
   
   const aboutText = document.createElement("p");
@@ -637,8 +603,8 @@ export function App() {
   contactInfo.className = "space-y-3 text-sm text-slate-400";
   
   const contactItems = [
-    { icon: "", text: "info@germanday.lk" },
-    { icon: "", text: "+94 11 111 1111" }
+    { icon: "", text: "rcgermanunit@gmail.com" },
+    { icon: "", text: "+94 75 122 8301" }
   ];
   
   contactItems.forEach(item => {

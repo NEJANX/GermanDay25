@@ -143,18 +143,17 @@ function CompetitionDetails() {
   // Details items
   const detailItems = [
     {
-      title: "Date & Time",
-      value: competition.datetime,
+      title: "Registration Deadline",
+      value: competition.deadline,
       icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>`
     },
     {
-      title: "Location",
-      value: competition.location,
+      title: "Submission deadline",
+      value: competition.datetime,
       icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>`
     },
     {
@@ -162,13 +161,6 @@ function CompetitionDetails() {
       value: competition.eligibility,
       icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>`
-    },
-    {
-      title: "Registration Deadline",
-      value: competition.deadline,
-      icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>`
     }
   ];
@@ -497,7 +489,7 @@ function createNavigation() {
       <span class="h-5 w-2 bg-red-700"></span>
       <span class="h-5 w-2 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Tag Der Deutschen Sprache '25</span>
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Zeit für Deutschland '25</span>
   `;
   
   const navLinks = document.createElement("div");
@@ -547,7 +539,7 @@ function createFooter() {
       <span class="h-4 w-1.5 bg-red-700"></span>
       <span class="h-4 w-1.5 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="text-lg font-bold">Tag Der Deutschen Sprache</span>
+    <span class="text-lg font-bold">Zeit für Deutschland</span>
   `;
   
   const aboutText = document.createElement("p");
@@ -589,8 +581,8 @@ function createFooter() {
   contactInfo.className = "space-y-3 text-sm text-slate-400";
   
   const contactItems = [
-    { icon: "", text: "info@germanday.lk" },
-    { icon: "", text: "+94 11 111 1111" }
+    { icon: "", text: "rcgermanunit@gmail.com" },
+    { icon: "", text: "+94 75 122 8301" }
   ];
   
   contactItems.forEach(item => {
