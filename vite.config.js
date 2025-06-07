@@ -15,6 +15,9 @@ export default defineConfig({
         'admin': resolve(__dirname, 'admin.html'),
         'not-found': resolve(__dirname, '404.html'),
         'whatsapp': resolve(__dirname, 'whatsapp.html'),
+        'submissions': resolve(__dirname, 'submissions.html'),
+        'privacy-policy': resolve(__dirname, 'privacy-policy.html'),
+        'terms-of-service': resolve(__dirname, 'terms-of-service.html'),
       }
     }
   },
@@ -52,6 +55,24 @@ export default defineConfig({
                req.url.startsWith('/admin/registration/')) && 
               !req.url.includes('.')) {
             req.url = '/admin.html';
+            return next();
+          }
+          
+          // Handle /submissions routes
+          if (req.url.startsWith('/submissions/') && !req.url.includes('.')) {
+            req.url = '/submissions.html';
+            return next();
+          }
+          
+          // Handle privacy policy route
+          if (req.url === '/privacy-policy' || req.url === '/privacy-policy/') {
+            req.url = '/privacy-policy.html';
+            return next();
+          }
+          
+          // Handle terms of service route
+          if (req.url === '/terms-of-service' || req.url === '/terms-of-service/') {
+            req.url = '/terms-of-service.html';
             return next();
           }
           
