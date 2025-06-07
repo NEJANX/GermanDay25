@@ -356,12 +356,26 @@ export function App() {
     // Different events for each day
     let eventTimes;
     if (index === 0) {
-      eventTimes = [
-        { time: "09:00 AM", event: "Opening Ceremony", location: "Main Stage" },
-        { time: "10:30 AM", event: "German Culture Exhibition", location: "Exhibition Hall" },
-        { time: "01:00 PM", event: "Poetry Competition Preliminaries", location: "Goethe Hall" },
-        { time: "03:30 PM", event: "German Cuisine Workshop", location: "Culinary Center" },
-        { time: "06:00 PM", event: "Film Screening: German Cinema", location: "Auditorium" }
+      eventTimes = [{ time: "01:10 PM", event: "Arrival of Guest Schools", location: "Royal College Boake Gate" },
+        { time: "01:30 PM", event: "Lunch", location: "Royal College Main Hall" },
+        { time: "02:30 PM", event: "Arrival of the Chief Guest", location: "Royal College Boake Gate" },
+        { time: "02:35 PM", event: "Lighting of the Oil Lamp", location: "Royal College Main Hall" },
+        { time: "02:40 PM", event: "School song by Royal College Western Band", location: "Royal College Main Hall" },
+        { time: "02:45 PM", event: "Welcome Speech", location: "Royal College Main Hall" },
+        { time: "02:50 PM", event: "Dance Act", location: "Royal College Main Hall" },
+        { time: "02:55 PM", event: "Principal's speech", location: "Royal College Main Hall" },
+        { time: "03:05 PM", event: "Song by the Grade 6 students", location: "Royal College Main Hall" },
+        { time: "03:10 PM", event: "Special Surprise Performance", location: "Royal College Main Hall" },
+        { time: "03:20 PM", event: "Germany - an informative outlook into carrer and education", location: "Royal College Main Hall" },
+        { time: "03:40 PM", event: "Q&A session with the experts", location: "Royal College Main Hall" },
+        { time: "03:50 PM", event: "Song by the Grade 8 and 9 students", location: "Royal College Main Hall" },
+        { time: "03:55 PM", event: "Invited Schools' performances", location: "Royal College Main Hall" },
+        { time: "04:05 PM", event: "German Drama", location: "Royal College Main Hall" },
+        { time: "04:15 PM", event: "Chief Guest's Speech", location: "Royal College Main Hall" },
+        { time: "04:25 PM", event: "Awarding Ceremony", location: "Royal College Main Hall" },
+        { time: "04:45 PM", event: "Vote of Thanks", location: "Royal College Main Hall" },
+        { time: "04:50 PM", event: "National Anthem", location: "Royal College Main Hall" },
+        { time: "04:55 PM", event: "Refreshments", location: "Royal College Main Hall" }
       ];
     } else if (index === 1) {
       eventTimes = [
