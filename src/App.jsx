@@ -136,7 +136,7 @@ export function App() {
   
   const heroDescription = document.createElement("p");
   heroDescription.className = "text-slate-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed";
-  heroDescription.textContent = "Experience the vibrant spirit of German culture with exciting competitions, authentic cuisine, and unforgettable performances. Join us for the most anticipated German cultural celebration of the year!";
+  heroDescription.textContent = "Experience the vibrant spirit of German culture with exciting competitions, delightful company, and unforgettable performances. Join us for the most anticipated German cultural celebration of the year!";
   
   // Add countdown timer for professional touch
   const countdownContainer = document.createElement("div");
@@ -771,7 +771,7 @@ export function App() {
   
   const contactItems = [
     { icon: "email", text: "info@rcgu.lk" },
-    { icon: "phone", text: "+94 76 970 0254" }
+    { icon: "phone", text: "+94 75 122 8301" }
   ];
   
   contactItems.forEach(item => {

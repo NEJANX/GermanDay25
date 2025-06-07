@@ -600,7 +600,7 @@ function createFooter() {
   
   const contactItems = [
     { icon: "email", text: "info@rcgu.lk" },
-    { icon: "phone", text: "+94 76 970 0254" }
+    { icon: "phone", text: "+94 75 122 8301" }
   ];
   
   contactItems.forEach(item => {
