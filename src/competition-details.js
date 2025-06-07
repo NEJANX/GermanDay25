@@ -23,7 +23,7 @@ function CompetitionDetails() {
   // Get competition ID from URL path
   const path = window.location.pathname;
   const pathParts = path.split('/');
-  const competitionId = pathParts[pathParts.length - 1] || 'poetry-recitation'; // Default to first competition if no ID
+  const competitionId = pathParts[pathParts.length - 1] || 'singing'; // Default to first competition if no ID
 
   // Container for the entire page
   const container = document.createElement("div");
@@ -35,7 +35,6 @@ function CompetitionDetails() {
   backgroundOverlay.innerHTML = `
     <div class="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
     <div class="absolute inset-0 opacity-5" style="background: url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&q=80') center/cover no-repeat fixed"></div>
-    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-black via-red-800 to-yellow-600"></div>
   `;
   container.appendChild(backgroundOverlay);
   
@@ -111,8 +110,8 @@ function CompetitionDetails() {
   `;
   
   const competitionIcon = document.createElement("div");
-  competitionIcon.className = "text-5xl mb-4";
-  competitionIcon.textContent = competition.icon;
+  competitionIcon.className = "text-5xl mb-4 flex items-center";
+  competitionIcon.innerHTML = competition.icon;
   
   const competitionTitle = document.createElement("h1");
   competitionTitle.className = "text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200";
@@ -143,7 +142,7 @@ function CompetitionDetails() {
   // Details items
   const detailItems = [
     {
-      title: "Date & Time",
+      title: "Registration Deadline",
       value: competition.datetime,
       icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -165,7 +164,7 @@ function CompetitionDetails() {
       </svg>`
     },
     {
-      title: "Registration Deadline",
+      title: "Submission Deadline",
       value: competition.deadline,
       icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -245,6 +244,16 @@ function CompetitionDetails() {
     // Gather form data
     const formData = new FormData(registrationForm);
     const data = Object.fromEntries(formData.entries());
+    
+    // Validation: Check if Royal College student is trying to register for Inter School competition
+    const schoolName = data.schoolName?.toLowerCase() || '';
+    const category = data.category || '';
+    
+    if (schoolName.includes('royal') && category === 'Inter School') {
+      alertManager.show("Students from Royal College are not allowed to participate in Inter School Competitions.", "error");
+      return; // Stop form submission
+    }
+    
     data.timestamp = serverTimestamp(); // Add timestamp
     
     try {
@@ -264,8 +273,9 @@ function CompetitionDetails() {
   // Form fields
   const formFields = [
     { type: "text", name: "fullName", label: "Full Name", required: true },
+    { type: "text", name: "schoolName", label: "School Name", required: true },
     { type: "email", name: "email", label: "Email", required: true },
-    { type: "tel", name: "phone", label: "Phone Number", required: true },
+    { type: "tel", name: "phone", label: "Phone Number (WhatsApp)", required: true },
     { 
       type: "custom-select", 
       name: "category", 
@@ -273,13 +283,13 @@ function CompetitionDetails() {
       required: true,
       options: competition.categoryOptions
     },
-    { 
-      type: "textarea", 
-      name: "experience", 
-      label: "Previous Experience", 
-      required: false,
-      placeholder: "Tell us about your background and experience with German language and culture"
-    }
+    // { 
+    //   type: "textarea", 
+    //   name: "experience", 
+    //   label: "Previous Experience", 
+    //   required: false,
+    //   placeholder: "Tell us about your background and experience with German language and culture"
+    // }
   ];
   
   formFields.forEach(field => {
@@ -497,7 +507,7 @@ function createNavigation() {
       <span class="h-5 w-2 bg-red-700"></span>
       <span class="h-5 w-2 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Tag Der Deutschen Sprache '25</span>
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Zeit für Deutschland '25</span>
   `;
   
   const navLinks = document.createElement("div");
@@ -547,7 +557,7 @@ function createFooter() {
       <span class="h-4 w-1.5 bg-red-700"></span>
       <span class="h-4 w-1.5 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="text-lg font-bold">Tag Der Deutschen Sprache</span>
+    <span class="text-lg font-bold">Zeit für Deutschland '25</span>
   `;
   
   const aboutText = document.createElement("p");

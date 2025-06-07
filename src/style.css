@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Material Icons styles */
+.material-icons {
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: middle;
+  font-family: 'Material Icons';
+}
+
 :root {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

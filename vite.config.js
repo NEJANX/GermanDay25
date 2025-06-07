@@ -14,6 +14,7 @@ export default defineConfig({
         'competition-details': resolve(__dirname, 'competition-details.html'),
         'admin': resolve(__dirname, 'admin.html'),
         'not-found': resolve(__dirname, '404.html'),
+        'whatsapp': resolve(__dirname, 'whatsapp.html'),
       }
     }
   },
@@ -34,6 +35,12 @@ export default defineConfig({
       name: 'rewrite-middleware',
       configureServer(server) {
         server.middlewares.use((req, res, next) => {
+          // Handle WhatsApp redirect routes
+          if (req.url.startsWith('/whatsapp') && !req.url.includes('.')) {
+            req.url = '/whatsapp.html';
+            return next();
+          }
+          
           // Handle /competitions/:id routes
           if (req.url.startsWith('/competitions/') && !req.url.includes('.')) {
             req.url = '/competition-details.html';

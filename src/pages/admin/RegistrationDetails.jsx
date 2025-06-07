@@ -48,6 +48,7 @@ export default function RegistrationDetails() {
           // Initialize form data
           setFormData({
             fullName: data.fullName || '',
+            schoolName: data.schoolName || '',
             email: data.email || '',
             phone: data.phone || '',
             category: data.category || '',
@@ -272,6 +273,21 @@ export default function RegistrationDetails() {
                       required
                     />
                   </div>
+
+                  {/* School Name */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
+                      School Name
+                    </label>
+                    <input
+                      type="text"
+                      name="schoolName"
+                      value={formData.schoolName}
+                      onChange={handleChange}
+                      className="admin-input"
+                      required
+                    />
+                  </div>
                   
                   {/* Email */}
                   <div>
@@ -351,6 +367,12 @@ export default function RegistrationDetails() {
                 <div className="grid grid-cols-1 md:grid-cols-3 p-4">
                   <div className="text-gray-400 mb-2 md:mb-0">Full Name</div>
                   <div className="md:col-span-2 font-medium text-gray-200">{registration.fullName || 'N/A'}</div>
+                </div>
+
+                {/* School Name */}
+                <div className="grid grid-cols-1 md:grid-cols-3 p-4">
+                  <div className="text-gray-400 mb-2 md:mb-0">School Name</div>
+                  <div className="md:col-span-2 font-medium text-gray-200">{registration.schoolName || 'N/A'}</div>
                 </div>
                 
                 {/* Email */}

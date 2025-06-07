@@ -149,9 +149,10 @@ export default function AdminDashboard() {
   const filteredRegistrations = useMemo(() => {
     return registrations
       .filter(reg => {
-        // Filter by search term (fullName, email, phone)
+        // Filter by search term (fullName, school, email, phone)
         const searchMatch = searchTerm === '' || 
           reg.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+          reg.schoolName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
           reg.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           reg.phone?.includes(searchTerm);
         
@@ -457,6 +458,9 @@ export default function AdminDashboard() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="font-medium text-gray-200">{registration.fullName || 'N/A'}</div>
                         <div className="text-sm text-gray-500">{registration.phone || 'No phone'}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                        {registration.schoolName || 'N/A'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">
                         {registration.email || 'N/A'}

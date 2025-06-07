@@ -1,132 +1,134 @@
 {
   "competitions": [
     {
-      "id": "poetry-recitation",
-      "title": "German Poetry Recitation",
-      "icon": "🎭",
-      "description": "Recite classic and modern German poetry with perfect pronunciation and expressive delivery.",
-      "categories": "Junior, Intermediate, Advanced",
-      "datetime": "May 30, 2025 • 11:30 AM - 2:00 PM",
-      "location": "Goethe Hall, Cultural Center",
-      "eligibility": "Open to all German learners",
-      "deadline": "April 15, 2025",
-      "fullDescription": "<p>The German Poetry Recitation Competition is one of the most prestigious events of German Day. Participants will recite poetry from memory, showcasing their mastery of pronunciation, intonation, and artistic interpretation.</p><p>Participants will select poems from our curated collection or may propose their own selection (subject to approval). Performances will be judged on pronunciation, memorization, artistic interpretation, and stage presence.</p><p>This competition offers a unique opportunity to engage deeply with German literary culture and demonstrate your language proficiency in a creative and expressive way.</p>",
+      "id": "singing",
+      "title": "Singing Competition",
+      "icon": "<span class='material-icons'>mic</span>",
+      "description": "Perform iconic and contemporary German songs with flawless pronunciation, rich emotion, and captivating stage presence.",
+      "categories": "Inter School, Inner School",
+      "datetime": "June 20, 2025",
+      "location": "Online",
+      "eligibility": "All students aged 19 and under",
+      "deadline": "June 30, 2025 • 11:59 PM",
+      "fullDescription": "<p>The German Singing Competition is a vibrant and expressive event held as part of The German Day, where participants bring the language to life through song. Whether it’s a timeless classic or a modern chart-topper, participants are free to perform any German song that speaks to them.</p><p>There are no restrictions on song selection, as long as the lyrics are in German. Performances will be judged on pronunciation, vocal quality, musicality, and emotional delivery.</p><p>Participants are requested to record their performance and upload the video to the designated link shared in the WhatsApp group.</p>",
+      "rules": [
+        "Participants must perform a song in German.",
+        "There is no restriction on song choice, as long as it's in German.",
+        "Performance time limit: 4 minutes maximum.",
+        "Instrumental backing tracks or a cappella performances are allowed.",
+        "Props are not allowed, but expressive gestures and movement are encouraged.",
+        "Participants must upload a video recording of their performance to the link shared in the WhatsApp group.",
+        "Judging criteria: pronunciation, vocal quality, musicality, and emotional delivery."
+      ],
+      "categoryOptions": [
+        { "value": "", "label": "Select a category" },
+        { "value": "Inter School", "label": "Inter School" },
+        { "value": "Intra School", "label": "Intra School" }
+      ]
+    },
+    {
+      "id": "art",
+      "title": "Art Competition",
+      "icon": "<span class='material-icons'>image</span>",
+      "description": "Create original artwork inspired by German culture, language, or landmarks. Let your creativity speak in colors, shapes, and imagination!",
+      "categories": "Inter School, Intra School",
+      "datetime": "June 20, 2025",
+      "location": "Online",
+      "eligibility": "All students aged 19 and under",
+      "deadline": "June 30, 2025 • 11:59 PM",
+      "fullDescription": "<p>The German Art Competition is a creative celebration of language, culture, and imagination. Participants are invited to create original artwork inspired by German themes — whether that’s iconic landmarks, cultural symbols, famous German quotes, or abstract expressions of the language itself.</p><p>This is a chance to express your understanding of German through visual art, blending creativity with cultural exploration. All skill levels are welcome, and submissions will be judged on creativity, relevance to the theme, originality, and artistic quality.</p><p>Note: The theme will be announced in the WhatsApp group.</p>",
+      "rules": [
+        "Art must be original and created by the participant.",
+        "The theme will be announced in the WhatsApp group.",
+        "Accepted formats: drawings and paintings (A4 or A3 size).",
+        "Participants must include a short caption or title (in German) explaining their artwork.",
+        "Submissions must be scanned or photographed clearly and uploaded via the link shared in the WhatsApp group.",
+        "Judging criteria: creativity, cultural relevance, originality, and artistic execution."
+      ],
+      "categoryOptions": [
+        { "value": "", "label": "Select a category" },
+        { "value": "Inter School", "label": "Inter School" },
+        { "value": "Intra School", "label": "Intra School" }
+      ]
+    },
+    {
+      "id": "poetry",
+      "title": "Poetry Recitation",
+      "icon": "<span class='material-icons'>description</span>",
+      "description": "Recite German poetry with flawless pronunciation, clear intonation, and expressive emotional delivery that brings each verse to life.",
+      "categories": "Inter School, Intra School",
+      "datetime": "June 20, 2025",
+      "location": "Online",
+      "eligibility": "All students aged 19 and under",
+      "deadline": "June 30, 2025 • 11:59 PM",
+      "fullDescription": "<p>The German Poetry Recitation Competition is one of the most prestigious events of German Day. Participants will recite poetry from memory, showcasing their mastery of pronunciation, intonation, and artistic interpretation.</p><p>Participants will select poems from our curated collection. Performances will be judged on pronunciation, memorization, artistic interpretation, and stage presence.</p><p>This competition offers a unique opportunity to engage deeply with German literary culture and demonstrate your language proficiency in a creative and expressive way.</p>",
       "rules": [
         "Participants must recite from memory (no reading allowed).",
-        "Performance time limit: 4 minutes maximum.",
+        "Performance time limit: 3 minutes maximum.",
         "Props are not allowed, but appropriate gestures and movement are encouraged.",
-        "Participants must provide 3 printed copies of their poem for the judges.",
+        "Participants must select a poem from the provided collection.",
         "Participants will be judged on pronunciation, memorization, artistic interpretation, and stage presence."
       ],
       "categoryOptions": [
         { "value": "", "label": "Select a category" },
-        { "value": "junior", "label": "Junior (Ages 12-15)" },
-        { "value": "intermediate", "label": "Intermediate (Ages 16-18)" },
-        { "value": "advanced", "label": "Advanced (Ages 19+)" }
+        { "value": "Inter School", "label": "Inter School" },
+        { "value": "Intra School", "label": "Intra School" }
       ]
     },
     {
-      "id": "spelling-bee",
-      "title": "German Spelling Bee",
-      "icon": "📝",
-      "description": "Test your German spelling skills with increasingly difficult words in this competitive spelling challenge.",
-      "categories": "All Levels",
-      "datetime": "May 31, 2025 • 10:00 AM - 12:30 PM",
-      "location": "Schiller Auditorium, Cultural Center",
-      "eligibility": "All German language students",
-      "deadline": "April 15, 2025",
-      "fullDescription": "<p>The German Spelling Bee challenges participants to correctly spell increasingly difficult German words. This competition tests your knowledge of German orthography, including special characters, compound words, and grammatical rules.</p><p>Participants will compete in rounds, with words becoming progressively more challenging. You'll need to spell each word correctly, including proper capitalization and umlauts where applicable.</p><p>This competition is perfect for language enthusiasts who take pride in their attention to detail and precision in written German.</p>",
+      "id": "ttc",
+      "title": "Toungue Twister Challenge",
+      "icon": "<span class='material-icons'>psychology</span>",
+      "description": "Test your German pronunciation skills with challenging tongue twisters. Show off your fluency and clarity in this fun competition!",
+      "categories": "Inter School",
+      "datetime": "June 20, 2025",
+      "location": "Online",
+      "eligibility": "All students aged 19 and under",
+      "deadline": "June 30, 2025 • 11:59 PM",
+      "fullDescription": "<p>The Tongue Twister Challenge is a fun and engaging competition that tests participants' pronunciation skills in German. Participants will be given a series of challenging tongue twisters to recite, showcasing their fluency, clarity, and ability to articulate complex sounds.</p><p>Participants will be given a list of tongue twisters. Each person must pick one and repeat it continuously for 30 seconds.</p>",
       "rules": [
-        "Each participant will have 30 seconds to spell a word after it is announced.",
-        "Contestants may ask for the definition, language of origin, and usage in a sentence.",
-        "Once you begin spelling a word, you cannot start over.",
-        "Correct capitalization and all special characters (ä, ö, ü, ß) must be included.",
-        "Three rounds of increasing difficulty will be conducted."
+        "Each participant will be given a list of tongue twisters. Participants may select one tongue twister of their choice from the list.",
+        "Participants are kindly requested to repeat their chosen tongue twister continuously for 30 seconds.",
+        "Participants are encouraged to speak clearly and maintain a steady pace throughout the 30 seconds. Minor stumbles are acceptable — just do your best to keep going.",
+        "Kindly refrain from altering the words, skipping parts, or pausing for too long during the attempt.",
+        "Participants must ensure that their video recording is clear and audible.",
+        "Participants must record their attempt and upload the video to the link shared in the WhatsApp group.",
+        "Judging criteria: clarity, fluency, and overall pronunciation."
       ],
       "categoryOptions": [
         { "value": "", "label": "Select a category" },
-        { "value": "beginner", "label": "Beginner (1-2 years of study)" },
-        { "value": "intermediate", "label": "Intermediate (3-4 years of study)" },
-        { "value": "advanced", "label": "Advanced (5+ years of study)" }
+        { "value": "Inter School", "label": "Inter School" }
       ]
     },
     {
-      "id": "cultural-quiz",
-      "title": "Cultural Knowledge Quiz",
-      "icon": "🧠",
-      "description": "Show your knowledge of German history, culture, geography, and current events in this challenging quiz.",
-      "categories": "Individual, Team",
-      "datetime": "June 1, 2025 • 1:30 PM - 4:00 PM",
-      "location": "Einstein Conference Hall, Cultural Center",
-      "eligibility": "Open to all participants",
-      "deadline": "April 30, 2025",
-      "fullDescription": "<p>The Cultural Knowledge Quiz tests your understanding of German-speaking countries' history, geography, politics, art, literature, music, sports, and current events. This comprehensive challenge will separate casual enthusiasts from true German culture aficionados.</p><p>Participants may compete individually or in teams of up to three people. The quiz consists of multiple rounds featuring various question formats including multiple choice, short answer, identification, and lightning rounds.</p><p>This competition rewards both breadth and depth of knowledge about German-speaking countries and their global influence.</p>",
+      "id": "speech",
+      "title": "Speech Competition",
+      "icon": "<span class='material-icons'>article</span>",
+      "description": "Deliver a compelling speech on a topic related to German culture, history, or language. Showcase your eloquence and persuasive skills!",
+      "categories": "Inter School, Intra School",
+      "datetime": "June 20, 2025",
+      "location": "Online",
+      "eligibility": "All students aged 19 and under",
+      "deadline": "June 30, 2025 • 11:59 PM",
+      "fullDescription": "<p>The German Speech Competition is a platform for participants to express their thoughts and ideas on topics related to German culture, history, or language. Participants will prepare and deliver a speech that showcases their eloquence, persuasive skills, and understanding of the topic.</p><p>Participants must select a topic from the provided list shared in the WhatsApp group. Speeches will be judged on pronunciation, clarity, argumentation, and overall delivery.</p><p>This competition encourages participants to engage deeply with the German language and culture while honing their public speaking skills.</p>",
       "rules": [
-        "Individual participants compete alone; teams may have up to 3 members.",
-        "Electronic devices are not permitted during the competition.",
-        "The quiz will cover German history, geography, arts, literature, music, sports, politics, and current events.",
-        "Judges' decisions are final on all answers.",
-        "In case of a tie, a sudden-death question round will determine the winner."
+        "Participants must prepare a speech on a given topic in German.",
+        "Speech time limit: 4 minutes maximum.",
+        "Participants must present their speech without reading from notes or scripts.",
+        "Props are not allowed, but appropriate gestures and movement are encouraged.",
+        "Participants must select a topic from the provided list shared in the WhatsApp group.",
+        "Participants must upload a video recording of their speech to the link shared in the WhatsApp group.",
+        "Judging criteria: pronunciation, clarity, argumentation, and overall delivery."
       ],
       "categoryOptions": [
         { "value": "", "label": "Select a category" },
-        { "value": "individual", "label": "Individual Participant" },
-        { "value": "team", "label": "Team (2-3 members)" }
-      ]
-    },
-    {
-      "id": "cuisine-contest",
-      "title": "German Cuisine Cook-Off",
-      "icon": "🍽️",
-      "description": "Prepare authentic German dishes judged on taste, presentation, and cultural authenticity.",
-      "categories": "Amateur, Professional",
-      "datetime": "May 29, 2025 • 2:00 PM - 6:00 PM",
-      "location": "Culinary Pavilion, Festival Grounds",
-      "eligibility": "Open to all cooking enthusiasts",
-      "deadline": "April 15, 2025",
-      "fullDescription": "<p>The German Cuisine Cook-Off invites culinary enthusiasts to showcase their skills in preparing authentic German dishes. From regional specialties to classic favorites, this competition celebrates the rich gastronomic traditions of Germany.</p><p>Participants will prepare their dishes in a timed setting, bringing their own ingredients. Each entry will be judged on taste, presentation, technical skill, and cultural authenticity by a panel of professional chefs and German cuisine experts.</p><p>This competition offers food lovers a chance to demonstrate their passion for German cooking techniques, flavors, and traditions.</p>",
-      "rules": [
-        "Participants must prepare one main dish and one side dish or dessert.",
-        "All major preparation must be completed on-site within the 2-hour time limit.",
-        "Participants must provide their own ingredients and tools.",
-        "Dishes must represent authentic German cuisine - regional variations are encouraged.",
-        "Judges will evaluate based on taste (50%), presentation (25%), and authenticity (25%)."
-      ],
-      "categoryOptions": [
-        { "value": "", "label": "Select a category" },
-        { "value": "amateur", "label": "Amateur Chef" },
-        { "value": "professional", "label": "Professional Chef" }
-      ]
-    },
-    {
-      "id": "language-debate",
-      "title": "German Language Debate",
-      "icon": "💬",
-      "description": "Debate various topics entirely in German, showcasing your fluency and persuasive speaking skills.",
-      "categories": "Beginner, Intermediate, Advanced",
-      "datetime": "May 30, 2025 • 3:30 PM - 6:00 PM",
-      "location": "Humboldt Forum, Cultural Center",
-      "eligibility": "German language students of all levels",
-      "deadline": "April 15, 2025",
-      "fullDescription": "<p>The German Language Debate Competition challenges participants to articulate and defend positions on various topics entirely in German. This competition tests not only language proficiency but also critical thinking, research skills, and persuasive speaking.</p><p>Participants will be assigned to debate teams and given topics in advance. During the competition, they will present arguments, counter opposing points, and respond to questions from judges - all in German.</p><p>This competition is ideal for developing advanced language skills in a dynamic, intellectually challenging context.</p>",
-      "rules": [
-        "All debates must be conducted entirely in German.",
-        "Each team will have two members who will work together.",
-        "Topics will be announced two weeks before the competition.",
-        "Each team will have 5 minutes for opening arguments, 3 minutes for rebuttal, and 2 minutes for closing statements.",
-        "Judges will evaluate based on language proficiency, argument quality, evidence, and presentation style."
-      ],
-      "categoryOptions": [
-        { "value": "", "label": "Select a category" },
-        { "value": "beginner", "label": "Beginner (1-2 years of study)" },
-        { "value": "intermediate", "label": "Intermediate (3-4 years of study)" },
-        { "value": "advanced", "label": "Advanced (5+ years of study)" }
+        { "value": "Inter School", "label": "Inter School" }
       ]
     },
     {
       "id": "film-media",
       "title": "German Film & Media Creation",
-      "icon": "🎬",
+      "icon": "<span class='material-icons'>movie</span>",
       "description": "Create original short films or media projects that highlight German culture, language, or history.",
       "categories": "Individual, Group",
       "datetime": "Projects due May 15, Screening June 1, 2025",

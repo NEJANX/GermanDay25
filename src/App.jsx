@@ -51,7 +51,7 @@ export function App() {
       <span class="h-5 w-2 bg-red-700"></span>
       <span class="h-5 w-2 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Tag Der Deutschen Sprache '25</span>
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Zeit für Deutschland '25</span>
   `;
   
   const navLinks = document.createElement("div");
@@ -124,7 +124,7 @@ export function App() {
   
   const heroTitle = document.createElement("h1");
   heroTitle.className = "text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200";
-  heroTitle.textContent = "Tag Der Deutschen Sprache '25";
+  heroTitle.textContent = "Zeit für Deutschland '25";
   
   const heroSubtitle = document.createElement("p");
   heroSubtitle.className = "text-xl font-light text-slate-300 mb-2";
@@ -225,54 +225,50 @@ export function App() {
   const competitionsGrid = document.createElement("div");
   competitionsGrid.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12";
   
+  // Wrapper for better grid control
+  const gridContent = document.createElement("div");
+  gridContent.className = "contents lg:flex lg:flex-wrap lg:justify-center lg:gap-8";
+  
   const competitions = [
     {
       title: "Singing Competition",
-      icon: "🎭",
-      description: "Recite classic and modern German poetry with perfect pronunciation and expressive delivery.",
-      categories: "Junior, Intermediate, Advanced",
+      icon: "<span class='material-icons'>mic</span>",
+      description: "Perform iconic and contemporary German songs with flawless pronunciation, rich emotion, and captivating stage presence.",
+      categories: "Inter School, Intra School",
       prizes: "1st: €500, 2nd: €300, 3rd: €150",
       id: "singing"
     },
     {
-      title: "German Spelling Bee",
-      icon: "📝",
-      description: "Test your German spelling skills with increasingly difficult words in this competitive spelling challenge.",
-      categories: "All Levels",
+      title: "Art Competition",
+      icon: "<span class='material-icons'>image</span>",
+      description: "Create original artwork inspired by German culture, language, or landmarks. Let your creativity speak in colors, shapes, and imagination!",
+      categories: "Inter School, Intra School",
       prizes: "1st: €400, 2nd: €250, 3rd: €100",
-      id: "spelling-bee"
+      id: "art"
     },
     {
-      title: "Cultural Knowledge Quiz",
-      icon: "🧠",
-      description: "Show your knowledge of German history, culture, geography, and current events in this challenging quiz.",
-      categories: "Individual, Team",
-      prizes: "1st: €600, 2nd: €350, 3rd: €200",
-      id: "cultural-quiz"
-    },
-    {
-      title: "German Cuisine Cook-Off",
-      icon: "🍽️",
-      description: "Prepare authentic German dishes judged on taste, presentation, and cultural authenticity.",
-      categories: "Amateur, Professional",
+      title: "Poetry Recitation",
+      icon: "<span class='material-icons'>description</span>",
+      description: "Recite German poetry with flawless pronunciation, clear intonation, and expressive emotional delivery that brings each verse to life.",
+      categories: "Inter School, Intra School",
       prizes: "1st: €800, 2nd: €500, 3rd: €250",
-      id: "cuisine-contest"
+      id: "poetry"
     },
     {
-      title: "German Language Debate",
-      icon: "💬",
-      description: "Debate various topics entirely in German, showcasing your fluency and persuasive speaking skills.",
-      categories: "Beginner, Intermediate, Advanced",
+      title: "Tounge Twister Challenge",
+      icon: "<span class='material-icons'>psychology</span>",
+      description: "Test your German pronunciation skills with challenging tongue twisters. Show off your fluency and clarity in this fun competition!",
+      categories: "Inter School",
+      prizes: "1st: €600, 2nd: €350, 3rd: €200",
+      id: "ttc"
+    },
+    {
+      title: "Speech Competition",
+      icon: "<span class='material-icons'>article</span>",
+      description: "Deliver a compelling speech on a topic related to German culture, history, or language. Showcase your eloquence and persuasive skills!",
+      categories: "Inter School, Intra School",
       prizes: "1st: €700, 2nd: €400, 3rd: €200",
-      id: "language-debate"
-    },
-    {
-      title: "German Film & Media Creation",
-      icon: "🎬",
-      description: "Create original short films or media projects that highlight German culture, language, or history.",
-      categories: "Individual, Group",
-      prizes: "1st: €1000, 2nd: €600, 3rd: €300",
-      id: "film-media"
+      id: "speech"
     }
   ];
   
@@ -285,7 +281,7 @@ export function App() {
     
     const competitionIcon = document.createElement("div");
     competitionIcon.className = "text-3xl";
-    competitionIcon.textContent = competition.icon;
+    competitionIcon.innerHTML = competition.icon;
     
     // Add German flag mini-element
     const flagMini = document.createElement("div");
@@ -310,16 +306,16 @@ export function App() {
     competitionCategories.className = "text-sm text-yellow-300 mb-2";
     competitionCategories.innerHTML = `<span class="font-semibold">Categories:</span> ${competition.categories}`;
     
-    const competitionPrizes = document.createElement("div");
-    competitionPrizes.className = "text-sm text-green-300 mb-4";
-    competitionPrizes.innerHTML = `<span class="font-semibold">Prizes:</span> ${competition.prizes}`;
+    // const competitionPrizes = document.createElement("div");
+    // competitionPrizes.className = "text-sm text-green-300 mb-4";
+    // competitionPrizes.innerHTML = `<span class="font-semibold">Prizes:</span> ${competition.prizes}`;
     
     const learnMoreLink = document.createElement("a");
     learnMoreLink.href = `/competitions/${competition.id}`;
     learnMoreLink.className = "inline-block mt-2 w-full px-4 py-2 bg-slate-700/70 hover:bg-slate-600/70 transition-colors rounded text-center text-sm font-medium";
     learnMoreLink.textContent = "View Details";
     
-    competitionCard.append(cardHeader, competitionTitle, competitionDescription, competitionCategories, competitionPrizes, learnMoreLink);
+    competitionCard.append(cardHeader, competitionTitle, competitionDescription, competitionCategories, learnMoreLink);
     competitionsGrid.appendChild(competitionCard);
   });
   
@@ -582,7 +578,7 @@ export function App() {
       <span class="h-4 w-1.5 bg-red-700"></span>
       <span class="h-4 w-1.5 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="text-lg font-bold">Tag Der Deutschen Sprache</span>
+    <span class="text-lg font-bold">Zeit für Deutschland '25</span>
   `;
   
   const aboutText = document.createElement("p");
