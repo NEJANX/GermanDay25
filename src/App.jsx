@@ -429,42 +429,165 @@ export function App() {
   const gallerySection = createSection("gallery", "Event Gallery", "Highlights from previous German Day celebrations");
   
   const gallery = document.createElement("div");
-  gallery.className = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-12";
+  gallery.className = "mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px]";
   
-  // Professional gallery with diverse German cultural imagery
+  // Professional gallery with diverse German cultural imagery and varied sizes
   const galleryImages = [
-    { emoji: "🏰", title: "German Architecture", year: "2024" },
-    { emoji: "🎭", title: "Cultural Performances", year: "2024" },
-    { emoji: "🎻", title: "Classical Music Night", year: "2023" },
-    { emoji: "🥨", title: "Cuisine Exhibition", year: "2023" },
-    { emoji: "📚", title: "German Literature", year: "2022" },
-    { emoji: "🎪", title: "Festival Activities", year: "2022" },
-    { emoji: "🍺", title: "Oktoberfest Celebration", year: "2021" },
-    { emoji: "🇩🇪", title: "Flag Ceremony", year: "2021" }
+    { 
+      src: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&h=600&fit=crop", 
+      title: "Brandenburg Gate", 
+      year: "2024", 
+      size: "large",
+      alt: "Historic Brandenburg Gate in Berlin"
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=400&fit=crop", 
+      title: "Cultural Performance", 
+      year: "2024", 
+      size: "medium",
+      alt: "Traditional German cultural dance performance"
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=600&fit=crop", 
+      title: "Classical Music", 
+      year: "2023", 
+      size: "tall",
+      alt: "Classical music concert with violin"
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop", 
+      title: "German Cuisine", 
+      year: "2023", 
+      size: "medium",
+      alt: "Traditional German food and pretzels"
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=400&fit=crop", 
+      title: "German Literature", 
+      year: "2022", 
+      size: "small",
+      alt: "German books and literature display"
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&h=500&fit=crop", 
+      title: "Festival Activities", 
+      year: "2022", 
+      size: "wide",
+      alt: "Oktoberfest festival activities and celebration"
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop", 
+      title: "German Architecture", 
+      year: "2021", 
+      size: "medium",
+      alt: "Beautiful German castle architecture"
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop", 
+      title: "Flag Ceremony", 
+      year: "2021", 
+      size: "small",
+      alt: "German flag ceremony"
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=800&fit=crop", 
+      title: "Student Presentations", 
+      year: "2024", 
+      size: "small",
+      alt: "Students presenting German language projects"
+    },
+    { 
+      src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=400&fit=crop", 
+      title: "Poetry Recitation", 
+      year: "2023", 
+      size: "wide",
+      alt: "German poetry recitation event"
+    }
   ];
   
-  galleryImages.forEach(item => {
+  galleryImages.forEach((item, index) => {
     const imgContainer = document.createElement("div");
-    imgContainer.className = "aspect-square overflow-hidden rounded-lg backdrop-blur-sm bg-slate-800/40 border border-slate-700 hover:border-slate-600 hover:scale-105 transition-all duration-300 flex items-center justify-center group";
     
-    const placeholder = document.createElement("div");
-    placeholder.className = "text-center p-4 relative flex flex-col items-center justify-center h-full w-full";
+    // Apply different sizes based on the size property
+    let sizeClass = "";
+    switch(item.size) {
+      case "large":
+        sizeClass = "md:col-span-2 md:row-span-2";
+        break;
+      case "wide":
+        sizeClass = "md:col-span-2";
+        break;
+      case "tall":
+        sizeClass = "row-span-2";
+        break;
+      case "medium":
+        sizeClass = "md:col-span-1";
+        break;
+      default:
+        sizeClass = "";
+    }
     
-    // Design placeholder with overlay effect
-    const emoji = document.createElement("div");
-    emoji.className = "text-4xl mb-2 group-hover:transform group-hover:scale-110 transition-transform duration-300";
-    emoji.textContent = item.emoji;
+    imgContainer.className = `${sizeClass} overflow-hidden rounded-lg backdrop-blur-sm bg-slate-800/40 border border-slate-700 hover:border-slate-600 hover:scale-105 transition-all duration-300 group cursor-pointer relative`;
     
-    const text = document.createElement("div");
-    text.className = "text-sm text-white font-medium";
-    text.textContent = item.title;
+    // Create actual image element
+    const img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.alt;
+    img.className = "w-full h-full object-cover group-hover:scale-110 transition-transform duration-300";
+    img.loading = "lazy";
     
-    const year = document.createElement("div");
-    year.className = "text-xs text-slate-400 absolute bottom-3";
+    // Create overlay with image info
+    const overlay = document.createElement("div");
+    overlay.className = "absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4";
+    
+    const overlayContent = document.createElement("div");
+    overlayContent.className = "text-white";
+    
+    const title = document.createElement("h3");
+    title.className = "text-lg font-bold mb-1";
+    title.textContent = item.title;
+    
+    const year = document.createElement("p");
+    year.className = "text-sm text-slate-300";
     year.textContent = item.year;
     
-    placeholder.append(emoji, text, year);
-    imgContainer.appendChild(placeholder);
+    // Add German flag mini-element to overlay
+    const flagMini = document.createElement("div");
+    flagMini.className = "h-1 w-12 flex rounded-full overflow-hidden mt-2";
+    flagMini.innerHTML = `
+      <div class="flex-1 bg-black"></div>
+      <div class="flex-1 bg-red-700"></div>
+      <div class="flex-1 bg-yellow-500"></div>
+    `;
+    
+    overlayContent.append(title, year, flagMini);
+    overlay.appendChild(overlayContent);
+    
+    // Add loading placeholder
+    const loadingPlaceholder = document.createElement("div");
+    loadingPlaceholder.className = "absolute inset-0 bg-slate-800/60 flex items-center justify-center";
+    loadingPlaceholder.innerHTML = `
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500"></div>
+    `;
+    
+    // Hide placeholder when image loads
+    img.addEventListener('load', () => {
+      loadingPlaceholder.style.display = 'none';
+    });
+    
+    // Handle image load errors
+    img.addEventListener('error', () => {
+      loadingPlaceholder.innerHTML = `
+        <div class="text-center p-4">
+          <div class="text-4xl mb-2">🖼️</div>
+          <div class="text-sm text-white font-medium">${item.title}</div>
+          <div class="text-xs text-slate-400 mt-1">${item.year}</div>
+        </div>
+      `;
+      loadingPlaceholder.className = "absolute inset-0 bg-slate-800/60 flex items-center justify-center text-slate-300";
+    });
+    
+    imgContainer.append(loadingPlaceholder, img, overlay);
     gallery.appendChild(imgContainer);
   });
   
@@ -647,15 +770,15 @@ export function App() {
   contactInfo.className = "space-y-3 text-sm text-slate-400";
   
   const contactItems = [
-    { icon: "", text: "info@germanday.lk" },
-    { icon: "", text: "+94 11 111 1111" }
+    { icon: "email", text: "info@rcgu.lk" },
+    { icon: "phone", text: "+94 76 970 0254" }
   ];
   
   contactItems.forEach(item => {
     const li = document.createElement("li");
     li.className = "flex items-start";
     li.innerHTML = `
-      <span class="mr-2">${item.icon}</span>
+      <span class="mr-2 material-icons">${item.icon}</span>
       <span>${item.text}</span>
     `;
     contactInfo.appendChild(li);

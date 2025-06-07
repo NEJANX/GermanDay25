@@ -599,15 +599,15 @@ function createFooter() {
   contactInfo.className = "space-y-3 text-sm text-slate-400";
   
   const contactItems = [
-    { icon: "", text: "info@germanday.lk" },
-    { icon: "", text: "+94 11 111 1111" }
+    { icon: "email", text: "info@rcgu.lk" },
+    { icon: "phone", text: "+94 76 970 0254" }
   ];
   
   contactItems.forEach(item => {
     const li = document.createElement("li");
     li.className = "flex items-start";
     li.innerHTML = `
-      <span class="mr-2">${item.icon}</span>
+      <span class="mr-2 material-icons">${item.icon}</span>
       <span>${item.text}</span>
     `;
     contactInfo.appendChild(li);
