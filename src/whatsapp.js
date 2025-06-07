@@ -1,12 +1,11 @@
 // WhatsApp group links
 const whatsappGroups = {
-  singing: "https://chat.whatsapp.com/singing-group-link",
-  "spelling-bee": "https://chat.whatsapp.com/spelling-bee-group-link",
-  "cultural-quiz": "https://chat.whatsapp.com/cultural-quiz-group-link",
-  "cuisine-contest": "https://chat.whatsapp.com/cuisine-contest-group-link",
-  "language-debate": "https://chat.whatsapp.com/language-debate-group-link",
-  "film-media": "https://chat.whatsapp.com/film-media-group-link",
-  general: "https://chat.whatsapp.com/general-group-link"
+  singing: "https://chat.whatsapp.com/GWczDBkAbHW34HCylZBlmj",
+  art: "https://chat.whatsapp.com/D8UR7qW3Jpd4S8RQYSIfKr",
+  poetry: "https://chat.whatsapp.com/FZitmFAt5M73dq5IXaEvto",
+  ttc: "https://chat.whatsapp.com/E3foCrwU1cIJ2t3aX2gcUj",
+  speech: "https://chat.whatsapp.com/CuP5EJvhFYgKYFcNTmMybD",
+  general: "https://chat.whatsapp.com/I8MsaEkK84k2O4StyXWixS"
 };
 
 // Get competition ID from URL path
@@ -19,7 +18,7 @@ if (competition && competition !== '') {
   const competitionName = competition.split('-').map(word => 
     word.charAt(0).toUpperCase() + word.slice(1)
   ).join(' ');
-  redirectMessage.textContent = `You are being redirected to the ${competitionName} WhatsApp group...`;
+  redirectMessage.textContent = `You are being redirected to the WhatsApp group...`;
 }
 
 // Redirect after 3 seconds

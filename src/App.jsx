@@ -434,74 +434,39 @@ export function App() {
   // Professional gallery with diverse German cultural imagery and varied sizes
   const galleryImages = [
     { 
-      src: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&h=600&fit=crop", 
-      title: "Brandenburg Gate", 
-      year: "2024", 
-      size: "large",
-      alt: "Historic Brandenburg Gate in Berlin"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=400&fit=crop", 
-      title: "Cultural Performance", 
-      year: "2024", 
-      size: "medium",
-      alt: "Traditional German cultural dance performance"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=600&fit=crop", 
-      title: "Classical Music", 
+      src: "/gallery/IMG_9323.jpg", 
+      title: "Tag Der Deutschen Sprache '23", 
       year: "2023", 
       size: "tall",
-      alt: "Classical music concert with violin"
+      alt: ""
     },
     { 
-      src: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop", 
-      title: "German Cuisine", 
+      src: "/gallery/IMG_9399.jpg", 
+      title: "Tag Der Deutschen Sprache '23", 
       year: "2023", 
       size: "medium",
-      alt: "Traditional German food and pretzels"
+      alt: ""
     },
     { 
-      src: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=400&fit=crop", 
-      title: "German Literature", 
-      year: "2022", 
-      size: "small",
-      alt: "German books and literature display"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&h=500&fit=crop", 
-      title: "Festival Activities", 
-      year: "2022", 
-      size: "wide",
-      alt: "Oktoberfest festival activities and celebration"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop", 
-      title: "German Architecture", 
-      year: "2021", 
-      size: "medium",
-      alt: "Beautiful German castle architecture"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=400&fit=crop", 
-      title: "Flag Ceremony", 
-      year: "2021", 
-      size: "small",
-      alt: "German flag ceremony"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=800&fit=crop", 
-      title: "Student Presentations", 
-      year: "2024", 
-      size: "small",
-      alt: "Students presenting German language projects"
-    },
-    { 
-      src: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=400&fit=crop", 
-      title: "Poetry Recitation", 
+      src: "/gallery/IMG_9310.jpg", 
+      title: "Tag Der Deutschen Sprache '23", 
       year: "2023", 
       size: "wide",
-      alt: "German poetry recitation event"
+      alt: ""
+    },
+    { 
+      src: "/gallery/IMG_9435.jpg", 
+      title: "Tag Der Deutschen Sprache '23", 
+      year: "2023", 
+      size: "wide",
+      alt: ""
+    },
+    { 
+      src: "/gallery/IMG_9317.jpg", 
+      title: "Tag Der Deutschen Sprache '23", 
+      year: "2023", 
+      size: "medium",
+      alt: ""
     }
   ];
   
