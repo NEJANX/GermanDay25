@@ -10,7 +10,19 @@ const whatsappGroups = {
 
 // Get competition ID from URL path
 const path = window.location.pathname;
-const competition = path.split('/whatsapp/')[1];
+console.log('Current path:', path); // Debug log
+
+// Handle both /whatsapp/competitionId and /whatsapp?competition=competitionId formats
+let competition;
+if (path.includes('/whatsapp/')) {
+  competition = path.split('/whatsapp/')[1];
+} else {
+  // Fallback to URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  competition = urlParams.get('competition');
+}
+
+console.log('Extracted competition:', competition); // Debug log
 
 // Update redirect message with competition name if available
 const redirectMessage = document.getElementById('redirect-message');
@@ -29,5 +41,13 @@ setTimeout(() => {
     ? whatsappGroups[competition] 
     : whatsappGroups.general;
     
-  window.location.href = groupUrl;
+  console.log('Redirecting to:', groupUrl); // Debug log
+  
+  // Use window.open as fallback if direct redirect fails
+  try {
+    window.location.href = groupUrl;
+  } catch (error) {
+    console.error('Direct redirect failed, trying window.open:', error);
+    window.open(groupUrl, '_self');
+  }
 }, 3000);

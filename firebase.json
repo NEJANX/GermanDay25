@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/whatsapp/**",
+        "destination": "/whatsapp.html"
+      },
+      {
         "source": "/competitions/**",
         "destination": "/competition-details.html"
       },

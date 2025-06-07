@@ -267,7 +267,11 @@ function CompetitionDetails() {
       
       // Redirect to WhatsApp group after a short delay
       setTimeout(() => {
-        window.location.href = `/whatsapp/${competitionId}`;
+        // Use absolute URL construction for production
+        const baseUrl = window.location.origin;
+        const redirectUrl = `${baseUrl}/whatsapp/${competitionId}`;
+        console.log('Redirecting to:', redirectUrl); // Debug log
+        window.location.href = redirectUrl;
       }, 2000);
     } catch (error) {
       console.error("Error saving registration: ", error);
