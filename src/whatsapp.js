@@ -18,7 +18,9 @@ if (competition && competition !== '') {
   const competitionName = competition.split('-').map(word => 
     word.charAt(0).toUpperCase() + word.slice(1)
   ).join(' ');
-  redirectMessage.textContent = `You are being redirected to the WhatsApp group...`;
+  redirectMessage.textContent = `Joining ${competitionName} Competition WhatsApp group...`;
+} else {
+  redirectMessage.textContent = 'You are being redirected to the WhatsApp group...';
 }
 
 // Redirect after 3 seconds

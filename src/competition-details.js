@@ -261,9 +261,14 @@ function CompetitionDetails() {
       const competitionRef = collection(db, "competitions", competitionId, "registrations");
       await addDoc(competitionRef, data);
       
-      // Show success message
-      alertManager.show("Registration successful!", "success");
+      // Show success message and redirect to WhatsApp group
+      alertManager.show("Registration successful! Redirecting to WhatsApp group...", "success");
       registrationForm.reset();
+      
+      // Redirect to WhatsApp group after a short delay
+      setTimeout(() => {
+        window.location.href = `/whatsapp/${competitionId}`;
+      }, 2000);
     } catch (error) {
       console.error("Error saving registration: ", error);
       alertManager.show("Failed to register. Please try again later.", "error");
