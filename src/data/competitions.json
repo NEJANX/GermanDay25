@@ -122,7 +122,8 @@
       ],
       "categoryOptions": [
         { "value": "", "label": "Select a category" },
-        { "value": "Inter School", "label": "Inter School" }
+        { "value": "Inter School", "label": "Inter School" },
+        { "value": "Intra School", "label": "Intra School" }
       ]
     },
     {

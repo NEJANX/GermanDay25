@@ -22,13 +22,13 @@ const useDebounce = (value, delay) => {
   return debouncedValue;
 };
 
-export default function ArtSubmissionPage() {
+export default function SingingSubmissionPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     school: '',
     category: '',
-    title: '',
+    songTitle: '',
     description: '',
     file: null
   });
@@ -70,11 +70,17 @@ export default function ArtSubmissionPage() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validate file using GoFile service
-      const validation = gofileService.validateFile(file);
+      // Custom validation for video files
+      const maxSize = 100 * 1024 * 1024; // 100MB for video files
+      const allowedTypes = ['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/mkv'];
       
-      if (!validation.valid) {
-        alert.error(validation.error);
+      if (file.size > maxSize) {
+        alert.error('File size must be less than 100MB');
+        return;
+      }
+      
+      if (!allowedTypes.includes(file.type)) {
+        alert.error('Please upload a valid video file (MP4, AVI, MOV, WMV, MKV)');
         return;
       }
       
@@ -107,7 +113,7 @@ export default function ArtSubmissionPage() {
     e.preventDefault();
     
     if (!formData.file) {
-      alert.error('Please select a file to upload.');
+      alert.error('Please select a video file to upload.');
       return;
     }
 
@@ -138,7 +144,7 @@ export default function ArtSubmissionPage() {
         email: formData.email,
         school: formData.school,
         category: formData.category,
-        title: formData.title,
+        songTitle: formData.songTitle,
         description: formData.description,
         fileName: formData.file.name,
         fileSize: formData.file.size,
@@ -146,7 +152,7 @@ export default function ArtSubmissionPage() {
         fileUrl: uploadResult.directUrl,
         viewUrl: uploadResult.viewUrl,
         submittedAt: new Date(),
-        competition: 'art',
+        competition: 'singing',
         uploadStatus: 'completed',
         uploadedAt: uploadResult.uploadedAt
       };
@@ -154,7 +160,7 @@ export default function ArtSubmissionPage() {
       await addDoc(collection(db, 'submissions'), submissionData);
       
       setSubmitStatus('success');
-      alert.success('Artwork submitted successfully! Your file has been uploaded to the server and is now accessible by the judging panel.');
+      alert.success('Singing performance submitted successfully! Your video has been uploaded to the server and is now accessible by the judging panel.');
       
       // Keep all form data intact for user reference
       // Only reset the progress
@@ -166,7 +172,7 @@ export default function ArtSubmissionPage() {
       setSubmitStatus('error');
       
       // Provide more specific error messages
-      let errorMessage = 'There was an error uploading your artwork. Please try again.';
+      let errorMessage = 'There was an error uploading your video. Please try again.';
       if (error.message.includes('Network error')) {
         errorMessage = 'Network error during upload. Please check your internet connection and try again.';
       } else if (error.message.includes('timeout')) {
@@ -186,7 +192,7 @@ export default function ArtSubmissionPage() {
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
-        <div className="absolute inset-0 opacity-5" style={{background: "url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&q=80') center/cover no-repeat fixed"}}></div>
+        <div className="absolute inset-0 opacity-5" style={{background: "url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&q=80') center/cover no-repeat fixed"}}></div>
       </div>
 
       {/* Glass elements */}
@@ -226,11 +232,11 @@ export default function ArtSubmissionPage() {
       {/* Main Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-            Art Competition Submission
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
+            Singing Competition Submission
           </h1>
           <p className="text-xl text-slate-300">
-            Submit your original artwork inspired by German culture
+            Submit your German song performance video
           </p>
         </div>
 
@@ -247,7 +253,7 @@ export default function ArtSubmissionPage() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -259,7 +265,7 @@ export default function ArtSubmissionPage() {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
                   placeholder="Enter your email"
                 />
               </div>
@@ -274,7 +280,7 @@ export default function ArtSubmissionPage() {
                   value={formData.school}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
                   placeholder="Enter your school name"
                 />
               </div>
@@ -306,51 +312,52 @@ export default function ArtSubmissionPage() {
               </div>
             )}
 
-            {/* Artwork Information */}
+            {/* Song Information */}
             <div>
-              <label className="block text-sm font-medium mb-2">Artwork Title (in German) *</label>
+              <label className="block text-sm font-medium mb-2">Song Title (in German) *</label>
               <input
                 type="text"
-                name="title"
-                value={formData.title}
+                name="songTitle"
+                value={formData.songTitle}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
-                placeholder="Enter your artwork title in German"
+                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+                placeholder="Enter the German song title"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-2">Description/Caption (in German) *</label>
+              <label className="block text-sm font-medium mb-2">Performance Description (Optional)</label>
               <textarea
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
-                required
                 rows={4}
-                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
-                placeholder="Explain your artwork in German..."
+                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition-all"
+                placeholder="Describe your performance, song choice, or any special notes (optional)..."
               />
-            </div>            {/* File Upload - Hide during upload and success */}
+            </div>
+
+            {/* File Upload - Hide during upload and success */}
             {!isUploading && !isSubmitting && submitStatus !== 'success' && (
               <div>
-                <label className="block text-sm font-medium mb-2">Upload Artwork *</label>
+                <label className="block text-sm font-medium mb-2">Upload Performance Video *</label>
                 <div className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center">
                   <input
                     type="file"
                     id="file-input"
                     onChange={handleFileChange}
-                    accept="image/jpeg,image/jpg,image/png,application/pdf"
+                    accept="video/mp4,video/avi,video/mov,video/wmv,video/mkv"
                     className="hidden"
                   />
                   <label
                     htmlFor="file-input"
                     className="cursor-pointer flex flex-col items-center space-y-2"
                   >
-                    <span className="material-icons text-4xl text-slate-400">cloud_upload</span>
-                    <span className="text-lg">Click to upload your artwork</span>
+                    <span className="material-icons text-4xl text-slate-400">videocam</span>
+                    <span className="text-lg">Click to upload your performance video</span>
                     <span className="text-sm text-slate-400">
-                      Accepted formats: JPG, PNG, PDF (Max 10MB)
+                      Accepted formats: MP4, AVI, MOV, WMV, MKV (Max 100MB)
                     </span>
                   </label>
                   {formData.file && (
@@ -386,7 +393,7 @@ export default function ArtSubmissionPage() {
                       ></div>
                     </div>
                     <p className="text-xs text-slate-400 mt-2">
-                      Please wait while your file is being uploaded. Do not close this page.
+                      Please wait while your video is being uploaded. Do not close this page.
                     </p>
                   </div>
                 )}
@@ -395,7 +402,7 @@ export default function ArtSubmissionPage() {
                 {submitStatus === 'success' && formData.file && (
                   <div className="p-4 bg-green-900/30 border border-green-700/50 rounded-lg">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-green-300 font-medium">✓ File uploaded successfully!</span>
+                      <span className="text-green-300 font-medium">✓ Video uploaded successfully!</span>
                     </div>
                     <div className="text-sm text-green-200">
                       <div>File: {formData.file.name}</div>
@@ -411,14 +418,14 @@ export default function ArtSubmissionPage() {
             {submitStatus === 'success' && (
               <div className="bg-green-900/30 border border-green-700/50 rounded-lg p-4 text-green-300">
                 <span className="material-icons mr-2">check_circle</span>
-                Artwork submitted successfully! Your file has been uploaded to the server and is now accessible by the judging panel.
+                Singing performance submitted successfully! Your video has been uploaded to the server and is now accessible by the judging panel.
               </div>
             )}
 
             {submitStatus === 'error' && (
               <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-4 text-red-300">
                 <span className="material-icons mr-2">error</span>
-                There was an error uploading your artwork. Please try again.
+                There was an error uploading your video. Please try again.
               </div>
             )}
 
@@ -430,7 +437,7 @@ export default function ArtSubmissionPage() {
                 className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all ${
                   isSubmitting || isRoyalCollegeBlocked || isUploading
                     ? 'bg-slate-600 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-slate-900'
+                    : 'bg-gradient-to-r from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white'
                 }`}
               >
                 {isUploading ? (
@@ -444,7 +451,7 @@ export default function ArtSubmissionPage() {
                     Saving Submission...
                   </span>
                 ) : (
-                  'Submit Artwork'
+                  'Submit Performance'
                 )}
               </button>
             )}
@@ -455,51 +462,46 @@ export default function ArtSubmissionPage() {
                 type="button"
                 onClick={() => {
                   setSubmitStatus(null);
-                  setFormData({
-                    name: '',
-                    email: '',
-                    school: '',
-                    category: '',
-                    title: '',
+                  setFormData(prev => ({
+                    ...prev,
+                    songTitle: '',
                     description: '',
                     file: null
-                  });
+                  }));
                   setUploadProgress(0);
                   // Reset file input
                   const fileInput = document.getElementById('file-input');
-                  if (fileInput) {
-                    fileInput.value = '';
-                  }
+                  if (fileInput) fileInput.value = '';
                 }}
-                className="w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-slate-900"
+                className="w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white"
               >
-                Submit Another Artwork
+                Submit Another Performance
               </button>
             )}
           </form>
 
           {/* Guidelines Section */}
           <div className="mt-12 pt-8 border-t border-slate-600">
-            <h3 className="text-xl font-bold mb-4 text-yellow-300">Submission Guidelines</h3>
+            <h3 className="text-xl font-bold mb-4 text-pink-300">Submission Guidelines</h3>
             <div className="grid md:grid-cols-2 gap-6 text-sm">
               <div>
-                <h4 className="font-semibold mb-2 text-orange-300">Artwork Requirements:</h4>
+                <h4 className="font-semibold mb-2 text-purple-300">Video Requirements:</h4>
                 <ul className="space-y-1 text-slate-300">
-                  <li>• Art must be original and created by you</li>
-                  <li>• Include a German title and description</li>
-                  <li>• Accepted formats: JPG, PNG, PDF</li>
-                  <li>• Maximum file size: 10MB</li>
-                  <li>• Recommended: A4 or A3 size works</li>
+                  <li>• Maximum duration: 4 minutes</li>
+                  <li>• Song must be in German language</li>
+                  <li>• Clear audio and video quality</li>
+                  <li>• File formats: MP4, AVI, MOV, WMV, MKV</li>
+                  <li>• Maximum file size: 100MB</li>
                 </ul>
               </div>
               <div>
-                <h4 className="font-semibold mb-2 text-orange-300">Submission Tips:</h4>
+                <h4 className="font-semibold mb-2 text-purple-300">Performance Tips:</h4>
                 <ul className="space-y-1 text-slate-300">
-                  <li>• Scan or photograph artwork clearly</li>
-                  <li>• Ensure good lighting and focus</li>
-                  <li>• Use German themes or cultural elements</li>
-                  <li>• Write titles and descriptions in German</li>
-                  <li>• Show creativity and personal expression</li>
+                  <li>• Focus on clear German pronunciation</li>
+                  <li>• Express emotion through voice and gestures</li>
+                  <li>• Backing tracks or a cappella allowed</li>
+                  <li>• Record in good lighting conditions</li>
+                  <li>• Practice vocal quality and delivery</li>
                 </ul>
               </div>
             </div>

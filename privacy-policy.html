@@ -94,12 +94,12 @@
                     <li>Artwork titles and descriptions</li>
                 </ul>
 
-                <h3 class="text-xl font-medium mb-3 text-blue-300">Google Account Information</h3>
-                <p class="text-slate-300 mb-4">When you authenticate with Google Drive, we may access:</p>
+                <h3 class="text-xl font-medium mb-3 text-blue-300">File Upload Information</h3>
+                <p class="text-slate-300 mb-4">When you upload artwork files, we may access:</p>
                 <ul class="list-disc list-inside text-slate-300 space-y-2">
-                    <li>Your Google account email address</li>
-                    <li>Your Google account display name</li>
-                    <li>Profile information necessary for authentication</li>
+                    <li>File content for uploading to GoFile hosting service</li>
+                    <li>File metadata (name, size, format)</li>
+                    <li>Upload timestamps and status</li>
                 </ul>
             </section>
 
@@ -109,16 +109,16 @@
                 <p class="text-slate-300 mb-4">We use the collected information for:</p>
                 <ul class="list-disc list-inside text-slate-300 space-y-2">
                     <li>Processing and managing competition submissions</li>
-                    <li>Facilitating file uploads to your personal Google Drive</li>
+                    <li>Facilitating file uploads to GoFile hosting service</li>
                     <li>Communicating with participants about competition updates</li>
                     <li>Organizing and judging competition entries</li>
                     <li>Displaying winners and showcasing artwork (with permission)</li>
                 </ul>
             </section>
 
-            <!-- Google Drive Integration -->
+            <!-- File Storage Integration -->
             <section>
-                <h2 class="text-2xl font-semibold mb-4 text-yellow-400">Google Drive Integration</h2>
+                <h2 class="text-2xl font-semibold mb-4 text-yellow-400">File Storage Integration</h2>
                 
                 <div class="bg-blue-900/30 border border-blue-700/50 rounded-lg p-4 mb-4">
                     <h3 class="text-lg font-medium mb-2 text-blue-300 flex items-center">
@@ -126,17 +126,17 @@
                         Important: File Storage
                     </h3>
                     <p class="text-blue-200 text-sm">
-                        Your submitted files are stored in <strong>your own Google Drive</strong>, not on our servers. We only store links to access these files for judging purposes.
+                        Your submitted files are uploaded to <strong>GoFile</strong>, a third-party file hosting service. We only store links to access these files for judging purposes.
                     </p>
                 </div>
 
-                <p class="text-slate-300 mb-4">Our Google Drive integration:</p>
+                <p class="text-slate-300 mb-4">Our file upload system:</p>
                 <ul class="list-disc list-inside text-slate-300 space-y-2">
-                    <li>Uploads your artwork files directly to your personal Google Drive</li>
-                    <li>Makes files publicly viewable (anyone with the link can view) for judging</li>
-                    <li>Stores only the public sharing links in our database</li>
+                    <li>Uploads your artwork files to GoFile hosting service</li>
+                    <li>Makes files publicly accessible via direct links for judging</li>
+                    <li>Stores only the public file links and metadata in our database</li>
                     <li>Does not store actual files on our servers</li>
-                    <li>Allows you to maintain full ownership of your files</li>
+                    <li>Files are hosted by GoFile according to their terms of service</li>
                 </ul>
             </section>
 
@@ -171,8 +171,8 @@
                     <li><strong>Access:</strong> Request information about data we have collected</li>
                     <li><strong>Correction:</strong> Request correction of inaccurate information</li>
                     <li><strong>Deletion:</strong> Request deletion of your personal data</li>
-                    <li><strong>Revoke Access:</strong> Revoke Google Drive access through your Google account settings</li>
-                    <li><strong>File Control:</strong> Manage or delete files in your own Google Drive at any time</li>
+                    <li><strong>File Management:</strong> Contact us to manage or remove uploaded files</li>
+                    <li><strong>Data Portability:</strong> Request a copy of your submitted data</li>
                 </ul>
             </section>
 
@@ -181,14 +181,14 @@
                 <h2 class="text-2xl font-semibold mb-4 text-yellow-400">Third-Party Services</h2>
                 <p class="text-slate-300 mb-4">Our application integrates with:</p>
                 <ul class="list-disc list-inside text-slate-300 space-y-2 mb-4">
-                    <li><strong>Google Drive API:</strong> For file storage and sharing</li>
+                    <li><strong>GoFile:</strong> For file hosting and storage</li>
                     <li><strong>Firebase:</strong> For database and hosting services</li>
                 </ul>
                 <p class="text-slate-300">
                     These services have their own privacy policies, which we encourage you to review:
                 </p>
                 <ul class="list-disc list-inside text-slate-300 space-y-1 mt-2">
-                    <li><a href="https://policies.google.com/privacy" target="_blank" class="text-blue-400 hover:text-blue-300 underline">Google Privacy Policy</a></li>
+                    <li><a href="https://gofile.io/legal" target="_blank" class="text-blue-400 hover:text-blue-300 underline">GoFile Terms & Privacy</a></li>
                     <li><a href="https://firebase.google.com/support/privacy" target="_blank" class="text-blue-400 hover:text-blue-300 underline">Firebase Privacy Policy</a></li>
                 </ul>
             </section>
