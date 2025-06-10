@@ -191,7 +191,7 @@ export default function SingingSubmissionPage() {
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
-        <div className="absolute inset-0 opacity-5" style={{background: "url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&q=80') center/cover no-repeat fixed"}}></div>
+        {/* <div className="absolute inset-0 opacity-5" style={{background: "url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&q=80') center/cover no-repeat fixed"}}></div> */}
       </div>
 
       {/* Glass elements */}

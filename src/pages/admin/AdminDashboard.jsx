@@ -13,6 +13,7 @@ import {
   orderBy 
 } from '@firebase/firestore';
 import CustomDropdown from '../../components/admin/ui/CustomDropdown.jsx';
+import competitionMapping from '../../data/competition-mapping.json';
 
 export default function AdminDashboard() {
   const { currentUser, logout } = useAuth();
@@ -69,12 +70,10 @@ export default function AdminDashboard() {
 
           if (matchedCompetition) {
             // Competition document was found in the fetched competitions list
-            competitionDisplayName = matchedCompetition.title || competitionId; // Use its title, or fallback to its ID
+            competitionDisplayName = matchedCompetition.title || competitionId;
           } else {
-            // No document found in 'competitions' collection for this competitionId
-            // This might happen if a competition was deleted but its registrations remain,
-            // or if there's a data inconsistency.
-            competitionDisplayName = `${competitionId} (Details Missing)`; 
+            // Use predefined mapping as fallback
+            competitionDisplayName = competitionMapping.competitions[competitionId] || `${competitionId} (Details Missing)`;
           }
           
           return {
@@ -87,6 +86,15 @@ export default function AdminDashboard() {
         });
         
         setRegistrations(registrationsData);
+        
+        // Use competitions from Firestore if available, otherwise use predefined mapping
+        if (competitionsData.length === 0) {
+          const predefinedCompetitions = Object.entries(competitionMapping.competitions).map(([id, title]) => ({
+            id,
+            title
+          }));
+          setCompetitions(predefinedCompetitions);
+        }
       } catch (err) {
         console.error("Error fetching data:", err);
         setError("Failed to load registrations. Please try again.");
@@ -426,6 +434,7 @@ export default function AdminDashboard() {
               <thead className="bg-black/40">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Name</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">School</th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Email</th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Competition</th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Category</th>
