@@ -5,6 +5,7 @@ import './style.css';
 import './admin-style.css'; // Import admin-specific styles
 import AdminLogin from './pages/admin/AdminLogin.jsx';
 import AdminDashboard from './pages/admin/AdminDashboard.jsx';
+import AdminSubmissions from './pages/admin/AdminSubmissions.jsx';
 import RegistrationDetails from './pages/admin/RegistrationDetails.jsx';
 import AuthProvider, { useAuth } from './components/admin/AuthContext.jsx';
 import AdminLayout from './components/admin/ui/AdminLayout.jsx';
@@ -44,16 +45,17 @@ const AdminApp = () => {
           } />
           <Route path="/admin/dashboard" element={
             <ProtectedRoute>
-              <AdminLayout>
-                <AdminDashboard />
-              </AdminLayout>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/submissions" element={
+            <ProtectedRoute>
+              <AdminSubmissions />
             </ProtectedRoute>
           } />
           <Route path="/admin/registration/:competitionId/:registrationId" element={
             <ProtectedRoute>
-              <AdminLayout>
-                <RegistrationDetails />
-              </AdminLayout>
+              <RegistrationDetails />
             </ProtectedRoute>
           } />
           <Route path="*" element={<Navigate to="/admin.html" replace />} />

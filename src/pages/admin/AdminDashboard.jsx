@@ -292,16 +292,28 @@ export default function AdminDashboard() {
         {/* Main content card - adjusted for black glass theme */}
         <div className="backdrop-blur-lg bg-black/50 border border-gray-700/50 rounded-xl p-6 shadow-2xl">
           {/* Section header - REMOVED German flag accent */}
-          <div className="mb-8">
-            {/* Optional: a subtle dark-themed accent line */}
-            {/* <div className="h-1 w-16 mb-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full"></div> */}
-            <h2 className="text-xl font-bold mb-2 flex items-center text-gray-200">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          <div className="mb-8 flex items-start justify-between">
+            <div>
+              {/* Optional: a subtle dark-themed accent line */}
+              {/* <div className="h-1 w-16 mb-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full"></div> */}
+              <h2 className="text-xl font-bold mb-2 flex items-center text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Registration Management
+              </h2>
+              <p className="text-gray-400 text-sm">Manage all competition registrations for German Day 2025</p>
+            </div>
+            
+            <button
+              onClick={() => navigate('/admin/submissions')}
+              className="group flex items-center px-4 py-2 backdrop-blur-md bg-gray-800/30 hover:bg-gray-700/40 border border-gray-600/50 hover:border-gray-500/70 rounded-lg text-gray-300 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
-              Registration Management
-            </h2>
-            <p className="text-gray-400 text-sm">Manage all competition registrations for German Day 2025</p>
+              <span className="text-sm font-medium">Submissions</span>
+            </button>
           </div>
           
           {/* Stats - adjusted for black glass theme */}
