@@ -4,6 +4,7 @@ import { collection, addDoc, serverTimestamp } from '@firebase/firestore';
 import Alert from './components/Alert';
 
 import competitions from './data/competitions.json';
+import schools from './data/schools.json';
 
 // Create a single alert instance for the entire app
 const alertManager = new Alert();
@@ -245,13 +246,14 @@ function CompetitionDetails() {
     const formData = new FormData(registrationForm);
     const data = Object.fromEntries(formData.entries());
     
-    // Validation: Check if Royal College student is trying to register for Inter School competition
-    const schoolName = data.schoolName?.toLowerCase() || '';
-    const category = data.category || '';
+    // Auto-detect category based on school selection
+    const schoolName = data.schoolName || '';
+    const selectedSchool = schools.schools.find(school => school.name === schoolName);
     
-    if (schoolName.includes('royal') && category === 'Inter School') {
-      alertManager.show("Students from Royal College are not allowed to participate in Inter School Competitions.", "error");
-      return; // Stop form submission
+    if (selectedSchool) {
+      data.category = selectedSchool.category;
+    } else {
+      data.category = 'Inter School'; // Default for unknown schools
     }
     
     data.timestamp = serverTimestamp(); // Add timestamp
@@ -282,16 +284,29 @@ function CompetitionDetails() {
   // Form fields
   const formFields = [
     { type: "text", name: "fullName", label: "Full Name", required: true },
-    { type: "text", name: "schoolName", label: "School Name", required: true },
-    { type: "email", name: "email", label: "Email", required: true },
-    { type: "tel", name: "phone", label: "Phone Number (WhatsApp)", required: true },
     { 
       type: "custom-select", 
-      name: "category", 
-      label: "Category", 
+      name: "schoolName", 
+      label: "School/Institution", 
       required: true,
-      options: competition.categoryOptions
+      options: [
+        { value: "", label: "Select your school" },
+        ...schools.schools
+          .filter(school => {
+            // Exclude Royal College for Speech competition (Tongue Twister Challenge)
+            if (competitionId === 'ttc' && school.name.toLowerCase().includes('royal college')) {
+              return false;
+            }
+            return true;
+          })
+          .map(school => ({
+            value: school.name,
+            label: school.name
+          }))
+      ]
     },
+    { type: "email", name: "email", label: "Email", required: true },
+    { type: "tel", name: "phone", label: "Phone Number (WhatsApp)", required: true },
     // { 
     //   type: "textarea", 
     //   name: "experience", 

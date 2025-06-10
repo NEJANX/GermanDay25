@@ -216,7 +216,7 @@ html, body {
   border-radius: 0.5rem;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  background-color: rgba(160, 160, 163, 0.87); /* Darker, more opaque background */
+  background-color: rgba(0, 26, 51, 0.87); /* Darker, more opaque background */
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Adding shadow for depth */
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);

@@ -4,6 +4,7 @@ import { collection, addDoc } from '@firebase/firestore';
 import SubmissionDropdown from '../components/SubmissionDropdown.jsx';
 import Alert from '../components/Alert.js';
 import gofileService from '../services/gofileService.js';
+import { SchoolService } from '../services/schoolService.js';
 
 // Debounce utility function
 const useDebounce = (value, delay) => {
@@ -27,40 +28,40 @@ export default function ArtSubmissionPage() {
     name: '',
     email: '',
     school: '',
-    category: '',
     title: '',
     description: '',
     file: null
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-  const [isRoyalCollegeBlocked, setIsRoyalCollegeBlocked] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [detectedCategory, setDetectedCategory] = useState('');
 
   // Initialize Alert instance
   const alert = new Alert();
 
-  // Debounce the school and category values for validation
+  // Debounce the school value for validation
   const debouncedSchool = useDebounce(formData.school, 300);
-  const debouncedCategory = useDebounce(formData.category, 300);
 
   // Initialize component
   useEffect(() => {
     // No initialization needed for GoFile service
   }, []);
 
-  // Handle Royal College validation with debounced values
+  // Auto-detect category based on school selection
   useEffect(() => {
-    const isRoyal = debouncedSchool.toLowerCase().includes('royal');
-    const shouldBlock = isRoyal && debouncedCategory === 'Inter School';
-    setIsRoyalCollegeBlocked(shouldBlock);
-  }, [debouncedSchool, debouncedCategory]);
+    if (debouncedSchool) {
+      const category = SchoolService.getCategoryForSchool(debouncedSchool);
+      setDetectedCategory(category);
+    } else {
+      setDetectedCategory('');
+    }
+  }, [debouncedSchool]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     
-    // Just update the form data immediately for responsive UI
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -111,10 +112,8 @@ export default function ArtSubmissionPage() {
       return;
     }
 
-    // Check for Royal College + Inter School combination
-    const isRoyal = formData.school.toLowerCase().includes('royal');
-    if (isRoyal && formData.category === 'Inter School') {
-      alert.warning('Students from Royal College cannot participate in the Inter School category. Please change to Intra School category.', 8000);
+    if (!formData.school) {
+      alert.error('Please select your school.');
       return;
     }
 
@@ -137,7 +136,7 @@ export default function ArtSubmissionPage() {
         name: formData.name,
         email: formData.email,
         school: formData.school,
-        category: formData.category,
+        category: detectedCategory,
         title: formData.title,
         description: formData.description,
         fileName: formData.file.name,
@@ -268,43 +267,27 @@ export default function ArtSubmissionPage() {
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium mb-2">School/Institution *</label>
-                <input
-                  type="text"
-                  name="school"
+                <SubmissionDropdown
+                  options={SchoolService.getSchoolOptions()}
                   value={formData.school}
                   onChange={handleInputChange}
+                  placeholder="Select your school"
                   required
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
-                  placeholder="Enter your school name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Category *</label>
-                <SubmissionDropdown
-                  options={[
-                    { value: "", label: "Select a category" },
-                    { value: "Inter School", label: "Inter School" },
-                    { value: "Intra School", label: "Intra School" }
-                  ]}
-                  value={formData.category}
+                <label className="block text-sm font-medium mb-2">Email Address *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="Select a category"
                   required
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all"
+                  placeholder="Enter your email"
                 />
               </div>
             </div>
-
-            {/* Royal College Warning */}
-            {isRoyalCollegeBlocked && (
-              <div className="bg-orange-900/30 border border-orange-700/50 rounded-lg p-4">
-                <div className="flex items-center">
-                  <span className="material-icons text-orange-400 mr-2">warning</span>
-                  <span className="text-orange-300 font-medium">
-                    Students from Royal College cannot participate in the Inter School category. Please select Intra School category.
-                  </span>
-                </div>
-              </div>
-            )}
 
             {/* Artwork Information */}
             <div>
@@ -426,9 +409,9 @@ export default function ArtSubmissionPage() {
             {submitStatus !== 'success' && (
               <button
                 type="submit"
-                disabled={isSubmitting || isRoyalCollegeBlocked || isUploading}
+                disabled={isSubmitting || isUploading}
                 className={`w-full py-4 px-6 rounded-lg font-semibold text-lg transition-all ${
-                  isSubmitting || isRoyalCollegeBlocked || isUploading
+                  isSubmitting || isUploading
                     ? 'bg-slate-600 cursor-not-allowed'
                     : 'bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-slate-900'
                 }`}
@@ -459,11 +442,11 @@ export default function ArtSubmissionPage() {
                     name: '',
                     email: '',
                     school: '',
-                    category: '',
                     title: '',
                     description: '',
                     file: null
                   });
+                  setDetectedCategory('');
                   setUploadProgress(0);
                   // Reset file input
                   const fileInput = document.getElementById('file-input');

@@ -4,6 +4,7 @@ import { collection, addDoc } from '@firebase/firestore';
 import SubmissionDropdown from '../components/SubmissionDropdown.jsx';
 import Alert from '../components/Alert.js';
 import gofileService from '../services/gofileService.js';
+import { SchoolService } from '../services/schoolService.js';
 
 // Debounce utility function
 const useDebounce = (value, delay) => {
@@ -27,35 +28,36 @@ export default function PoetrySubmissionPage() {
     name: '',
     email: '',
     school: '',
-    category: '',
     poemTitle: '',
     description: '',
     file: null
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-  const [isRoyalCollegeBlocked, setIsRoyalCollegeBlocked] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [detectedCategory, setDetectedCategory] = useState('');
 
   // Initialize Alert instance
   const alert = new Alert();
 
-  // Debounce the school and category values for validation
+  // Debounce the school value for validation
   const debouncedSchool = useDebounce(formData.school, 300);
-  const debouncedCategory = useDebounce(formData.category, 300);
 
   // Initialize component
   useEffect(() => {
     // No initialization needed for GoFile service
   }, []);
 
-  // Royal College validation effect
+  // Auto-detect category based on school selection
   useEffect(() => {
-    const isRoyal = debouncedSchool.toLowerCase().includes('royal');
-    const isInterSchool = debouncedCategory === 'Inter School';
-    setIsRoyalCollegeBlocked(isRoyal && isInterSchool);
-  }, [debouncedSchool, debouncedCategory]);
+    if (debouncedSchool) {
+      const category = SchoolService.getCategoryForSchool(debouncedSchool);
+      setDetectedCategory(category);
+    } else {
+      setDetectedCategory('');
+    }
+  }, [debouncedSchool]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -119,9 +121,8 @@ export default function PoetrySubmissionPage() {
     }
 
     // Check for Royal College + Inter School combination
-    const isRoyal = formData.school.toLowerCase().includes('royal');
-    if (isRoyal && formData.category === 'Inter School') {
-      alert.warning('Students from Royal College cannot participate in the Inter School category. Please change to Intra School category.', 8000);
+    if (!formData.school) {
+      alert.error('Please select your school.');
       return;
     }
 
@@ -144,7 +145,7 @@ export default function PoetrySubmissionPage() {
         name: formData.name,
         email: formData.email,
         school: formData.school,
-        category: formData.category,
+        category: detectedCategory,
         poemTitle: formData.poemTitle,
         description: formData.description,
         fileName: formData.file.name,
@@ -270,43 +271,15 @@ export default function PoetrySubmissionPage() {
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium mb-2">School/Institution *</label>
-                <input
-                  type="text"
-                  name="school"
+                <SubmissionDropdown
+                  options={SchoolService.getSchoolOptions()}
                   value={formData.school}
                   onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-                  placeholder="Enter your school name"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Category *</label>
-                <SubmissionDropdown
-                  options={[
-                    { value: "", label: "Select a category" },
-                    { value: "Inter School", label: "Inter School" },
-                    { value: "Intra School", label: "Intra School" }
-                  ]}
-                  value={formData.category}
-                  onChange={handleInputChange}
-                  placeholder="Select a category"
+                  placeholder="Select your school"
                   required
                 />
               </div>
             </div>
-
-            {/* Royal College Warning */}
-            {isRoyalCollegeBlocked && (
-              <div className="bg-orange-900/30 border border-orange-700/50 rounded-lg p-4">
-                <div className="flex items-center">
-                  <span className="material-icons text-orange-400 mr-2">warning</span>
-                  <span className="text-orange-300 font-medium">
-                    Students from Royal College cannot participate in the Inter School category. Please select Intra School category.
-                  </span>
-                </div>
-              </div>
-            )}
 
             {/* Poem Information */}
             <div>
@@ -411,12 +384,8 @@ export default function PoetrySubmissionPage() {
             {!isUploading && !isSubmitting && submitStatus !== 'success' && (
               <button
                 type="submit"
-                disabled={isRoyalCollegeBlocked}
-                className={`w-full font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 ${
-                  isRoyalCollegeBlocked
-                    ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white'
-                }`}
+                disabled={false}
+                className="w-full font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white"
               >
                 Submit Recitation
               </button>
