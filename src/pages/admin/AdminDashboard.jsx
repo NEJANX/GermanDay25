@@ -214,6 +214,15 @@ export default function AdminDashboard() {
     return Array.from(uniqueCategories);
   }, [registrations]);
   
+  // Get unique competitions from registrations (for accurate counter)
+  const uniqueCompetitions = useMemo(() => {
+    const uniqueComps = new Set();
+    registrations.forEach(reg => {
+      if (reg.competitionId) uniqueComps.add(reg.competitionId);
+    });
+    return Array.from(uniqueComps);
+  }, [registrations]);
+  
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Background elements - REMOVED German flag theme */}
@@ -335,7 +344,7 @@ export default function AdminDashboard() {
                 </svg>
                 COMPETITIONS
               </h3>
-              <p className="text-3xl font-bold text-gray-200">{competitions.length}</p>
+              <p className="text-3xl font-bold text-gray-200">{uniqueCompetitions.length}</p>
             </div>
             
             <div className="backdrop-blur-md bg-gray-900/40 border border-gray-700/50 rounded-lg p-4 transition-transform hover:transform hover:translate-y-[-5px]">
