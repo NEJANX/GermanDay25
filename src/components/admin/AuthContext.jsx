@@ -4,7 +4,8 @@ import {
   onAuthStateChanged, 
   signOut 
 } from '@firebase/auth';
-import { auth } from '../../firebase-config';
+import { doc, getDoc } from '@firebase/firestore';
+import { auth, db } from '../../firebase-config';
 
 // Create the auth context
 const AuthContext = createContext();
@@ -17,6 +18,7 @@ export const useAuth = () => {
 // Auth provider component
 export default function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [adminData, setAdminData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -44,8 +46,29 @@ export default function AuthProvider({ children }) {
 
   // Setup auth state observer
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
+      
+      if (user) {
+        // Fetch admin data from admins collection
+        try {
+          const adminRef = doc(db, 'admins', user.uid);
+          const adminSnap = await getDoc(adminRef);
+          
+          if (adminSnap.exists()) {
+            setAdminData(adminSnap.data());
+          } else {
+            console.warn('No admin data found for user:', user.uid);
+            setAdminData(null);
+          }
+        } catch (err) {
+          console.error('Error fetching admin data:', err);
+          setAdminData(null);
+        }
+      } else {
+        setAdminData(null);
+      }
+      
       setLoading(false);
     });
 
@@ -55,6 +78,7 @@ export default function AuthProvider({ children }) {
 
   const value = {
     currentUser,
+    adminData,
     login,
     logout,
     error,
