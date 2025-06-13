@@ -466,7 +466,7 @@ export function App() {
         <svg class="w-5 h-5 mr-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
         </svg>
-        <span>Show ${hiddenEvents.length} more events</span>
+        <span>Show more</span>
       `;
       
       // Add click handler to expand/collapse

@@ -210,32 +210,30 @@ html, body {
   left: 0;
   right: 0;
   z-index: 50;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
   border-radius: 0.5rem;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  background-color: rgba(0, 26, 51, 0.87); /* Darker, more opaque background */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Adding shadow for depth */
+  background-color: rgba(30, 41, 59, 0.95); /* Better visibility with slate-800 */
+  border: 1px solid rgba(71, 85, 105, 0.5); /* slate-600 border */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateY(-10px);
+  overflow: auto;
 }
 
 .custom-select-options.active {
-  max-height: 250px;
-  opacity: 1;
-  transform: translateY(0);
+  max-height: 250px !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 .custom-select-option {
   padding: 0.75rem 1rem;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
 .custom-select-option:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* Slightly more visible hover state */
+  background-color: rgba(71, 85, 105, 0.5); /* slate-600 hover */
 }
 
 .custom-select-option.selected {

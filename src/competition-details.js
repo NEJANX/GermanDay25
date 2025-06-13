@@ -372,31 +372,32 @@ function CompetitionDetails() {
       
       // Options dropdown
       const optionsContainer = document.createElement("div");
-      optionsContainer.className = "custom-select-options";
-      optionsContainer.style.display = "none";
+      optionsContainer.className = "custom-select-options absolute top-full left-0 right-0 z-50 max-h-0 overflow-y-auto overflow-x-hidden opacity-0 rounded-lg backdrop-blur-md bg-slate-800/95 border border-slate-600 shadow-xl transition-all duration-300 transform translate-y-[-10px]";
       
       // Add options
       field.options.forEach((option, index) => {
         if (option.value === "") return; // Skip the placeholder option
         
         const optionEl = document.createElement("div");
-        optionEl.className = "px-4 py-2 hover:bg-slate-600 cursor-pointer";
+        optionEl.className = "px-4 py-3 hover:bg-slate-600/50 cursor-pointer text-white border-b border-slate-700/30 last:border-b-0 transition-colors text-sm";
         optionEl.textContent = option.label;
         optionEl.dataset.value = option.value;
         
-        optionEl.addEventListener("click", () => {
+        optionEl.addEventListener("click", (e) => {
+          e.stopPropagation();
           selectedText.textContent = option.label;
           selectedText.dataset.value = option.value;
           
           // Update selected state for all options
           optionsContainer.querySelectorAll('div').forEach(opt => {
-            opt.classList.remove('bg-slate-600');
+            opt.classList.remove('bg-slate-600/50');
           });
-          optionEl.classList.add('bg-slate-600');
+          optionEl.classList.add('bg-slate-600/50');
           
-          optionsContainer.classList.remove("active");
+          // Close dropdown
+          optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
+          optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
           arrowIcon.classList.remove("rotate-180");
-          optionsContainer.style.display = "none";
           
           // Create/update hidden input for form submission
           const hiddenInput = customSelect.querySelector('input[type="hidden"]');
@@ -414,22 +415,26 @@ function CompetitionDetails() {
       // Toggle dropdown on click
       selectedDisplay.addEventListener("click", (e) => {
         e.stopPropagation();
-        const isActive = optionsContainer.classList.contains("active");
+        const isOpen = optionsContainer.classList.contains("opacity-100");
         
-        if (isActive) {
-          optionsContainer.classList.remove("active");
+        if (isOpen) {
+          // Close dropdown
+          optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
+          optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
           arrowIcon.classList.remove("rotate-180");
         } else {
-          optionsContainer.classList.add("active");
+          // Open dropdown
+          optionsContainer.classList.remove("max-h-0", "opacity-0", "translate-y-[-10px]");
+          optionsContainer.classList.add("max-h-60", "opacity-100", "translate-y-0");
           arrowIcon.classList.add("rotate-180");
-          optionsContainer.style.display = "block"; // Ensure it's visible
         }
       });
       
       // Close dropdown when clicking outside
       document.addEventListener("click", (e) => {
         if (!customSelect.contains(e.target)) {
-          optionsContainer.classList.remove("active");
+          optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
+          optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
           arrowIcon.classList.remove("rotate-180");
         }
       });
