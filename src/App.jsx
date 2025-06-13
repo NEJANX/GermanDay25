@@ -395,7 +395,12 @@ export function App() {
       ];
     }
     
-    eventTimes.forEach(item => {
+    // Show only first 5 events initially
+    const visibleEvents = eventTimes.slice(0, 5);
+    const hiddenEvents = eventTimes.slice(5);
+    
+    // Create visible events
+    visibleEvents.forEach(item => {
       const eventItem = document.createElement("div");
       eventItem.className = "px-6 py-4 flex flex-col sm:flex-row sm:items-center hover:bg-slate-700/20 transition-colors";
       
@@ -418,6 +423,72 @@ export function App() {
       eventItem.append(eventTime, eventInfo, eventLocation);
       eventsList.appendChild(eventItem);
     });
+    
+    // Create hidden events container
+    if (hiddenEvents.length > 0) {
+      const hiddenEventsContainer = document.createElement("div");
+      hiddenEventsContainer.className = "hidden";
+      hiddenEventsContainer.id = `hidden-events-${index}`;
+      
+      hiddenEvents.forEach(item => {
+        const eventItem = document.createElement("div");
+        eventItem.className = "px-6 py-4 flex flex-col sm:flex-row sm:items-center hover:bg-slate-700/20 transition-colors border-t border-slate-700/50";
+        
+        const eventTime = document.createElement("div");
+        eventTime.className = "font-mono text-yellow-300 sm:w-1/4";
+        eventTime.textContent = item.time;
+        
+        const eventInfo = document.createElement("div");
+        eventInfo.className = "sm:w-2/4";
+        
+        const eventName = document.createElement("div");
+        eventName.className = "font-medium";
+        eventName.textContent = item.event;
+        
+        const eventLocation = document.createElement("div");
+        eventLocation.className = "sm:w-1/4 text-slate-400 text-sm text-right sm:block flex mt-1 sm:mt-0";
+        eventLocation.textContent = item.location;
+        
+        eventInfo.appendChild(eventName);
+        eventItem.append(eventTime, eventInfo, eventLocation);
+        hiddenEventsContainer.appendChild(eventItem);
+      });
+      
+      eventsList.appendChild(hiddenEventsContainer);
+      
+      // Create expand button
+      const expandButton = document.createElement("div");
+      expandButton.className = "px-6 py-4 border-t border-slate-700/50 bg-slate-800/30 hover:bg-slate-700/30 transition-colors";
+      
+      const expandBtn = document.createElement("button");
+      expandBtn.className = "w-full flex items-center justify-center text-yellow-300 hover:text-yellow-200 font-medium transition-colors";
+      expandBtn.innerHTML = `
+        <svg class="w-5 h-5 mr-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+        <span>Show ${hiddenEvents.length} more events</span>
+      `;
+      
+      // Add click handler to expand/collapse
+      expandBtn.addEventListener('click', () => {
+        const hiddenContainer = document.getElementById(`hidden-events-${index}`);
+        const svg = expandBtn.querySelector('svg');
+        const span = expandBtn.querySelector('span');
+        
+        if (hiddenContainer.classList.contains('hidden')) {
+          hiddenContainer.classList.remove('hidden');
+          svg.style.transform = 'rotate(180deg)';
+          span.textContent = 'Show less';
+        } else {
+          hiddenContainer.classList.add('hidden');
+          svg.style.transform = 'rotate(0deg)';
+          span.textContent = `Show ${hiddenEvents.length} more events`;
+        }
+      });
+      
+      expandButton.appendChild(expandBtn);
+      eventsList.appendChild(expandButton);
+    }
     
     dayCard.append(dayHeader, eventsList);
     schedule.appendChild(dayCard);
