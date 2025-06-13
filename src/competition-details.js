@@ -521,8 +521,22 @@ function CompetitionDetails() {
   return container;
 }
 
+// Helper function to clean up existing mobile menus
+function cleanupMobileMenu() {
+  const existingMobileMenu = document.getElementById('competition-mobile-menu');
+  if (existingMobileMenu) {
+    existingMobileMenu.remove();
+  }
+  
+  // Also remove mobile menu open class from body if it exists
+  document.body.classList.remove('mobile-menu-open');
+}
+
 // Helper function to create navigation with German flag elements
 function createNavigation() {
+  // Clean up any existing mobile menu to prevent duplicates
+  cleanupMobileMenu();
+  
   const navbar = document.createElement("nav");
   navbar.className = "sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4";
   
