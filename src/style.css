@@ -275,3 +275,53 @@ html, body {
 .alert-container {
   z-index: 9999;
 }
+
+/* Mobile Menu Styles */
+.hamburger-icon,
+.close-icon {
+  transition: all 0.3s ease;
+}
+
+.hamburger-icon.hidden,
+.close-icon.hidden {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.8);
+}
+
+.hamburger-icon:not(.hidden),
+.close-icon:not(.hidden) {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Mobile menu panel smooth slide */
+.mobile-menu-panel {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Prevent body scroll when mobile menu is open */
+body.mobile-menu-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* Mobile menu link hover effects */
+.mobile-menu-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-menu-link::before {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.mobile-menu-link:hover::before {
+  left: 100%;
+}

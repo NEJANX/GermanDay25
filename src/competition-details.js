@@ -62,7 +62,9 @@ function CompetitionDetails() {
   container.appendChild(glassElements);
   
   // Create navigation
-  container.appendChild(createNavigation());
+  const { navbar, mobileMenu } = createNavigation();
+  container.appendChild(navbar);
+  container.appendChild(mobileMenu);
   
   // Main content
   const content = document.createElement("div");
@@ -553,15 +555,85 @@ function createNavigation() {
   });
   
   const mobileMenuBtn = document.createElement("button");
-  mobileMenuBtn.className = "md:hidden text-white p-2";
-  mobileMenuBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-  </svg>`;
+  mobileMenuBtn.className = "md:hidden text-white p-2 relative z-50 transition-all duration-300";
+  mobileMenuBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hamburger-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 close-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  `;
+  
+  // Create mobile menu
+  const mobileMenu = document.createElement("div");
+  mobileMenu.className = "fixed inset-0 z-40 md:hidden transform translate-x-full transition-transform duration-300 ease-in-out";
+  
+  const mobileMenuOverlay = document.createElement("div");
+  mobileMenuOverlay.className = "absolute inset-0 bg-black/50 backdrop-blur-sm";
+  
+  const mobileMenuPanel = document.createElement("div");
+  mobileMenuPanel.className = "absolute right-0 top-0 h-full w-80 max-w-sm bg-slate-900/95 backdrop-blur-md border-l border-slate-700 shadow-2xl";
+  
+  const mobileMenuContent = document.createElement("div");
+  mobileMenuContent.className = "flex flex-col h-full pt-20 px-6";
+  
+  // Add mobile menu links
+  ["Home", "Competitions", "Schedule", "Gallery"].forEach(link => {
+    const a = document.createElement("a");
+    a.href = link.toLowerCase() === "home" ? "/" : `/#${link.toLowerCase()}`;
+    a.className = "mobile-menu-link block py-4 px-4 text-lg font-medium text-slate-300 hover:text-yellow-200 border-b border-slate-700/50 transition-all duration-300 hover:bg-slate-800/50 rounded-lg";
+    a.textContent = link;
+    
+    // Close menu when link is clicked
+    a.addEventListener('click', () => {
+      toggleMobileMenu();
+    });
+    
+    mobileMenuContent.appendChild(a);
+  });
+  
+  mobileMenuPanel.appendChild(mobileMenuContent);
+  mobileMenu.append(mobileMenuOverlay, mobileMenuPanel);
+  
+  // Toggle mobile menu function
+  function toggleMobileMenu() {
+    const hamburgerIcon = mobileMenuBtn.querySelector('.hamburger-icon');
+    const closeIcon = mobileMenuBtn.querySelector('.close-icon');
+    
+    if (mobileMenu.classList.contains('translate-x-full')) {
+      // Open menu
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenu.classList.add('translate-x-0');
+      hamburgerIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      // Close menu
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.remove('translate-x-0');
+      hamburgerIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+      document.body.classList.remove('mobile-menu-open');
+    }
+  }
+  
+  // Add event listeners
+  mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+  mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+  
+  // Close menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !mobileMenu.classList.contains('translate-x-full')) {
+      toggleMobileMenu();
+    }
+  });
   
   navContent.append(logo, navLinks, mobileMenuBtn);
   navbar.appendChild(navContent);
   
-  return navbar;
+  // Return both navbar and mobile menu
+  return { navbar, mobileMenu };
 }
 
 // Helper function to create footer with German theme
