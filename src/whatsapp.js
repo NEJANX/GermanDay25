@@ -5,7 +5,8 @@ const whatsappGroups = {
   poetry: "https://chat.whatsapp.com/FZitmFAt5M73dq5IXaEvto",
   ttc: "https://chat.whatsapp.com/E3foCrwU1cIJ2t3aX2gcUj",
   speech: "https://chat.whatsapp.com/CuP5EJvhFYgKYFcNTmMybD",
-  general: "https://chat.whatsapp.com/I8MsaEkK84k2O4StyXWixS"
+  // general: "https://chat.whatsapp.com/I8MsaEkK84k2O4StyXWixS"
+  general: "https://whatsapp.com/channel/0029VbAeB5AFHWq56blkur1e"
 };
 
 // Get competition ID from URL path

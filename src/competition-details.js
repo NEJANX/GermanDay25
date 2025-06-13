@@ -271,7 +271,8 @@ function CompetitionDetails() {
       setTimeout(() => {
         // Use absolute URL construction for production
         const baseUrl = window.location.origin;
-        const redirectUrl = `${baseUrl}/whatsapp/${competitionId}`;
+        const redirectUrl = `${baseUrl}/whatsapp/`;
+        // const redirectUrl = `${baseUrl}/whatsapp/${competitionId}`;
         console.log('Redirecting to:', redirectUrl); // Debug log
         window.location.href = redirectUrl;
       }, 2000);
