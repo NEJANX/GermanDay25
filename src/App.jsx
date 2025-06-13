@@ -78,6 +78,7 @@ export function App() {
   
   // Create mobile menu
   const mobileMenu = document.createElement("div");
+  mobileMenu.id = "main-mobile-menu";
   mobileMenu.className = "fixed inset-0 z-40 md:hidden transform translate-x-full transition-transform duration-300 ease-in-out";
   
   const mobileMenuOverlay = document.createElement("div");
@@ -142,6 +143,12 @@ export function App() {
   
   navContent.append(logo, navLinks, mobileMenuBtn);
   navbar.appendChild(navContent);
+  
+  // Remove any existing mobile menus before adding the new one
+  const existingMobileMenu = document.getElementById('main-mobile-menu');
+  if (existingMobileMenu) {
+    existingMobileMenu.remove();
+  }
   
   // Add mobile menu to container
   container.appendChild(mobileMenu);
@@ -878,7 +885,7 @@ export function App() {
   contactInfo.className = "space-y-3 text-sm text-slate-400";
   
   const contactItems = [
-    { icon: "email", text: "royalcollegegermanunit@gmail.com" },
+    { icon: "email", text: "info@germanday.live" },
     { icon: "phone", text: "+94 75 122 8301" }
   ];
   

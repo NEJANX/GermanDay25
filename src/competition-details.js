@@ -567,6 +567,7 @@ function createNavigation() {
   
   // Create mobile menu
   const mobileMenu = document.createElement("div");
+  mobileMenu.id = "competition-mobile-menu";
   mobileMenu.className = "fixed inset-0 z-40 md:hidden transform translate-x-full transition-transform duration-300 ease-in-out";
   
   const mobileMenuOverlay = document.createElement("div");
@@ -702,7 +703,7 @@ function createFooter() {
   contactInfo.className = "space-y-3 text-sm text-slate-400";
   
   const contactItems = [
-    { icon: "email", text: "royalcollegegermanunit@gmail.com" },
+    { icon: "email", text: "info@germanday.live" },
     { icon: "phone", text: "+94 75 122 8301" }
   ];
   
