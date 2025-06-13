@@ -623,7 +623,7 @@ function createFooter() {
   contactInfo.className = "space-y-3 text-sm text-slate-400";
   
   const contactItems = [
-    { icon: "email", text: "info@rcgu.lk" },
+    { icon: "email", text: "royalcollegegermanunit@gmail.com" },
     { icon: "phone", text: "+94 75 122 8301" }
   ];
   
