@@ -6,6 +6,7 @@ import ArtSubmissionPage from './pages/ArtSubmissionPage.jsx';
 import SingingSubmissionPage from './pages/SingingSubmissionPage.jsx';
 import PoetrySubmissionPage from './pages/PoetrySubmissionPage.jsx';
 import SpeechSubmissionPage from './pages/SpeechSubmissionPage.jsx';
+import TongueTwisterSubmissionPage from './pages/TongueTwisterSubmissionPage.jsx';
 
 const SubmissionsApp = () => {
   return (
@@ -15,7 +16,8 @@ const SubmissionsApp = () => {
         <Route path="/submissions/singing" element={<SingingSubmissionPage />} />
         <Route path="/submissions/poetry" element={<PoetrySubmissionPage />} />
         <Route path="/submissions/speech" element={<SpeechSubmissionPage />} />
-        <Route path="*" element={<Navigate to="/submissions/art" replace />} />
+        <Route path="/submissions/ttc" element={<TongueTwisterSubmissionPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
