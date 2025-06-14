@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App.jsx';
@@ -57,3 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeObserver.observe(el);
   });
 });
+=======
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+import "./style.css";
+
+const rootElement = document.getElementById("root");
+if (rootElement) {
+  createRoot(rootElement).render(<App />);
+}
+>>>>>>> Stashed changes

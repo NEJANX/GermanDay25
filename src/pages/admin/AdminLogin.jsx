@@ -82,7 +82,10 @@ export default function AdminLogin() {
                 height: `${size}px`,
                 left: `${posX}%`,
                 top: `${posY}%`,
+<<<<<<< Updated upstream
                 
+=======
+>>>>>>> Stashed changes
               }}
             />
           );

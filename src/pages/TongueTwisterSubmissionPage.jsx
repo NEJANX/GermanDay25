@@ -189,6 +189,7 @@ export default function TongueTwisterSubmissionPage() {
   return (
     <div className="min-h-screen bg-slate-900 text-white">
       {/* Background */}
+<<<<<<< Updated upstream
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
       </div>
@@ -208,6 +209,8 @@ export default function TongueTwisterSubmissionPage() {
           />
         ))}
       </div>
+=======
+>>>>>>> Stashed changes
 
       {/* Navigation */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4">
@@ -421,7 +424,7 @@ export default function TongueTwisterSubmissionPage() {
             </div>
             <div className="flex items-start">
               <span className="text-blue-400 mr-3">•</span>
-              <span>Performance should be between 1-3 minutes long</span>
+              <span>Performance should be between 30 seconds and 1 minute long</span>
             </div>
             <div className="flex items-start">
               <span className="text-blue-400 mr-3">•</span>

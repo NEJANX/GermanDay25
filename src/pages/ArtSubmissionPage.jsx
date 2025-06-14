@@ -183,6 +183,7 @@ export default function ArtSubmissionPage() {
   return (
     <div className="min-h-screen bg-slate-900 text-white">
       {/* Background */}
+<<<<<<< Updated upstream
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
         <div className="absolute inset-0 opacity-5" style={{background: "url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&q=80') center/cover no-repeat fixed"}}></div>
@@ -203,6 +204,8 @@ export default function ArtSubmissionPage() {
           />
         ))}
       </div>
+=======
+>>>>>>> Stashed changes
 
       {/* Navbar */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4">

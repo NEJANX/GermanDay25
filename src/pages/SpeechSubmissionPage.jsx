@@ -190,6 +190,7 @@ export default function SpeechSubmissionPage() {
   };
 
   return (
+<<<<<<< Updated upstream
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -206,6 +207,10 @@ export default function SpeechSubmissionPage() {
           />
         ))}
       </div>
+=======
+    <div className="min-h-screen bg-slate-900 text-white">
+      {/* Background */}
+>>>>>>> Stashed changes
 
       {/* Navbar */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4">

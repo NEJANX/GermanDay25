@@ -539,7 +539,11 @@ function createFooter() {
       <span class="h-4 w-1.5 bg-yellow-500 rounded-r"></span>
     </span>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <span class="text-lg font-bold">Zeit für Deutschland</span>
+=======
+    <span class="text-lg font-bold">Zeit für Deutsch '25</span>
+>>>>>>> Stashed changes
 =======
     <span class="text-lg font-bold">Zeit für Deutsch '25</span>
 >>>>>>> Stashed changes
