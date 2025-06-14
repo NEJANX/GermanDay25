@@ -233,7 +233,6 @@ export default function AdminDashboard() {
                 height: `${size}px`,
                 left: `${posX}%`,
                 top: `${posY}%`,
-                animation: `float 30s ease-in-out ${Math.random() * 10}s infinite alternate`
               }}
             />
           );

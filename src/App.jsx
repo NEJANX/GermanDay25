@@ -1,39 +1,12 @@
-export function App() {
-  // Create main container
-  const container = document.createElement("div");
-  container.className = "min-h-screen flex flex-col bg-slate-900 text-white overflow-x-hidden";
-  
-  // Add professional German-themed background
-  const backgroundOverlay = document.createElement("div");
-  backgroundOverlay.className = "fixed inset-0 z-0";
-  backgroundOverlay.innerHTML = `
-    <div class="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
-    <div class="absolute inset-0 opacity-5" style="background: url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&q=80') center/cover no-repeat fixed"></div>
-  `;
-  container.appendChild(backgroundOverlay);
-  
-  // Add subtle glass elements
-  const glassElements = document.createElement("div");
-  glassElements.className = "fixed inset-0 z-0 overflow-hidden";
-  
-  // Create fewer, more professional glass elements
-  for (let i = 0; i < 5; i++) {
-    const element = document.createElement("div");
-    const size = Math.random() * 300 + 100;
-    const posX = Math.random() * 100;
-    const posY = Math.random() * 100;
-    
-    element.className = "absolute rounded-full backdrop-blur-md bg-white/[0.02]";
-    element.style.width = `${size}px`;
-    element.style.height = `${size}px`;
-    element.style.left = `${posX}%`;
-    element.style.top = `${posY}%`;
-    element.style.animation = `float 30s ease-in-out ${Math.random() * 10}s infinite alternate`;
-    
-    glassElements.appendChild(element);
-  }
-  container.appendChild(glassElements);
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Competitions from "./components/Competitions";
+import Schedule from "./components/Schedule";
+import Gallery from "./components/Gallery";
+import Footer from "./components/Footer";
+import React from "react";
 
+<<<<<<< Updated upstream
   // Add professional-styled navbar
   const navbar = document.createElement("nav");
   navbar.className = "sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4";
@@ -706,4 +679,19 @@ export function App() {
   container.append(navbar, content, footer);
   
   return container;
+=======
+export function App() {
+  return (
+    <div className="min-h-screen flex flex-col bg-slate-900 text-white overflow-x-hidden">
+      <Navbar />
+      <main className="flex-1 z-10">
+        <Hero />
+        <Competitions />
+        <Schedule />
+        <Gallery />
+      </main>
+      <Footer />
+    </div>
+  );
+>>>>>>> Stashed changes
 }

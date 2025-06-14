@@ -43,7 +43,7 @@ function CompetitionDetails() {
   const glassElements = document.createElement("div");
   glassElements.className = "fixed inset-0 z-0 overflow-hidden";
   
-  // Create fewer, more professional glass elements
+  // // Create fewer, more professional glass elements
   for (let i = 0; i < 5; i++) {
     const element = document.createElement("div");
     const size = Math.random() * 300 + 100;
@@ -55,7 +55,6 @@ function CompetitionDetails() {
     element.style.height = `${size}px`;
     element.style.left = `${posX}%`;
     element.style.top = `${posY}%`;
-    element.style.animation = `float 30s ease-in-out ${Math.random() * 10}s infinite alternate`;
     
     glassElements.appendChild(element);
   }
@@ -489,7 +488,7 @@ function createNavigation() {
       <span class="h-5 w-2 bg-red-700"></span>
       <span class="h-5 w-2 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Zeit für Deutschland '25</span>
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Zeit für Deutsch '25</span>
   `;
   
   const navLinks = document.createElement("div");
@@ -539,7 +538,11 @@ function createFooter() {
       <span class="h-4 w-1.5 bg-red-700"></span>
       <span class="h-4 w-1.5 bg-yellow-500 rounded-r"></span>
     </span>
+<<<<<<< Updated upstream
     <span class="text-lg font-bold">Zeit für Deutschland</span>
+=======
+    <span class="text-lg font-bold">Zeit für Deutsch '25</span>
+>>>>>>> Stashed changes
   `;
   
   const aboutText = document.createElement("p");
