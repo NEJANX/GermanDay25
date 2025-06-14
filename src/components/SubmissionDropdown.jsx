@@ -43,6 +43,9 @@ export default function SubmissionDropdown({
 
   // Find the label for the currently selected value
   const getSelectedLabel = () => {
+    if (!options || !Array.isArray(options)) {
+      return placeholder;
+    }
     const selected = options.find(option => option.value === selectedValue);
     return selected ? selected.label : placeholder;
   };
@@ -68,7 +71,7 @@ export default function SubmissionDropdown({
         </span>
       </div>
       
-      {isOpen && (
+      {isOpen && options && Array.isArray(options) && (
         <div className="absolute w-full mt-1 z-50 top-full left-0 overflow-hidden">
           <div className="max-h-60 overflow-auto rounded-lg backdrop-blur-xl
                           bg-slate-800/95 border border-slate-600 shadow-2xl
