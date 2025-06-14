@@ -39,27 +39,6 @@ function CompetitionDetails() {
   `;
   container.appendChild(backgroundOverlay);
   
-  // Add subtle glass elements
-  const glassElements = document.createElement("div");
-  glassElements.className = "fixed inset-0 z-0 overflow-hidden";
-  
-  // // Create fewer, more professional glass elements
-  for (let i = 0; i < 5; i++) {
-    const element = document.createElement("div");
-    const size = Math.random() * 300 + 100;
-    const posX = Math.random() * 100;
-    const posY = Math.random() * 100;
-    
-    element.className = "absolute rounded-full backdrop-blur-md bg-white/[0.02]";
-    element.style.width = `${size}px`;
-    element.style.height = `${size}px`;
-    element.style.left = `${posX}%`;
-    element.style.top = `${posY}%`;
-    
-    glassElements.appendChild(element);
-  }
-  container.appendChild(glassElements);
-  
   // Create navigation
   container.appendChild(createNavigation());
   
@@ -111,7 +90,7 @@ function CompetitionDetails() {
   
   const competitionIcon = document.createElement("div");
   competitionIcon.className = "text-5xl mb-4";
-  competitionIcon.textContent = competition.icon;
+  competitionIcon.innerHTML = competition.icon;
   
   const competitionTitle = document.createElement("h1");
   competitionTitle.className = "text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200";
@@ -538,15 +517,7 @@ function createFooter() {
       <span class="h-4 w-1.5 bg-red-700"></span>
       <span class="h-4 w-1.5 bg-yellow-500 rounded-r"></span>
     </span>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    <span class="text-lg font-bold">Zeit für Deutschland</span>
-=======
     <span class="text-lg font-bold">Zeit für Deutsch '25</span>
->>>>>>> Stashed changes
-=======
-    <span class="text-lg font-bold">Zeit für Deutsch '25</span>
->>>>>>> Stashed changes
   `;
   
   const aboutText = document.createElement("p");

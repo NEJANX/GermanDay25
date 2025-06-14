@@ -261,10 +261,6 @@ function AdminSubmissions() {
                 height: `${size}px`,
                 left: `${posX}%`,
                 top: `${posY}%`,
-<<<<<<< Updated upstream
-                
-=======
->>>>>>> Stashed changes
               }}
             />
           );

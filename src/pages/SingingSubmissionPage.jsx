@@ -189,29 +189,6 @@ export default function SingingSubmissionPage() {
   return (
     <div className="min-h-screen bg-slate-900 text-white">
       {/* Background */}
-<<<<<<< Updated upstream
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
-        {/* <div className="absolute inset-0 opacity-5" style={{background: "url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&q=80') center/cover no-repeat fixed"}}></div> */}
-      </div>
-
-      {/* Glass elements */}
-      <div className="fixed inset-0 z-0 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full backdrop-blur-md bg-white/[0.02]"
-            style={{
-              width: `${Math.random() * 300 + 100}px`,
-              height: `${Math.random() * 300 + 100}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
-      </div>
-=======
->>>>>>> Stashed changes
 
       {/* Navbar */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4">
