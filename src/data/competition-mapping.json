@@ -1,0 +1,9 @@
+{
+  "competitions": {
+    "poetry": "Poetry Competition",
+    "singing": "Singing Competition", 
+    "art": "Art Competition",
+    "ttc": "Tongue Twister Challenge",
+    "speech": "Speech Competition"
+  }
+}

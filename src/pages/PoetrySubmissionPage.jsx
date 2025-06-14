@@ -192,8 +192,6 @@ export default function PoetrySubmissionPage() {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white">
-      {/* Background */}
-      {/* Removed per-page glass balls, now handled globally */}
 
       {/* Navbar */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4">

@@ -4,6 +4,7 @@ import { collection, addDoc, serverTimestamp } from '@firebase/firestore';
 import Alert from './components/Alert';
 
 import competitions from './data/competitions.json';
+import schools from './data/schools.json';
 
 // Create a single alert instance for the entire app
 const alertManager = new Alert();
@@ -23,7 +24,7 @@ function CompetitionDetails() {
   // Get competition ID from URL path
   const path = window.location.pathname;
   const pathParts = path.split('/');
-  const competitionId = pathParts[pathParts.length - 1] || 'poetry-recitation'; // Default to first competition if no ID
+  const competitionId = pathParts[pathParts.length - 1] || 'singing'; // Default to first competition if no ID
 
   // Container for the entire page
   const container = document.createElement("div");
@@ -35,12 +36,13 @@ function CompetitionDetails() {
   backgroundOverlay.innerHTML = `
     <div class="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
     <div class="absolute inset-0 opacity-5" style="background: url('https://images.unsplash.com/photo-1560969184-10fe8719e047?auto=format&fit=crop&q=80') center/cover no-repeat fixed"></div>
-    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-black via-red-800 to-yellow-600"></div>
   `;
   container.appendChild(backgroundOverlay);
   
   // Create navigation
-  container.appendChild(createNavigation());
+  const { navbar, mobileMenu } = createNavigation();
+  container.appendChild(navbar);
+  container.appendChild(mobileMenu);
   
   // Main content
   const content = document.createElement("div");
@@ -89,6 +91,7 @@ function CompetitionDetails() {
   `;
   
   const competitionIcon = document.createElement("div");
+
   competitionIcon.className = "text-5xl mb-4";
   competitionIcon.innerHTML = competition.icon;
   
@@ -121,8 +124,8 @@ function CompetitionDetails() {
   // Details items
   const detailItems = [
     {
-      title: "Registration Deadline",
-      value: competition.deadline,
+      title: "Submission Deadline",
+      value: competition.datetime,
       icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>`
@@ -141,6 +144,14 @@ function CompetitionDetails() {
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>`
     }
+    // ,
+    // {
+    //   title: "Submission Deadline",
+    //   value: competition.deadline,
+    //   icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    //     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    //   </svg>`
+    // }
   ];
   
   detailItems.forEach(item => {
@@ -215,6 +226,17 @@ function CompetitionDetails() {
     // Gather form data
     const formData = new FormData(registrationForm);
     const data = Object.fromEntries(formData.entries());
+    
+    // Auto-detect category based on school selection
+    const schoolName = data.schoolName || '';
+    const selectedSchool = schools.schools.find(school => school.name === schoolName);
+    
+    if (selectedSchool) {
+      data.category = selectedSchool.category;
+    } else {
+      data.category = 'Inter School'; // Default for unknown schools
+    }
+    
     data.timestamp = serverTimestamp(); // Add timestamp
     
     try {
@@ -222,9 +244,19 @@ function CompetitionDetails() {
       const competitionRef = collection(db, "competitions", competitionId, "registrations");
       await addDoc(competitionRef, data);
       
-      // Show success message
-      alertManager.show("Registration successful!", "success");
+      // Show success message and redirect to WhatsApp group
+      alertManager.show("Registration successful! Redirecting to WhatsApp group...", "success");
       registrationForm.reset();
+      
+      // Redirect to WhatsApp group after a short delay
+      setTimeout(() => {
+        // Use absolute URL construction for production
+        const baseUrl = window.location.origin;
+        const redirectUrl = `${baseUrl}/whatsapp/`;
+        // const redirectUrl = `${baseUrl}/whatsapp/${competitionId}`;
+        console.log('Redirecting to:', redirectUrl); // Debug log
+        window.location.href = redirectUrl;
+      }, 2000);
     } catch (error) {
       console.error("Error saving registration: ", error);
       alertManager.show("Failed to register. Please try again later.", "error");
@@ -234,22 +266,36 @@ function CompetitionDetails() {
   // Form fields
   const formFields = [
     { type: "text", name: "fullName", label: "Full Name", required: true },
-    { type: "email", name: "email", label: "Email", required: true },
-    { type: "tel", name: "phone", label: "Phone Number", required: true },
     { 
       type: "custom-select", 
-      name: "category", 
-      label: "Category", 
+      name: "schoolName", 
+      label: "School/Institution", 
       required: true,
-      options: competition.categoryOptions
+      options: [
+        { value: "", label: "Select your school" },
+        ...schools.schools
+          .filter(school => {
+            // Exclude Royal College for Speech competition (Tongue Twister Challenge)
+            if (competitionId === 'ttc' && school.name.toLowerCase().includes('royal college')) {
+              return false;
+            }
+            return true;
+          })
+          .map(school => ({
+            value: school.name,
+            label: school.name
+          }))
+      ]
     },
-    { 
-      type: "textarea", 
-      name: "experience", 
-      label: "Previous Experience", 
-      required: false,
-      placeholder: "Tell us about your background and experience with German language and culture"
-    }
+    { type: "email", name: "email", label: "Email", required: true },
+    { type: "tel", name: "phone", label: "Phone Number (WhatsApp)", required: true },
+    // { 
+    //   type: "textarea", 
+    //   name: "experience", 
+    //   label: "Previous Experience", 
+    //   required: false,
+    //   placeholder: "Tell us about your background and experience with German language and culture"
+    // }
   ];
   
   formFields.forEach(field => {
@@ -308,31 +354,32 @@ function CompetitionDetails() {
       
       // Options dropdown
       const optionsContainer = document.createElement("div");
-      optionsContainer.className = "custom-select-options";
-      optionsContainer.style.display = "none";
+      optionsContainer.className = "custom-select-options absolute top-full left-0 right-0 z-50 max-h-0 overflow-y-auto overflow-x-hidden opacity-0 rounded-lg backdrop-blur-md bg-slate-800/95 border border-slate-600 shadow-xl transition-all duration-300 transform translate-y-[-10px]";
       
       // Add options
       field.options.forEach((option, index) => {
         if (option.value === "") return; // Skip the placeholder option
         
         const optionEl = document.createElement("div");
-        optionEl.className = "px-4 py-2 hover:bg-slate-600 cursor-pointer";
+        optionEl.className = "px-4 py-3 hover:bg-slate-600/50 cursor-pointer text-white border-b border-slate-700/30 last:border-b-0 transition-colors text-sm";
         optionEl.textContent = option.label;
         optionEl.dataset.value = option.value;
         
-        optionEl.addEventListener("click", () => {
+        optionEl.addEventListener("click", (e) => {
+          e.stopPropagation();
           selectedText.textContent = option.label;
           selectedText.dataset.value = option.value;
           
           // Update selected state for all options
           optionsContainer.querySelectorAll('div').forEach(opt => {
-            opt.classList.remove('bg-slate-600');
+            opt.classList.remove('bg-slate-600/50');
           });
-          optionEl.classList.add('bg-slate-600');
+          optionEl.classList.add('bg-slate-600/50');
           
-          optionsContainer.classList.remove("active");
+          // Close dropdown
+          optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
+          optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
           arrowIcon.classList.remove("rotate-180");
-          optionsContainer.style.display = "none";
           
           // Create/update hidden input for form submission
           const hiddenInput = customSelect.querySelector('input[type="hidden"]');
@@ -350,22 +397,26 @@ function CompetitionDetails() {
       // Toggle dropdown on click
       selectedDisplay.addEventListener("click", (e) => {
         e.stopPropagation();
-        const isActive = optionsContainer.classList.contains("active");
+        const isOpen = optionsContainer.classList.contains("opacity-100");
         
-        if (isActive) {
-          optionsContainer.classList.remove("active");
+        if (isOpen) {
+          // Close dropdown
+          optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
+          optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
           arrowIcon.classList.remove("rotate-180");
         } else {
-          optionsContainer.classList.add("active");
+          // Open dropdown
+          optionsContainer.classList.remove("max-h-0", "opacity-0", "translate-y-[-10px]");
+          optionsContainer.classList.add("max-h-60", "opacity-100", "translate-y-0");
           arrowIcon.classList.add("rotate-180");
-          optionsContainer.style.display = "block"; // Ensure it's visible
         }
       });
       
       // Close dropdown when clicking outside
       document.addEventListener("click", (e) => {
         if (!customSelect.contains(e.target)) {
-          optionsContainer.classList.remove("active");
+          optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
+          optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
           arrowIcon.classList.remove("rotate-180");
         }
       });
@@ -448,8 +499,22 @@ function CompetitionDetails() {
   return container;
 }
 
+// Helper function to clean up existing mobile menus
+function cleanupMobileMenu() {
+  const existingMobileMenu = document.getElementById('competition-mobile-menu');
+  if (existingMobileMenu) {
+    existingMobileMenu.remove();
+  }
+  
+  // Also remove mobile menu open class from body if it exists
+  document.body.classList.remove('mobile-menu-open');
+}
+
 // Helper function to create navigation with German flag elements
 function createNavigation() {
+  // Clean up any existing mobile menu to prevent duplicates
+  cleanupMobileMenu();
+  
   const navbar = document.createElement("nav");
   navbar.className = "sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4";
   
@@ -482,15 +547,86 @@ function createNavigation() {
   });
   
   const mobileMenuBtn = document.createElement("button");
-  mobileMenuBtn.className = "md:hidden text-white p-2";
-  mobileMenuBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-  </svg>`;
+  mobileMenuBtn.className = "md:hidden text-white p-2 relative z-50 transition-all duration-300";
+  mobileMenuBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hamburger-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 close-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  `;
+  
+  // Create mobile menu
+  const mobileMenu = document.createElement("div");
+  mobileMenu.id = "competition-mobile-menu";
+  mobileMenu.className = "fixed inset-0 z-40 md:hidden transform translate-x-full transition-transform duration-300 ease-in-out";
+  
+  const mobileMenuOverlay = document.createElement("div");
+  mobileMenuOverlay.className = "absolute inset-0 bg-black/50 backdrop-blur-sm";
+  
+  const mobileMenuPanel = document.createElement("div");
+  mobileMenuPanel.className = "absolute right-0 top-0 h-full w-80 max-w-sm bg-slate-900/95 backdrop-blur-md border-l border-slate-700 shadow-2xl";
+  
+  const mobileMenuContent = document.createElement("div");
+  mobileMenuContent.className = "flex flex-col h-full pt-20 px-6";
+  
+  // Add mobile menu links
+  ["Home", "Competitions", "Schedule", "Gallery"].forEach(link => {
+    const a = document.createElement("a");
+    a.href = link.toLowerCase() === "home" ? "/" : `/#${link.toLowerCase()}`;
+    a.className = "mobile-menu-link block py-4 px-4 text-lg font-medium text-slate-300 hover:text-yellow-200 border-b border-slate-700/50 transition-all duration-300 hover:bg-slate-800/50 rounded-lg";
+    a.textContent = link;
+    
+    // Close menu when link is clicked
+    a.addEventListener('click', () => {
+      toggleMobileMenu();
+    });
+    
+    mobileMenuContent.appendChild(a);
+  });
+  
+  mobileMenuPanel.appendChild(mobileMenuContent);
+  mobileMenu.append(mobileMenuOverlay, mobileMenuPanel);
+  
+  // Toggle mobile menu function
+  function toggleMobileMenu() {
+    const hamburgerIcon = mobileMenuBtn.querySelector('.hamburger-icon');
+    const closeIcon = mobileMenuBtn.querySelector('.close-icon');
+    
+    if (mobileMenu.classList.contains('translate-x-full')) {
+      // Open menu
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenu.classList.add('translate-x-0');
+      hamburgerIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+      document.body.classList.add('mobile-menu-open');
+    } else {
+      // Close menu
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.remove('translate-x-0');
+      hamburgerIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+      document.body.classList.remove('mobile-menu-open');
+    }
+  }
+  
+  // Add event listeners
+  mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+  mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+  
+  // Close menu on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !mobileMenu.classList.contains('translate-x-full')) {
+      toggleMobileMenu();
+    }
+  });
   
   navContent.append(logo, navLinks, mobileMenuBtn);
   navbar.appendChild(navContent);
   
-  return navbar;
+  // Return both navbar and mobile menu
+  return { navbar, mobileMenu };
 }
 
 // Helper function to create footer with German theme
@@ -559,15 +695,15 @@ function createFooter() {
   contactInfo.className = "space-y-3 text-sm text-slate-400";
   
   const contactItems = [
-    { icon: "", text: "rcgermanunit@gmail.com" },
-    { icon: "", text: "+94 75 122 8301" }
+    { icon: "email", text: "info@germanday.live" },
+    { icon: "phone", text: "+94 75 122 8301" }
   ];
   
   contactItems.forEach(item => {
     const li = document.createElement("li");
     li.className = "flex items-start";
     li.innerHTML = `
-      <span class="mr-2">${item.icon}</span>
+      <span class="mr-2 material-icons">${item.icon}</span>
       <span>${item.text}</span>
     `;
     contactInfo.appendChild(li);

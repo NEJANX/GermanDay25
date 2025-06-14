@@ -13,9 +13,10 @@ import {
   orderBy 
 } from '@firebase/firestore';
 import CustomDropdown from '../../components/admin/ui/CustomDropdown.jsx';
+import competitionMapping from '../../data/competition-mapping.json';
 
 export default function AdminDashboard() {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, adminData, logout } = useAuth();
   const navigate = useNavigate();
   
   // State for registrations and loading
@@ -69,12 +70,10 @@ export default function AdminDashboard() {
 
           if (matchedCompetition) {
             // Competition document was found in the fetched competitions list
-            competitionDisplayName = matchedCompetition.title || competitionId; // Use its title, or fallback to its ID
+            competitionDisplayName = matchedCompetition.title || competitionId;
           } else {
-            // No document found in 'competitions' collection for this competitionId
-            // This might happen if a competition was deleted but its registrations remain,
-            // or if there's a data inconsistency.
-            competitionDisplayName = `${competitionId} (Details Missing)`; 
+            // Use predefined mapping as fallback
+            competitionDisplayName = competitionMapping.competitions[competitionId] || `${competitionId} (Details Missing)`;
           }
           
           return {
@@ -87,6 +86,15 @@ export default function AdminDashboard() {
         });
         
         setRegistrations(registrationsData);
+        
+        // Use competitions from Firestore if available, otherwise use predefined mapping
+        if (competitionsData.length === 0) {
+          const predefinedCompetitions = Object.entries(competitionMapping.competitions).map(([id, title]) => ({
+            id,
+            title
+          }));
+          setCompetitions(predefinedCompetitions);
+        }
       } catch (err) {
         console.error("Error fetching data:", err);
         setError("Failed to load registrations. Please try again.");
@@ -149,9 +157,10 @@ export default function AdminDashboard() {
   const filteredRegistrations = useMemo(() => {
     return registrations
       .filter(reg => {
-        // Filter by search term (fullName, email, phone)
+        // Filter by search term (fullName, school, email, phone)
         const searchMatch = searchTerm === '' || 
           reg.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+          reg.schoolName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
           reg.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           reg.phone?.includes(searchTerm);
         
@@ -203,6 +212,15 @@ export default function AdminDashboard() {
       if (reg.category) uniqueCategories.add(reg.category);
     });
     return Array.from(uniqueCategories);
+  }, [registrations]);
+  
+  // Get unique competitions from registrations (for accurate counter)
+  const uniqueCompetitions = useMemo(() => {
+    const uniqueComps = new Set();
+    registrations.forEach(reg => {
+      if (reg.competitionId) uniqueComps.add(reg.competitionId);
+    });
+    return Array.from(uniqueComps);
   }, [registrations]);
   
   return (
@@ -262,7 +280,7 @@ export default function AdminDashboard() {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
-                {currentUser.email}
+                {adminData?.name || currentUser.email}
               </span>
             )}
             <button
@@ -282,16 +300,28 @@ export default function AdminDashboard() {
         {/* Main content card - adjusted for black glass theme */}
         <div className="backdrop-blur-lg bg-black/50 border border-gray-700/50 rounded-xl p-6 shadow-2xl">
           {/* Section header - REMOVED German flag accent */}
-          <div className="mb-8">
-            {/* Optional: a subtle dark-themed accent line */}
-            {/* <div className="h-1 w-16 mb-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full"></div> */}
-            <h2 className="text-xl font-bold mb-2 flex items-center text-gray-200">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          <div className="mb-8 flex items-start justify-between">
+            <div>
+              {/* Optional: a subtle dark-themed accent line */}
+              {/* <div className="h-1 w-16 mb-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded-full"></div> */}
+              <h2 className="text-xl font-bold mb-2 flex items-center text-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Registration Management
+              </h2>
+              <p className="text-gray-400 text-sm">Manage all competition registrations for German Day 2025</p>
+            </div>
+            
+            <button
+              onClick={() => navigate('/admin/submissions')}
+              className="group flex items-center px-4 py-2 backdrop-blur-md bg-gray-800/30 hover:bg-gray-700/40 border border-gray-600/50 hover:border-gray-500/70 rounded-lg text-gray-300 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
-              Registration Management
-            </h2>
-            <p className="text-gray-400 text-sm">Manage all competition registrations for German Day 2025</p>
+              <span className="text-sm font-medium">Submissions</span>
+            </button>
           </div>
           
           {/* Stats - adjusted for black glass theme */}
@@ -313,7 +343,7 @@ export default function AdminDashboard() {
                 </svg>
                 COMPETITIONS
               </h3>
-              <p className="text-3xl font-bold text-gray-200">{competitions.length}</p>
+              <p className="text-3xl font-bold text-gray-200">{uniqueCompetitions.length}</p>
             </div>
             
             <div className="backdrop-blur-md bg-gray-900/40 border border-gray-700/50 rounded-lg p-4 transition-transform hover:transform hover:translate-y-[-5px]">
@@ -424,6 +454,7 @@ export default function AdminDashboard() {
               <thead className="bg-black/40">
                 <tr>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Name</th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">School</th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Email</th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Competition</th>
                   <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Category</th>
@@ -456,6 +487,9 @@ export default function AdminDashboard() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="font-medium text-gray-200">{registration.fullName || 'N/A'}</div>
                         <div className="text-sm text-gray-500">{registration.phone || 'No phone'}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                        {registration.schoolName || 'N/A'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-gray-300">
                         {registration.email || 'N/A'}

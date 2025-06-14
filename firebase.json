@@ -8,6 +8,34 @@
     ],
     "rewrites": [
       {
+        "source": "/privacy-policy",
+        "destination": "/privacy-policy.html"
+      },
+      {
+        "source": "/privacy-policy/",
+        "destination": "/privacy-policy.html"
+      },
+      {
+        "source": "/terms-of-service",
+        "destination": "/terms-of-service.html"
+      },
+      {
+        "source": "/terms-of-service/",
+        "destination": "/terms-of-service.html"
+      },
+      {
+        "source": "/submissions/**",
+        "destination": "/submissions.html"
+      },
+      {
+        "source": "/whatsapp/**",
+        "destination": "/whatsapp.html"
+      },
+      {
+        "source": "/whatsapp",
+        "destination": "/whatsapp.html"
+      },
+      {
         "source": "/competitions/**",
         "destination": "/competition-details.html"
       },

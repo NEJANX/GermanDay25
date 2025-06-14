@@ -253,9 +253,13 @@ export default function TongueTwisterSubmissionPage() {
                 School/Institution *
               </label>
               <SubmissionDropdown
+                options={SchoolService.getSchoolOptions().filter(school => 
+                  !school.label.toLowerCase().includes('royal college')
+                )}
                 name="school"
                 value={formData.school}
                 onChange={handleInputChange}
+                placeholder="Select your school"
                 required
                 className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
               />
@@ -315,7 +319,8 @@ export default function TongueTwisterSubmissionPage() {
                   className="hidden"
                 />
                 <label htmlFor="file" className="cursor-pointer">
-                  <div className="text-4xl mb-4">🎥</div>
+                    <span className="material-icons text-6xl text-slate-400 mb-4">videocam</span>
+                  {/* <div className="text-4xl mb-4"></div> */}
                   <div className="text-lg font-medium mb-2">Click to upload your tongue twister video</div>
                   <div className="text-slate-400 text-sm">MP4, AVI, MOV, WMV, MKV • Max 100MB</div>
                 </label>

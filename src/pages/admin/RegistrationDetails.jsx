@@ -4,6 +4,7 @@ import { db } from '../../firebase-config';
 import { doc, getDoc, updateDoc } from '@firebase/firestore';
 import { useAuth } from '../../components/admin/AuthContext.jsx';
 import CustomDropdown from '../../components/admin/ui/CustomDropdown.jsx';
+import { SchoolService } from '../../services/schoolService.js';
 
 export default function RegistrationDetails() {
   const { competitionId, registrationId } = useParams();
@@ -48,6 +49,7 @@ export default function RegistrationDetails() {
           // Initialize form data
           setFormData({
             fullName: data.fullName || '',
+            schoolName: data.schoolName || '',
             email: data.email || '',
             phone: data.phone || '',
             category: data.category || '',
@@ -84,9 +86,17 @@ export default function RegistrationDetails() {
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    const updatedData = { [name]: value };
+    
+    // Auto-detect category when school changes
+    if (name === 'schoolName') {
+      updatedData.category = SchoolService.getCategoryForSchool(value);
+    }
+    
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      ...updatedData
     }));
   };
   
@@ -97,14 +107,20 @@ export default function RegistrationDetails() {
     try {
       setSaving(true);
       
+      // Ensure category is set based on school
+      const dataToSave = {
+        ...formData,
+        category: SchoolService.getCategoryForSchool(formData.schoolName)
+      };
+      
       // Update registration in Firestore
       const registrationRef = doc(db, 'competitions', competitionId, 'registrations', registrationId);
-      await updateDoc(registrationRef, formData);
+      await updateDoc(registrationRef, dataToSave);
       
       // Update local state
       setRegistration(prev => ({
         ...prev,
-        ...formData
+        ...dataToSave
       }));
       
       // Show success message
@@ -272,6 +288,33 @@ export default function RegistrationDetails() {
                       required
                     />
                   </div>
+
+                  {/* School Name */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-400 mb-2">
+                      School Name
+                    </label>
+                    <CustomDropdown
+                      value={formData.schoolName}
+                      onChange={(e) => {
+                        const newSchool = e.target.value;
+                        setFormData(prev => ({
+                          ...prev,
+                          schoolName: newSchool,
+                          category: SchoolService.getCategoryForSchool(newSchool)
+                        }));
+                      }}
+                      options={[
+                        { value: "", label: "Select a school" },
+                        ...SchoolService.getSchoolOptions(),
+                        // Add current school if not in list
+                        ...(formData.schoolName && !SchoolService.getSchools().find(s => s.name === formData.schoolName)
+                          ? [{ value: formData.schoolName, label: `${formData.schoolName} (Custom)` }]
+                          : [])
+                      ]}
+                      placeholder="Select a school"
+                    />
+                  </div>
                   
                   {/* Email */}
                   <div>
@@ -302,31 +345,6 @@ export default function RegistrationDetails() {
                       required
                     />
                   </div>
-                  
-                  {/* Category - replaced with custom dropdown */}
-                  <div>
-                    <CustomDropdown
-                      label="Category"
-                      value={formData.category}
-                      onChange={(e) => {
-                        setFormData(prev => ({
-                          ...prev,
-                          category: e.target.value
-                        }));
-                      }}
-                      options={[
-                        ...availableCategories.map(cat => ({
-                          value: cat,
-                          label: cat
-                        })),
-                        // Add "Custom" option if current category is not in available categories
-                        ...(formData.category && !availableCategories.includes(formData.category) 
-                          ? [{ value: formData.category, label: `${formData.category} (Custom)` }] 
-                          : [])
-                      ]}
-                      placeholder="Select a category"
-                    />
-                  </div>
                 </div>
                 
                 {/* Experience */}
@@ -352,6 +370,12 @@ export default function RegistrationDetails() {
                   <div className="text-gray-400 mb-2 md:mb-0">Full Name</div>
                   <div className="md:col-span-2 font-medium text-gray-200">{registration.fullName || 'N/A'}</div>
                 </div>
+
+                {/* School Name */}
+                <div className="grid grid-cols-1 md:grid-cols-3 p-4">
+                  <div className="text-gray-400 mb-2 md:mb-0">School Name</div>
+                  <div className="md:col-span-2 font-medium text-gray-200">{registration.schoolName || 'N/A'}</div>
+                </div>
                 
                 {/* Email */}
                 <div className="grid grid-cols-1 md:grid-cols-3 p-4">
@@ -370,9 +394,12 @@ export default function RegistrationDetails() {
                   <div className="text-gray-400 mb-2 md:mb-0">Category</div>
                   <div className="md:col-span-2">
                     {registration.category ? (
-                      <span className="category-pill"> {/* category-pill style from admin-style.css should be dark */}
-                        {registration.category}
-                      </span>
+                      <div className="flex items-center">
+                        <span className="category-pill mr-2">
+                          {registration.category}
+                        </span>
+                        <span className="text-xs text-gray-500">(Auto-detected)</span>
+                      </div>
                     ) : (
                       <span className="text-gray-500">N/A</span>
                     )}

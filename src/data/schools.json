@@ -1,0 +1,84 @@
+{
+  "schools": [
+    {
+      "name": "Royal College",
+      "type": "royal",
+      "category": "Intra School"
+    },
+    {
+      "name": "Musaeus College",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Maliyadeva Girls' College",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Maliyadeva Boys' College",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Jenning's International School",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Stafford International School",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Colombo International School, Colombo",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Nalanda College",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Devi Balika Vidyalaya",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "St. Joseph's Girls' College",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Viharamahadevi Girls' College",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Mahamaya Girls' College",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Colombo International School, Kandy",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Bandaranayaka Maha Vidyalaya",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Girls' High School",
+      "type": "inter",
+      "category": "Inter School"
+    },
+    {
+      "name": "Ashoka Maha Vidyalaya",
+      "type": "inter",
+      "category": "Inter School"
+    }
+  ]
+}
