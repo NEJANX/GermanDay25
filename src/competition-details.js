@@ -278,7 +278,7 @@ function CompetitionDetails() {
         // const redirectUrl = `${baseUrl}/whatsapp/${competitionId}`;
         console.log('Redirecting to:', redirectUrl); // Debug log
         window.location.href = redirectUrl;
-      }, 2000);
+      }, 0);
     } catch (error) {
       console.error("Error saving registration: ", error);
       alertManager.show("Failed to register. Please try again later.", "error");
