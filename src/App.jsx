@@ -81,7 +81,7 @@ function Countdown() {
   );
 }
 
-function Section({ id, title, subtitle, children }) {
+function Section({ id, isHero, title, subtitle, children }) {
   const [ref, inView] = useSectionInView();
   return (
     <section
@@ -90,8 +90,8 @@ function Section({ id, title, subtitle, children }) {
       className={`py-20 px-6${inView ? " in-view" : ""}`}
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-6">
-          <div className="h-1 w-24 mx-auto mb-6 flex rounded-full overflow-hidden">
+        <div className="text-center mb-6" style={{ display: isHero ? "none" : "block", margin: isHero ? "0 auto 0 auto" : "" }}>
+            <div className="h-1 w-24 mx-auto mb-6 flex rounded-full overflow-hidden">
             <div className="flex-1 bg-black"></div>
             <div className="flex-1 bg-red-700"></div>
             <div className="flex-1 bg-yellow-500"></div>
@@ -235,12 +235,17 @@ export default function App() {
         <section
           id="home"
           ref={heroRef}
-          className={`relative h-[100dvh] flex items-center justify-center px-4 py-20${heroInView ? " in-view" : ""}`}
+          isHero={true}
+          className={`relative min-h-[100dvh] flex items-center justify-center pt-35 pb-20 px-4${heroInView ? " in-view" : ""}`}
         >
           <div className="absolute inset-0 z-0 pointer-events-none">
             <div className="absolute left-0 top-0 w-1/4 h-1/2 bg-gradient-to-br from-red-900/10 to-transparent"></div>
           </div>
-          <div className="relative backdrop-blur-sm bg-slate-800/40 border border-slate-700 rounded-xl p-8 md:p-12 w-full max-w-5xl shadow-2xl text-center transform transition-all duration-700" style={{ animation: "fadeIn 1s ease-out" }}>
+            <div
+              id="hero-middle"
+              className="relative backdrop-blur-sm bg-slate-800/40 border border-slate-700 rounded-xl p-8 md:p-12 w-full max-w-5xl shadow-2xl text-center transform transition-all duration-700 sm:mt-0"
+              style={{ animation: "fadeIn 1s ease-out" }}
+            >
             <div className="relative z-10">
               <div className="mx-auto mb-8 flex justify-center items-center">
                 <img src="/rc.svg" alt="German Day Logo" className="h-20 w-auto" />
