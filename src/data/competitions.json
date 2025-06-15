@@ -125,31 +125,6 @@
         { "value": "Inter School", "label": "Inter School" },
         { "value": "Intra School", "label": "Intra School" }
       ]
-    },
-    {
-      "id": "film-media",
-      "title": "German Film & Media Creation",
-      "icon": "<span class='material-icons'>movie</span>",
-      "description": "Create original short films or media projects that highlight German culture, language, or history.",
-      "categories": "Individual, Group",
-      "datetime": "Projects due May 15, Screening June 1, 2025",
-      "location": "Media Center, Cultural Center",
-      "eligibility": "Open to all creative media enthusiasts",
-      "deadline": "April 1, 2025 (for intent to participate)",
-      "fullDescription": "<p>The German Film & Media Creation Competition invites participants to produce original short films, documentaries, animations, or digital media projects that explore aspects of German language, culture, or history.</p><p>Projects should be 3-8 minutes in length and may incorporate various media elements. While the primary language should be German, limited use of other languages with subtitles is permitted.</p><p>This competition offers creative individuals and teams the opportunity to express their connection to German culture through visual storytelling and digital arts.</p>",
-      "rules": [
-        "Projects must be 3-8 minutes in length.",
-        "Content must relate to German language, culture, or history.",
-        "Primary language should be German (limited use of other languages with German subtitles is permitted).",
-        "Projects must be original work created for this competition.",
-        "All necessary permissions for music, images, or footage must be secured and documented."
-      ],
-      "categoryOptions": [
-        { "value": "", "label": "Select a category" },
-        { "value": "individual", "label": "Individual Creator" },
-        { "value": "small-group", "label": "Small Group (2-4 people)" },
-        { "value": "large-group", "label": "Large Group (5+ people)" }
-      ]
     }
   ]
 }

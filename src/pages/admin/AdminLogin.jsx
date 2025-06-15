@@ -82,7 +82,6 @@ export default function AdminLogin() {
                 height: `${size}px`,
                 left: `${posX}%`,
                 top: `${posY}%`,
-                animation: `float 30s ease-in-out ${Math.random() * 10}s infinite alternate`
               }}
             />
           );
@@ -185,7 +184,7 @@ export default function AdminLogin() {
         
         {/* Updated footer text color */}
         <div className="mt-8 text-center text-sm text-gray-500">
-          <p>Tag Der Deutschen Sprache '25</p>
+          <p>Zeit für Deutsch '25</p>
           <p className="mt-1">© {new Date().getFullYear()} Royal College German Unit</p>
         </div>
       </div>

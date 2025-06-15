@@ -96,10 +96,8 @@ export default function PoetrySubmissionPage() {
     setUploadProgress(0);
 
     try {
-      console.log('Uploading to GoFile:', file.name, 'Size:', file.size);
       
       const result = await gofileService.uploadFile(file, (progress) => {
-        console.log('Upload progress:', progress);
         setUploadProgress(progress);
       });
 
@@ -121,7 +119,7 @@ export default function PoetrySubmissionPage() {
     }
 
     // Check for Royal College + Inter School combination
-    if (!formData.school) {
+    if (formData.school === '') {
       alert.error('Please select your school.');
       return;
     }
@@ -131,9 +129,7 @@ export default function PoetrySubmissionPage() {
 
     try {
       // Upload file to GoFile with progress tracking
-      console.log('Starting GoFile upload for:', formData.file.name);
       const uploadResult = await uploadToGoFile(formData.file);
-      console.log('GoFile upload successful:', uploadResult);
       
       // Check if upload result has required fields
       if (!uploadResult || !uploadResult.fileId) {
@@ -151,15 +147,13 @@ export default function PoetrySubmissionPage() {
         fileName: formData.file.name,
         fileSize: formData.file.size,
         gofileFileId: uploadResult.fileId,
-        gofileDownloadUrl: uploadResult.downloadUrl,
+        gofileDownloadUrl: uploadResult.directUrl,
         competition: 'poetry', // Set competition type
         submittedAt: new Date(),
         status: 'pending'
       };
 
-      console.log('Saving to Firestore:', submissionData);
       const docRef = await addDoc(collection(db, 'submissions'), submissionData);
-      console.log('Firestore save successful, doc ID:', docRef.id);
 
       setSubmitStatus('success');
       alert.success('Your poem recitation has been submitted successfully!');
@@ -191,23 +185,7 @@ export default function PoetrySubmissionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full backdrop-blur-md bg-white/[0.02]"
-            style={{
-              width: `${Math.random() * 300 + 100}px`,
-              height: `${Math.random() * 300 + 100}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animation: `float 30s ease-in-out ${Math.random() * 10}s infinite alternate`
-            }}
-          />
-        ))}
-      </div>
+    <div className="min-h-screen bg-slate-900 text-white">
 
       {/* Navbar */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4">
@@ -218,7 +196,7 @@ export default function PoetrySubmissionPage() {
               <span className="h-5 w-2 bg-red-700"></span>
               <span className="h-5 w-2 bg-yellow-400 rounded-r"></span>
             </span>
-            Zeit für Deutschland '25
+            Zeit für Deutsch '25
           </div>
           <a href="/" className="text-yellow-400 hover:text-yellow-300 transition-colors">
             <span className='mr-2 material-icons'>arrow_back</span> Back to Home
@@ -272,6 +250,7 @@ export default function PoetrySubmissionPage() {
               <div>
                 <label className="block text-sm font-medium mb-2">School/Institution *</label>
                 <SubmissionDropdown
+                  name='school'
                   options={SchoolService.getSchoolOptions()}
                   value={formData.school}
                   onChange={handleInputChange}
@@ -368,7 +347,7 @@ export default function PoetrySubmissionPage() {
                 <span className="material-icons text-green-400 text-5xl mb-4">check_circle</span>
                 <h3 className="text-xl font-bold text-green-300 mb-2">Submission Successful!</h3>
                 <p className="text-green-200 mb-4">
-                  Your poetry recitation has been uploaded successfully. Thank you for participating in Zeit für Deutschland '25!
+                  Your poetry recitation has been uploaded successfully. Thank you for participating in Zeit für Deutsch '25!
                 </p>
                 <button
                   type="button"
@@ -422,12 +401,12 @@ export default function PoetrySubmissionPage() {
       </div>
 
       {/* Custom CSS for animations */}
-      <style jsx>{`
+      {/* <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-20px) rotate(5deg); }
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

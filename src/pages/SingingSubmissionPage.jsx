@@ -118,7 +118,7 @@ export default function SingingSubmissionPage() {
       return;
     }
 
-    if (!formData.school) {
+    if (formData.school === '') {
       alert.error('Please select your school.');
       return;
     }
@@ -128,9 +128,7 @@ export default function SingingSubmissionPage() {
 
     try {
       // Upload file to GoFile with progress tracking
-      console.log('Starting GoFile upload for:', formData.file.name);
       const uploadResult = await uploadToGoFile(formData.file);
-      console.log('GoFile upload successful:', uploadResult);
       
       // Check if upload result has required fields
       if (!uploadResult || !uploadResult.fileId) {
@@ -189,27 +187,6 @@ export default function SingingSubmissionPage() {
   return (
     <div className="min-h-screen bg-slate-900 text-white">
       {/* Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-slate-800"></div>
-        {/* <div className="absolute inset-0 opacity-5" style={{background: "url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&q=80') center/cover no-repeat fixed"}}></div> */}
-      </div>
-
-      {/* Glass elements */}
-      <div className="fixed inset-0 z-0 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full backdrop-blur-md bg-white/[0.02]"
-            style={{
-              width: `${Math.random() * 300 + 100}px`,
-              height: `${Math.random() * 300 + 100}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animation: `float 30s ease-in-out ${Math.random() * 10}s infinite alternate`
-            }}
-          />
-        ))}
-      </div>
 
       {/* Navbar */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4">
@@ -220,7 +197,7 @@ export default function SingingSubmissionPage() {
               <span className="h-5 w-2 bg-red-700"></span>
               <span className="h-5 w-2 bg-yellow-400 rounded-r"></span>
             </span>
-            Zeit für Deutschland '25
+            Zeit für Deutsch '25
           </div>
           <a href="/" className="text-yellow-400 hover:text-yellow-300 transition-colors">
             <span className='mr-2 material-icons'>arrow_back</span> Back to Home
@@ -274,6 +251,7 @@ export default function SingingSubmissionPage() {
               <div>
                 <label className="block text-sm font-medium mb-2">School/Institution *</label>
                 <SubmissionDropdown
+                  name="school"
                   options={SchoolService.getSchoolOptions()}
                   value={formData.school}
                   onChange={handleInputChange}
@@ -481,13 +459,13 @@ export default function SingingSubmissionPage() {
         </div>
       </div>
 
-      <style jsx>{`
+      {/* <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           33% { transform: translateY(-20px) rotate(1deg); }
           66% { transform: translateY(-10px) rotate(-1deg); }
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

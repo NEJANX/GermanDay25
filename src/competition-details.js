@@ -39,28 +39,6 @@ function CompetitionDetails() {
   `;
   container.appendChild(backgroundOverlay);
   
-  // Add subtle glass elements
-  const glassElements = document.createElement("div");
-  glassElements.className = "fixed inset-0 z-0 overflow-hidden";
-  
-  // Create fewer, more professional glass elements
-  for (let i = 0; i < 5; i++) {
-    const element = document.createElement("div");
-    const size = Math.random() * 300 + 100;
-    const posX = Math.random() * 100;
-    const posY = Math.random() * 100;
-    
-    element.className = "absolute rounded-full backdrop-blur-md bg-white/[0.02]";
-    element.style.width = `${size}px`;
-    element.style.height = `${size}px`;
-    element.style.left = `${posX}%`;
-    element.style.top = `${posY}%`;
-    element.style.animation = `float 30s ease-in-out ${Math.random() * 10}s infinite alternate`;
-    
-    glassElements.appendChild(element);
-  }
-  container.appendChild(glassElements);
-  
   // Create navigation
   const { navbar, mobileMenu } = createNavigation();
   container.appendChild(navbar);
@@ -113,7 +91,8 @@ function CompetitionDetails() {
   `;
   
   const competitionIcon = document.createElement("div");
-  competitionIcon.className = "text-5xl mb-4 flex items-center";
+
+  competitionIcon.className = "text-5xl mb-4";
   competitionIcon.innerHTML = competition.icon;
   
   const competitionTitle = document.createElement("h1");
@@ -148,15 +127,14 @@ function CompetitionDetails() {
       title: "Submission Deadline",
       value: competition.datetime,
       icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>`
     },
     {
-      title: "Location",
-      value: competition.location,
+      title: "Submission deadline",
+      value: competition.datetime,
       icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>`
     },
     {
@@ -296,13 +274,13 @@ function CompetitionDetails() {
       options: [
         { value: "", label: "Select your school" },
         ...schools.schools
-          .filter(school => {
-            // Exclude Royal College for Speech competition (Tongue Twister Challenge)
-            if (competitionId === 'ttc' && school.name.toLowerCase().includes('royal college')) {
-              return false;
-            }
-            return true;
-          })
+          // .filter(school => {
+          //   // Exclude Royal College for TTC NOT NEEDED
+          //   if (competitionId === 'ttc' && school.name.toLowerCase().includes('royal college')) {
+          //     return false;
+          //   }
+          //   return true;
+          // })
           .map(school => ({
             value: school.name,
             label: school.name
@@ -554,7 +532,7 @@ function createNavigation() {
       <span class="h-5 w-2 bg-red-700"></span>
       <span class="h-5 w-2 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Zeit für Deutschland '25</span>
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Zeit für Deutsch '25</span>
   `;
   
   const navLinks = document.createElement("div");
@@ -675,7 +653,7 @@ function createFooter() {
       <span class="h-4 w-1.5 bg-red-700"></span>
       <span class="h-4 w-1.5 bg-yellow-500 rounded-r"></span>
     </span>
-    <span class="text-lg font-bold">Zeit für Deutschland '25</span>
+    <span class="text-lg font-bold">Zeit für Deutsch '25</span>
   `;
   
   const aboutText = document.createElement("p");

@@ -68,7 +68,6 @@ class GoFileService {
           if (xhr.status === 200) {
             try {
               const response = JSON.parse(xhr.responseText);
-              console.log('GoFile response:', response); // Debug log
               
               if (response.status === 'ok' && response.data) {
                 const fileData = response.data;

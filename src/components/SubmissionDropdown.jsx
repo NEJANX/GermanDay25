@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 export default function SubmissionDropdown({ 
+  name,
   options, 
   value, 
   onChange, 
@@ -36,7 +37,7 @@ export default function SubmissionDropdown({
     setIsOpen(false);
     setHasInteracted(true);
     if (onChange) {
-      const event = { target: { value: option.value, name: 'category' } };
+      const event = { target: { value: option.value, name } };
       onChange(event);
     }
   };
@@ -91,25 +92,24 @@ export default function SubmissionDropdown({
                 )}
               </div>
             ))}
+            <style jsx="true">{`
+              @keyframes slideDown {
+                from {
+                  opacity: 0;
+                  transform: translateY(-10px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+              .animate-slideDown {
+                animation: slideDown 0.2s ease-out;
+              }
+            `}</style>
           </div>
         </div>
       )}
-      
-      <style jsx>{`
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-slideDown {
-          animation: slideDown 0.2s ease-out;
-        }
-      `}</style>
     </div>
   );
 }

@@ -32,6 +32,10 @@ a {
   outline: none !important; /* Remove default focus outline more aggressively */
 }
 
+.title {
+  height: 13vh;
+}
+
 /* Completely remove all focus indicators */
 a:hover, a:active, a:focus {
   outline: none !important;
