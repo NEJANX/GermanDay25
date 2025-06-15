@@ -274,13 +274,13 @@ function CompetitionDetails() {
       options: [
         { value: "", label: "Select your school" },
         ...schools.schools
-          .filter(school => {
-            // Exclude Royal College for Speech competition (Tongue Twister Challenge)
-            if (competitionId === 'ttc' && school.name.toLowerCase().includes('royal college')) {
-              return false;
-            }
-            return true;
-          })
+          // .filter(school => {
+          //   // Exclude Royal College for TTC NOT NEEDED
+          //   if (competitionId === 'ttc' && school.name.toLowerCase().includes('royal college')) {
+          //     return false;
+          //   }
+          //   return true;
+          // })
           .map(school => ({
             value: school.name,
             label: school.name

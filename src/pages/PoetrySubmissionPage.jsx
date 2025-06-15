@@ -96,10 +96,8 @@ export default function PoetrySubmissionPage() {
     setUploadProgress(0);
 
     try {
-      console.log('Uploading to GoFile:', file.name, 'Size:', file.size);
       
       const result = await gofileService.uploadFile(file, (progress) => {
-        console.log('Upload progress:', progress);
         setUploadProgress(progress);
       });
 
@@ -121,7 +119,7 @@ export default function PoetrySubmissionPage() {
     }
 
     // Check for Royal College + Inter School combination
-    if (!formData.school) {
+    if (formData.school === '') {
       alert.error('Please select your school.');
       return;
     }
@@ -131,9 +129,7 @@ export default function PoetrySubmissionPage() {
 
     try {
       // Upload file to GoFile with progress tracking
-      console.log('Starting GoFile upload for:', formData.file.name);
       const uploadResult = await uploadToGoFile(formData.file);
-      console.log('GoFile upload successful:', uploadResult);
       
       // Check if upload result has required fields
       if (!uploadResult || !uploadResult.fileId) {
@@ -151,15 +147,13 @@ export default function PoetrySubmissionPage() {
         fileName: formData.file.name,
         fileSize: formData.file.size,
         gofileFileId: uploadResult.fileId,
-        gofileDownloadUrl: uploadResult.downloadUrl,
+        gofileDownloadUrl: uploadResult.directUrl,
         competition: 'poetry', // Set competition type
         submittedAt: new Date(),
         status: 'pending'
       };
 
-      console.log('Saving to Firestore:', submissionData);
       const docRef = await addDoc(collection(db, 'submissions'), submissionData);
-      console.log('Firestore save successful, doc ID:', docRef.id);
 
       setSubmitStatus('success');
       alert.success('Your poem recitation has been submitted successfully!');
@@ -256,6 +250,7 @@ export default function PoetrySubmissionPage() {
               <div>
                 <label className="block text-sm font-medium mb-2">School/Institution *</label>
                 <SubmissionDropdown
+                  name='school'
                   options={SchoolService.getSchoolOptions()}
                   value={formData.school}
                   onChange={handleInputChange}
@@ -406,12 +401,12 @@ export default function PoetrySubmissionPage() {
       </div>
 
       {/* Custom CSS for animations */}
-      <style jsx>{`
+      {/* <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-20px) rotate(5deg); }
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

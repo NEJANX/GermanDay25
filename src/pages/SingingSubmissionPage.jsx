@@ -118,7 +118,7 @@ export default function SingingSubmissionPage() {
       return;
     }
 
-    if (!formData.school) {
+    if (formData.school === '') {
       alert.error('Please select your school.');
       return;
     }
@@ -128,9 +128,7 @@ export default function SingingSubmissionPage() {
 
     try {
       // Upload file to GoFile with progress tracking
-      console.log('Starting GoFile upload for:', formData.file.name);
       const uploadResult = await uploadToGoFile(formData.file);
-      console.log('GoFile upload successful:', uploadResult);
       
       // Check if upload result has required fields
       if (!uploadResult || !uploadResult.fileId) {
@@ -253,6 +251,7 @@ export default function SingingSubmissionPage() {
               <div>
                 <label className="block text-sm font-medium mb-2">School/Institution *</label>
                 <SubmissionDropdown
+                  name="school"
                   options={SchoolService.getSchoolOptions()}
                   value={formData.school}
                   onChange={handleInputChange}
@@ -460,13 +459,13 @@ export default function SingingSubmissionPage() {
         </div>
       </div>
 
-      <style jsx>{`
+      {/* <style jsx>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           33% { transform: translateY(-20px) rotate(1deg); }
           66% { transform: translateY(-10px) rotate(-1deg); }
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

@@ -28,7 +28,7 @@ export default function TongueTwisterSubmissionPage() {
     name: '',
     email: '',
     school: '',
-    title: '',
+    tongueTwister: '',
     description: '',
     file: null
   });
@@ -61,7 +61,6 @@ export default function TongueTwisterSubmissionPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -71,17 +70,17 @@ export default function TongueTwisterSubmissionPage() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Custom validation for video files
-      const maxSize = 100 * 1024 * 1024; // 100MB for video files
+      // Check file type
       const allowedTypes = ['video/mp4', 'video/avi', 'video/mov', 'video/wmv', 'video/mkv'];
-      
-      if (file.size > maxSize) {
-        alert.error('File size must be less than 100MB');
+      if (!allowedTypes.includes(file.type)) {
+        alert.error('Please select a valid video file (MP4, AVI, MOV, WMV, or MKV).');
         return;
       }
       
-      if (!allowedTypes.includes(file.type)) {
-        alert.error('Please upload a valid video file (MP4, AVI, MOV, WMV, MKV)');
+      // Check file size (100MB limit)
+      const maxSize = 100 * 1024 * 1024; // 100MB in bytes
+      if (file.size > maxSize) {
+        alert.error('File size must be less than 100MB. Please compress your video or choose a smaller file.');
         return;
       }
       
@@ -93,10 +92,11 @@ export default function TongueTwisterSubmissionPage() {
   };
 
   const uploadToGoFile = async (file) => {
-    try {
-      setIsUploading(true);
-      setUploadProgress(0);
+    setIsUploading(true);
+    setUploadProgress(0);
 
+    try {
+      
       const result = await gofileService.uploadFile(file, (progress) => {
         setUploadProgress(progress);
       });
@@ -118,7 +118,7 @@ export default function TongueTwisterSubmissionPage() {
       return;
     }
 
-    if (!formData.school) {
+    if (formData.school === '') {
       alert.error('Please select your school.');
       return;
     }
@@ -128,9 +128,7 @@ export default function TongueTwisterSubmissionPage() {
 
     try {
       // Upload file to GoFile with progress tracking
-      console.log('Starting GoFile upload for:', formData.file.name);
       const uploadResult = await uploadToGoFile(formData.file);
-      console.log('GoFile upload successful:', uploadResult);
       
       // Check if upload result has required fields
       if (!uploadResult || !uploadResult.fileId) {
@@ -143,296 +141,274 @@ export default function TongueTwisterSubmissionPage() {
         email: formData.email,
         school: formData.school,
         category: detectedCategory,
-        title: formData.title,
+        tongueTwister: formData.tongueTwister,
         description: formData.description,
         fileName: formData.file.name,
         fileSize: formData.file.size,
         gofileFileId: uploadResult.fileId,
-        fileUrl: uploadResult.directUrl,
-        viewUrl: uploadResult.viewUrl,
+        gofileDownloadUrl: uploadResult.directUrl,
+        competition: 'ttc', // Set competition type
         submittedAt: new Date(),
-        competition: 'tongue-twister',
-        uploadStatus: 'completed',
-        uploadedAt: uploadResult.uploadedAt
+        status: 'pending'
       };
-      
-      await addDoc(collection(db, 'submissions'), submissionData);
-      
+
+      const docRef = await addDoc(collection(db, 'submissions'), submissionData);
+
       setSubmitStatus('success');
-      alert.success('Tongue twister performance submitted successfully! Your video has been uploaded to the server and is now accessible by the judging panel.');
+      alert.success('Your performance has been submitted successfully!');
       
-      // Keep all form data intact for user reference
-      // Only reset the progress
-      setUploadProgress(0);
+      // Reset form but keep personal info for convenience
+      setFormData(prev => ({
+        ...prev,
+        tongueTwister: '',
+        description: '',
+        file: null
+      }));
+      
+      // Reset file input
+      const fileInput = document.getElementById('file-input');
+      if (fileInput) fileInput.value = '';
       
     } catch (error) {
-      console.error('Error submitting:', error);
-      console.error('Error details:', error.message);
+      console.error('Submission error:', error);
       setSubmitStatus('error');
-      
-      // Provide more specific error messages
-      let errorMessage = 'There was an error uploading your video. Please try again.';
-      if (error.message.includes('Network error')) {
-        errorMessage = 'Network error during upload. Please check your internet connection and try again.';
-      } else if (error.message.includes('timeout')) {
-        errorMessage = 'Upload timeout. Please try uploading a smaller file or check your internet connection.';
-      } else if (error.message.includes('file ID')) {
-        errorMessage = 'Upload completed but file information is missing. Please try again.';
-      }
-      
-      alert.error(errorMessage);
+      alert.error(`Submission failed: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleSubmitAnother = () => {
+    setSubmitStatus(null);
+    setUploadProgress(0);
+  };
+
   return (
+
     <div className="min-h-screen bg-slate-900 text-white">
       {/* Background */}
 
-      {/* Navigation */}
+
+      {/* Navbar */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-slate-900/90 border-b border-slate-800 px-6 py-4">
         <div className="flex justify-between items-center max-w-7xl mx-auto">
-          <a href="/" className="text-xl font-bold flex items-center">
+          <div className="text-xl font-bold flex items-center">
             <span className="mr-2 flex">
               <span className="h-5 w-2 bg-black rounded-l"></span>
               <span className="h-5 w-2 bg-red-700"></span>
               <span className="h-5 w-2 bg-yellow-400 rounded-r"></span>
             </span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-yellow-200">Zeit für Deutsch '25</span>
+            Zeit für Deutsch '25
+          </div>
+          <a href="/" className="text-yellow-400 hover:text-yellow-300 transition-colors">
+            <span className='mr-2 material-icons'>arrow_back</span> Back to Home
           </a>
         </div>
       </nav>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-4xl mx-auto px-6 py-12">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
-            Tongue Twister Challenge Submission
+      <div className="relative z-10 max-w-4xl mx-auto px-6 py-12">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+            Tongue Twister Challenge
           </h1>
-          <p className="text-xl text-slate-300">Submit your tongue twister performance for German Day 2025</p>
+          <p className="text-xl text-slate-300">
+            Submit your German Tongue Twister
+          </p>
         </div>
 
+        {/* Submission Form */}
         <div className="backdrop-blur-md bg-slate-800/50 rounded-2xl p-8 border border-slate-700">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name Field */}
+            {/* Personal Information */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium mb-2">Full Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all"
+                  placeholder="Enter your full name"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Email Address *</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all"
+                  placeholder="Enter your email"
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium mb-2">School/Institution *</label>
+                <SubmissionDropdown
+                  name="school"
+                  options={SchoolService.getSchoolOptions()}
+                  value={formData.school}
+                  onChange={(value) => handleInputChange(value, 'school')}
+                  placeholder="Select your school"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* tt Information */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
-                Full Name *
-              </label>
+              <label className="block text-sm font-medium mb-2">Tongue Twister (in German) *</label>
               <input
                 type="text"
-                id="name"
-                name="name"
-                value={formData.name}
+                name="tongueTwister"
+                value={formData.tongueTwister}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all"
+                placeholder="Enter your chosen tongue twister"
               />
             </div>
 
-            {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
-                Email Address *
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
-              />
-            </div>
-
-            {/* School Dropdown */}
-            <div>
-              <label htmlFor="school" className="block text-sm font-medium text-slate-300 mb-2">
-                School/Institution *
-              </label>
-              <SubmissionDropdown
-                options={SchoolService.getSchoolOptions().filter(school => 
-                  !school.label.toLowerCase().includes('royal college')
-                )}
-                name="school"
-                value={formData.school}
-                onChange={handleInputChange}
-                placeholder="Select your school"
-                required
-                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
-              />
-              {detectedCategory && (
-                <div className="mt-2 text-sm text-slate-400">
-                  Category: <span className="text-blue-400 font-medium">{detectedCategory}</span>
-                </div>
-              )}
-            </div>
-
-            {/* Title Field */}
-            <div>
-              <label htmlFor="title" className="block text-sm font-medium text-slate-300 mb-2">
-                Tongue Twister Title/Topic *
-              </label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                value={formData.title}
-                onChange={handleInputChange}
-                placeholder="e.g., German Pronunciation Challenge, Fischers Fritz fischt..."
-                required
-                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
-              />
-            </div>
-
-            {/* Description Field */}
-            <div>
-              <label htmlFor="description" className="block text-sm font-medium text-slate-300 mb-2">
-                Performance Description
-              </label>
+              <label className="block text-sm font-medium mb-2">Comments (Optional)</label>
               <textarea
-                id="description"
                 name="description"
                 value={formData.description}
                 onChange={handleInputChange}
                 rows={4}
-                placeholder="Describe your tongue twister performance, any special techniques used, or the German phrases you'll be demonstrating..."
-                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all resize-none"
+                className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all"
+                placeholder="Describe your experience in preparing for such a challenge (optional)..."
               />
             </div>
 
-            {/* File Upload */}
-            <div>
-              <label htmlFor="file" className="block text-sm font-medium text-slate-300 mb-2">
-                Video Upload *
-              </label>
-              <div className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
-                <input
-                  type="file"
-                  id="file"
-                  name="file"
-                  onChange={handleFileChange}
-                  accept="video/*"
-                  required
-                  className="hidden"
-                />
-                <label htmlFor="file" className="cursor-pointer">
-                    <span className="material-icons text-6xl text-slate-400 mb-4">videocam</span>
-                  {/* <div className="text-4xl mb-4"></div> */}
-                  <div className="text-lg font-medium mb-2">Click to upload your tongue twister video</div>
-                  <div className="text-slate-400 text-sm">MP4, AVI, MOV, WMV, MKV • Max 100MB</div>
-                </label>
-                
-                {formData.file && (
-                  <div className="mt-4 p-3 bg-slate-700/50 rounded-lg">
-                    <div className="font-medium">{formData.file.name}</div>
-                    <div className="text-sm text-slate-400">
-                      {(formData.file.size / (1024 * 1024)).toFixed(2)} MB
-                    </div>
-                  </div>
-                )}
+            {/* File Upload - Hide during upload and success */}
+            {!isUploading && !isSubmitting && submitStatus !== 'success' && (
+              <div>
+                <label className="block text-sm font-medium mb-2">Upload Performance Video *</label>
+                <div className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center">
+                  <input
+                    type="file"
+                    id="file-input"
+                    onChange={handleFileChange}
+                    accept="video/mp4,video/avi,video/mov,video/wmv,video/mkv"
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor="file-input"
+                    className="cursor-pointer flex flex-col items-center"
+                  >
+                    <span className="material-icons text-6xl text-slate-400 mb-4">article</span>
+                    <span className="text-lg font-medium mb-2">
+                      {formData.file ? formData.file.name : 'Click to upload your performance video'}
+                    </span>
+                    <span className="text-sm text-slate-400">
+                      MP4, AVI, MOV, WMV, or MKV files up to 100MB
+                    </span>
+                  </label>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Upload Progress */}
-            {isUploading && (
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>Uploading...</span>
-                  <span>{uploadProgress}%</span>
-                </div>
-                <div className="mt-4 p-4 bg-slate-700/50 rounded-lg">
-                  <div className="text-sm text-slate-300 mb-2">
-                    Upload Progress: {uploadProgress}%
+            {(isUploading || isSubmitting) && (
+              <div className="space-y-4">
+                <div className="bg-slate-700/30 rounded-lg p-6 text-center">
+                  <div className="flex items-center justify-center mb-4">
+                    <span className="material-icons animate-spin text-orange-400 mr-2">sync</span>
+                    <span className="text-lg font-medium">
+                      {isUploading ? 'Uploading video...' : 'Submitting your performance...'}
+                    </span>
                   </div>
-                  <div className="w-full bg-slate-600 rounded-full h-3">
-                    <div
-                      className="bg-gradient-to-r from-blue-400 to-indigo-500 h-3 rounded-full transition-all duration-300"
-                      style={{ width: `${uploadProgress}%` }}
-                    ></div>
-                  </div>
+                  {isUploading && (
+                    <div className="w-full bg-slate-600 rounded-full h-3 mb-2">
+                      <div
+                        className="bg-gradient-to-r from-orange-400 to-red-500 h-3 rounded-full transition-all duration-300"
+                        style={{ width: `${uploadProgress}%` }}
+                      ></div>
+                    </div>
+                  )}
+                  <p className="text-sm text-slate-400">
+                    {isUploading 
+                      ? `Upload Progress: ${uploadProgress}%` 
+                      : 'Processing your submission...'}
+                  </p>
                 </div>
               </div>
             )}
 
             {/* Success Message */}
             {submitStatus === 'success' && (
-              <div className="p-4 bg-green-900/30 border border-green-700/50 rounded-lg">
-                <div className="flex items-center">
-                  <div className="text-green-400 text-xl mr-3">✅</div>
-                  <div>
-                    <div className="font-medium text-green-300">Submission Successful!</div>
-                    <div className="text-sm text-green-400 mt-1">
-                      Your tongue twister performance has been uploaded and submitted successfully.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Error Message */}
-            {submitStatus === 'error' && (
-              <div className="bg-red-900/30 border border-red-700/50 rounded-lg p-4 text-red-300">
-                <div className="flex items-center">
-                  <div className="text-red-400 text-xl mr-3">❌</div>
-                  <div>There was an error submitting your entry. Please try again.</div>
-                </div>
+              <div className="bg-green-900/30 border border-green-700/50 rounded-lg p-6 text-center">
+                <span className="material-icons text-green-400 text-5xl mb-4">check_circle</span>
+                <h3 className="text-xl font-bold text-green-300 mb-2">Submission Successful!</h3>
+                <p className="text-green-200 mb-4">
+                  Your performance has been uploaded successfully. Thank you for participating in Zeit für Deutsch '25!
+                </p>
+                <button
+                  type="button"
+                  onClick={handleSubmitAnother}
+                  className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105"
+                >
+                  Submit Another Tongue Twister
+                </button>
               </div>
             )}
 
             {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isSubmitting || isUploading}
-              className={`w-full font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 ${
-                isSubmitting || isUploading
-                  ? 'bg-slate-600 cursor-not-allowed text-slate-400'
-                  : 'bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white'
-              }`}
-            >
-              {isSubmitting || isUploading ? 'Processing...' : 'Submit Tongue Twister Performance'}
-            </button>
+            {!isUploading && !isSubmitting && submitStatus !== 'success' && (
+              <button
+                type="submit"
+                disabled={false}
+                className={`w-full font-semibold py-4 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white`}
+              >
+                Submit Performance
+              </button>
+            )}
           </form>
-        </div>
 
-        {/* Guidelines */}
-        <div className="mt-12 backdrop-blur-md bg-slate-800/30 rounded-xl p-6 border border-slate-700">
-          <h3 className="text-xl font-bold mb-4 text-blue-400">Submission Guidelines</h3>
-          <div className="space-y-3 text-slate-300">
-            <div className="flex items-start">
-              <span className="text-blue-400 mr-3">•</span>
-              <span>Video should clearly demonstrate German tongue twister pronunciation</span>
-            </div>
-            <div className="flex items-start">
-              <span className="text-blue-400 mr-3">•</span>
-              <span>Performance should be between 30 seconds and 1 minute long</span>
-            </div>
-            <div className="flex items-start">
-              <span className="text-blue-400 mr-3">•</span>
-              <span>Ensure good audio quality so pronunciation can be clearly heard</span>
-            </div>
-            <div className="flex items-start">
-              <span className="text-blue-400 mr-3">•</span>
-              <span>Include both speed and accuracy in your demonstration</span>
-            </div>
-            <div className="flex items-start">
-              <span className="text-blue-400 mr-3">•</span>
-              <span>File size should not exceed 100MB</span>
+          {/* Guidelines Section */}
+          <div className="mt-12 pt-8 border-t border-slate-600">
+            <h3 className="text-xl font-bold mb-4 text-orange-300">Submission Guidelines</h3>
+            <div className="grid md:grid-cols-2 gap-6 text-sm">
+              <div>
+                <h4 className="font-semibold mb-2 text-red-300">Video Requirements:</h4>
+                <ul className="space-y-1 text-slate-300">
+                  <li>• Video should demonstrate only one German Tongue Twister from the Whatsapp Channel</li>
+                  <li>• Performance should be between 30-60 seconds long</li>
+                  <li>• Clear audio and video quality</li>
+                  <li>• File formats: MP4, AVI, MOV, WMV, MKV</li>
+                  <li>• Maximum file size: 100MB</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold mb-2 text-red-300">Speech Tips:</h4>
+                <ul className="space-y-1 text-slate-300">
+                  <li>• Focus on clear pronunciation and articulation</li>
+                  <li>• Ensure that your Ä, Ö, Üs are not A, O, Us. </li>
+                  <li>• Use appropriate gestures and movement</li>
+                  <li>• Select only one tongue twister from the list</li>
+                  <li>• Practice thorough preparation</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </main>
+      </div>
 
-      {/* Animation Styles */}
-      <style jsx>{`
+      {/* Custom CSS for animations */}
+      {/* <style jsx>{`
         @keyframes float {
-          0% { transform: translateY(0) rotate(0); }
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-20px) rotate(5deg); }
-          100% { transform: translateY(0) rotate(0); }
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }

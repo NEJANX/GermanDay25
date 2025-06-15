@@ -110,8 +110,8 @@ function AdminSubmissions() {
   const handleViewFile = (submission) => {
     if (submission.fileUrl || submission.viewUrl) {
       window.open(submission.fileUrl || submission.viewUrl, '_blank');
-    } else if (submission.gofileFileId) {
-      window.open(`https://gofile.io/d/${submission.gofileFileId}`, '_blank');
+    } else if (submission.gofileDownloadUrl) {
+      window.open(`${submission.gofileDownloadUrl}`, '_blank');
     } else {
       alert('File URL not available');
     }
@@ -129,6 +129,7 @@ function AdminSubmissions() {
           sub.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           sub.songTitle?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           sub.poemTitle?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          sub.tongueTwister?.toLowerCase().includes(searchTerm.toLowerCase())||
           sub.speechTopic?.toLowerCase().includes(searchTerm.toLowerCase());
         
         // Filter by competition
@@ -226,6 +227,7 @@ function AdminSubmissions() {
     if (submission.title) return submission.title;
     if (submission.songTitle) return submission.songTitle;
     if (submission.poemTitle) return submission.poemTitle;
+    if (submission.tongueTwister) return submission.tongueTwister;
     if (submission.speechTopic) return submission.speechTopic;
     return 'Untitled';
   };
