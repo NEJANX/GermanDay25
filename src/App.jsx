@@ -235,7 +235,7 @@ export default function App() {
         <section
           id="home"
           ref={heroRef}
-          className={`relative min-h-[90vh] flex items-center justify-center px-4 py-20${heroInView ? " in-view" : ""}`}
+          className={`relative h-[100dvh] flex items-center justify-center px-4 py-20${heroInView ? " in-view" : ""}`}
         >
           <div className="absolute inset-0 z-0 pointer-events-none">
             <div className="absolute left-0 top-0 w-1/4 h-1/2 bg-gradient-to-br from-red-900/10 to-transparent"></div>

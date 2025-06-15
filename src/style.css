@@ -68,7 +68,7 @@ nav a:focus, .navbar a:focus, header a:focus, footer a:focus {
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
 }
 
@@ -306,7 +306,7 @@ html, body {
 /* Prevent body scroll when mobile menu is open */
 body.mobile-menu-open {
   overflow: hidden;
-  height: 100vh;
+  height: 100dvh;
 }
 
 /* Mobile menu link hover effects */

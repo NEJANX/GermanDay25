@@ -16,6 +16,10 @@
         "destination": "/privacy-policy.html"
       },
       {
+        "source": "/redirect/poems",
+        "destination": "/redirect/Gedichtsammlung - Zeit für Deutsch 25.pdf"
+      },
+      {
         "source": "/terms-of-service",
         "destination": "/terms-of-service.html"
       },
