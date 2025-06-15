@@ -141,5 +141,21 @@ export default defineConfig({
         });
       },
     },
+    {
+      name: 'redirect-poems-download',
+      configureServer(server) {
+        server.middlewares.use((req, res, next) => {
+          if (req.url === '/redirect/poems') {
+            res.statusCode = 200;
+            res.setHeader('Content-Disposition', 'attachment; filename="Gedichtsammlung - Zeit für Deutsch 25.pdf"');
+            res.setHeader('Content-Type', 'application/pdf');
+            const filePath = path.join(process.cwd(), 'public', 'redirect', 'Gedichtsammlung - Zeit für Deutsch 25.pdf');
+            fs.createReadStream(filePath).pipe(res);
+            return;
+          }
+          next();
+        });
+      },
+    },
   ],
 });
