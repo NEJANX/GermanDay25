@@ -32,6 +32,14 @@
         "destination": "/submissions.html"
       },
       {
+        "source": "/submissions",
+        "destination": "/submissions.html"
+      },
+      {
+        "source": "/submissions/",
+        "destination": "/submissions.html"
+      },
+      {
         "source": "/whatsapp/**",
         "destination": "/whatsapp.html"
       },

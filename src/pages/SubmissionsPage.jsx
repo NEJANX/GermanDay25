@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-export default function Submissions() {
+export default function SubmissionsPage() {
 
   return (
 
