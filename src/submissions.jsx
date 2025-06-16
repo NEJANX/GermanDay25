@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './style.css';
+import Submissions from'./pages/Submissions.jsx';
 import ArtSubmissionPage from './pages/ArtSubmissionPage.jsx';
 import SingingSubmissionPage from './pages/SingingSubmissionPage.jsx';
 import PoetrySubmissionPage from './pages/PoetrySubmissionPage.jsx';
@@ -12,6 +13,7 @@ const SubmissionsApp = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/submissions" element={<Submissions />} />
         <Route path="/submissions/art" element={<ArtSubmissionPage />} />
         <Route path="/submissions/singing" element={<SingingSubmissionPage />} />
         <Route path="/submissions/poetry" element={<PoetrySubmissionPage />} />
