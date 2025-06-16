@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./style.css";
 import FrostedBallsBackground from "./components/FrostedBallsBackground";
+import { redirect } from "react-router-dom";
 
 const navLinks = [
   { name: "Home", href: "#" },
@@ -260,10 +261,65 @@ export default function App() {
               <p className="text-yellow-300 text-xl md:text-2xl mb-6">July 02, 2025</p>
               <p className="text-slate-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed">Experience the vibrant spirit of German culture with exciting competitions, delightful company, and unforgettable performances. Join us for the most anticipated German cultural celebration of the year!</p>
               <Countdown />
-              <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
-                <a href="#competitions" className="bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-black font-semibold px-8 py-3 rounded-md shadow-lg transform hover:translate-y-[-2px] transition-all duration-300">Register Now</a>
-                <a href="#schedule" className="bg-slate-700/50 hover:bg-slate-600/50 text-white px-8 py-3 rounded-md backdrop-blur-sm shadow-lg border border-slate-600/50 transform hover:translate-y-[-2px] transition-all duration-300">View Schedule</a>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-0">
+              {window.innerWidth > 639 && (
+              <div className="sm:bg-gradient-to-r sm:from-black sm:from-25% sm:via-red-700 sm:via-50% sm:to-yellow-500 sm:to-75% rounded-md sm:w-[24rem] flex sm:overflow-hidden">
+                <a
+                  href="#competitions"
+                  className="w-full sm:w-1/2 bg-black sm:bg-transparent text-white text-center font-semibold px-8 py-3 rounded-md sm:rounded-none shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  Register Now
+                </a>
+                <div className="w-[2px] bg-white opacity-40 my-1" />
+                <a
+                  href="/submissions"
+                  className="w-full sm:w-1/2 bg-yellow-500 sm:bg-transparent text-white text-center font-semibold px-8 py-3 rounded-md sm:rounded-none shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  Submit Creation
+                </a>
               </div>
+              )}
+              {window.innerWidth <= 639 && (
+                <div className="bg-gradient-to-b from-black via-red-700 to-yellow-500 flex flex-col rounded-md justify-center">
+                <a
+                  href="#competitions"
+                  className="text-white font-semibold px-8 py-3 rounded-t-md transform hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  Register Now
+                </a>
+
+                <div className="h-[2px] bg-white opacity-40 mx-6" />
+
+                <a
+                  href="/submissions"
+                  className="text-white font-semibold px-8 py-3 rounded-b-md transform hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  Submit Creation
+                </a>
+              </div>
+              )}
+            </div>
+            {window.innerWidth > 639 && (
+              <div className="flex justify-center pt-3 w-full">
+                <a
+                  href="/whatsapp"
+                  className="w-full max-w-[30vw] bg-slate-700/50 hover:bg-slate-600/50 text-white px-8 py-3 rounded-md backdrop-blur-sm shadow-lg border border-slate-600/50 transform hover:translate-y-[-2px] transition-all duration-300"
+                >
+                  WhatsApp Channel for Competitors
+                </a>
+              </div>
+            )}
+
+            {window.innerWidth <= 639 && (
+              <div className="flex justify-center pt-3 w-full">
+                <a
+                  href="/whatsapp"
+                  className="w-full max-w-md bg-slate-700/50 hover:bg-slate-600/50 text-white px-8 py-3 rounded-md backdrop-blur-sm shadow-lg border border-slate-600/50 transform hover:translate-y-[-2px] transition-all duration-300"
+                >
+                  WhatsApp Channel for Competitors
+                </a>
+              </div>
+            )}
             </div>
           </div>
         </section>

@@ -131,13 +131,6 @@ function CompetitionDetails() {
       </svg>`
     },
     {
-      title: "Submission deadline",
-      value: competition.datetime,
-      icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>`
-    },
-    {
       title: "Eligibility",
       value: competition.eligibility,
       icon: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -479,8 +472,22 @@ function CompetitionDetails() {
   submitButton.type = "submit";
   submitButton.className = "w-full py-3 px-6 mt-6 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-black font-bold rounded-lg transition-all duration-300 transform hover:translate-y-[-2px]";
   submitButton.textContent = "Submit Application";
+
+  // Submissions redirect
+  const submissionsbtn = document.createElement("button");
+  submissionsbtn.onclick = () => {
+    setTimeout(() => {
+        // Use absolute URL construction for production
+        const redirectUrl = `/submissions/${competitionId}`;
+        console.log('Redirecting to:', redirectUrl); // Debug log
+        window.location.href = redirectUrl;
+      }, 0);
+  }
+  submissionsbtn.className = "w-full py-3 px-6 mt-6 bg-gradient-to-r from-slate-400 to-slate-500 hover:from-slate-400/80 hover:to-slate-500/80 text-black font-bold rounded-lg transition-all duration-300 transform hover:translate-y-[-2px]";
+  submissionsbtn.textContent = "Ready to upload your creation?";
   
   registrationForm.appendChild(submitButton);
+  registrationForm.appendChild(submissionsbtn);
   
   formCard.append(formFlagBar, formTitle, registrationForm);
   rightColumn.appendChild(formCard);
