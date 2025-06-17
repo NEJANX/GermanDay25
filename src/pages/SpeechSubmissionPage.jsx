@@ -200,9 +200,20 @@ export default function SpeechSubmissionPage() {
             </span>
             Zeit für Deutsch '25
           </div>
+          {window.innerWidth > 639 &&
           <a href="/" className="text-yellow-400 hover:text-yellow-300 transition-colors">
-            <span className='mr-2 material-icons'>arrow_back</span> Back to Home
+            <span className='mr-2 material-icons'>arrow_back</span>Back to Home
           </a>
+          }
+          {window.innerWidth <= 639 && (
+            <a
+              href="/"
+              className="text-yellow-400 hover:text-yellow-300 transition-colors flex items-center space-x-1"
+            >
+              <span className="material-icons">arrow_back</span>
+              <span>Back to Home</span>
+            </a>
+          )}
         </div>
       </nav>
 

@@ -332,7 +332,6 @@ export default function App() {
                   icon: <span className="material-icons">mic</span>,
                   description: "Perform iconic and contemporary German songs with flawless pronunciation, rich emotion, and captivating stage presence.",
                   categories: "Inter School, Intra School",
-                  prizes: "1st: €500, 2nd: €300, 3rd: €150",
                   id: "singing"
                 },
                 {
@@ -340,7 +339,6 @@ export default function App() {
                   icon: <span className="material-icons">image</span>,
                   description: "Create original artwork inspired by German culture, language, or landmarks. Let your creativity speak in colors, shapes, and imagination!",
                   categories: "Inter School, Intra School",
-                  prizes: "1st: €400, 2nd: €250, 3rd: €100",
                   id: "art"
                 },
                 {
@@ -348,7 +346,6 @@ export default function App() {
                   icon: <span className="material-icons">description</span>,
                   description: "Recite German poetry with flawless pronunciation, clear intonation, and expressive emotional delivery that brings each verse to life.",
                   categories: "Inter School, Intra School",
-                  prizes: "1st: €800, 2nd: €500, 3rd: €250",
                   id: "poetry"
                 },
                 {
@@ -356,7 +353,6 @@ export default function App() {
                   icon: <span className="material-icons">psychology</span>,
                   description: "Test your German pronunciation skills with challenging tongue twisters. Show off your fluency and clarity in this fun competition!",
                   categories: "Inter School",
-                  prizes: "1st: €600, 2nd: €350, 3rd: €200",
                   id: "ttc"
                 },
                 {
@@ -364,7 +360,6 @@ export default function App() {
                   icon: <span className="material-icons">article</span>,
                   description: "Deliver a compelling speech on a topic related to German culture, history, or language. Showcase your eloquence and persuasive skills!",
                   categories: "Inter School, Intra School",
-                  prizes: "1st: €700, 2nd: €400, 3rd: €200",
                   id: "speech"
                 }
               ].map(competition => (
@@ -391,27 +386,28 @@ export default function App() {
           <div className="mt-12 space-y-6">
             {["Wednesday, July 02"].map((day, index) => {
               const allEvents = [
-                { time: "01:10 PM", event: "Arrival of Guest Schools", location: "Royal College Boake Gate" },
-                { time: "01:30 PM", event: "Lunch", location: "Royal College Main Hall" },
-                { time: "02:30 PM", event: "Arrival of the Chief Guest", location: "Royal College Boake Gate" },
-                { time: "02:35 PM", event: "Lighting of the Oil Lamp", location: "Royal College Main Hall" },
-                { time: "02:40 PM", event: "School song by Royal College Western Band", location: "Royal College Main Hall" },
-                { time: "02:45 PM", event: "Welcome Speech", location: "Royal College Main Hall" },
-                { time: "02:50 PM", event: "Dance Act", location: "Royal College Main Hall" },
-                { time: "02:55 PM", event: "Principal's speech", location: "Royal College Main Hall" },
-                { time: "03:05 PM", event: "Song by the Grade 6 students", location: "Royal College Main Hall" },
-                { time: "03:10 PM", event: "Special Surprise Performance", location: "Royal College Main Hall" },
-                { time: "03:20 PM", event: "Germany - an informative outlook into carrer and education", location: "Royal College Main Hall" },
-                { time: "03:40 PM", event: "Q&A session with the experts", location: "Royal College Main Hall" },
-                { time: "03:50 PM", event: "Song by the Grade 8 and 9 students", location: "Royal College Main Hall" },
-                { time: "03:55 PM", event: "Invited Schools' performances", location: "Royal College Main Hall" },
-                { time: "04:05 PM", event: "German Drama", location: "Royal College Main Hall" },
-                { time: "04:15 PM", event: "Chief Guest's Speech", location: "Royal College Main Hall" },
-                { time: "04:25 PM", event: "Awarding Ceremony", location: "Royal College Main Hall" },
-                { time: "04:45 PM", event: "Vote of Thanks", location: "Royal College Main Hall" },
-                { time: "04:50 PM", event: "National Anthem", location: "Royal College Main Hall" },
-                { time: "04:55 PM", event: "Refreshments", location: "Royal College Main Hall" }
-              ];
+              { time: "12:00 PM", event: "Arrival of invited schools", location: "Royal College Skills Centre" },
+              { time: "12:30 PM", event: "Activities for students", location: "Royal College Skills Centre" },
+              { time: "01:30 PM", event: "Lunch", location: "Royal College Skills Centre" },
+              { time: "02:30 PM", event: "Arrival of the Chief Guest", location: "Royal College Boake Gate" },
+              { time: "02:35 PM", event: "Lighting of the Oil Lamp and School Song", location: "Royal College Main Hall" },
+              { time: "02:45 PM", event: "Welcome speech", location: "Royal College Main Hall" },
+              { time: "02:50 PM", event: "Song by the Grade 6, 7, and 8 Students", location: "Royal College Main Hall" },
+              { time: "02:55 PM", event: "Principal’s speech", location: "Royal College Main Hall" },
+              { time: "03:00 PM", event: "German Drama", location: "Royal College Main Hall" },
+              { time: "03:15 PM", event: "Chief Guest's Speech", location: "Royal College Main Hall" },
+              { time: "03:25 PM", event: "Q&A Session with German Professionals", location: "Royal College Main Hall" },
+              { time: "03:55 PM", event: "Awarding Ceremony", location: "Royal College Main Hall" },
+              { time: "04:05 PM", event: "Invited School's Performance", location: "Royal College Main Hall" },
+              { time: "04:10 PM", event: "Awarding Ceremony - Competitions pt. 1", location: "Royal College Main Hall" },
+              { time: "04:20 PM", event: "Song by the Grade 9, 10, and 11 Students", location: "Royal College Main Hall" },
+              { time: "04:25 PM", event: "Awarding Ceremony - Competitions pt. 2", location: "Royal College Main Hall" },
+              { time: "04:35 PM", event: "Special Performance", location: "Royal College Main Hall" },
+              { time: "04:45 PM", event: "Vote of Thanks", location: "Royal College Main Hall" },
+              { time: "04:50 PM", event: "National Anthem", location: "Royal College Main Hall" },
+              { time: "04:55 PM", event: "Refreshments", location: "Royal College Main Hall" },
+              { time: "05:30 PM", event: "The End", location: "Royal College Main Hall" }
+            ];
 
               const [showAll, setShowAll] = React.useState(false);
               const visibleEvents = showAll ? allEvents : allEvents.slice(0, 5);
