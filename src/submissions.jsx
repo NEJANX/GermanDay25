@@ -14,11 +14,11 @@ const SubmissionsApp = () => {
     <Router>
       <Routes>
         <Route path="/submissions" element={<SubmissionsPage />} />
-        <Route path="/submissions/art" element={<ArtSubmissionPage />} />
-        <Route path="/submissions/singing" element={<SingingSubmissionPage />} />
-        <Route path="/submissions/poetry" element={<PoetrySubmissionPage />} />
-        <Route path="/submissions/speech" element={<SpeechSubmissionPage />} />
-        <Route path="/submissions/ttc" element={<TongueTwisterSubmissionPage />} />
+        <Route path="/submissions/art" element={<SubmissionsPage />} />
+        <Route path="/submissions/singing" element={<SubmissionsPage />} />
+        <Route path="/submissions/poetry" element={<SubmissionsPage />} />
+        <Route path="/submissions/speech" element={<SubmissionsPage />} />
+        <Route path="/submissions/ttc" element={<SubmissionsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
