@@ -37,13 +37,13 @@ export default function SubmissionsPage() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-emerald-500 bg-clip-text text-transparent">
-            Submit your performance
+            Submissions Closed!
           </h1>
           <p className="text-xl text-slate-300">
-            Submit your piece of art to showcase your talents!
+            Thank you for your participation in the competitions! The submission period has ended. Stay tuned for the results!
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mt-12">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mt-12">
             { [
                 {
                   title: "Singing Competition",
@@ -74,7 +74,7 @@ export default function SubmissionsPage() {
                 <div key={competition.id} className="backdrop-blur-sm bg-slate-800/40 border border-slate-700 rounded-lg p-4 transition-all duration-300 hover:transform hover:translate-y-[-5px]">
                   <div className="flex items-center justify-between mb-4">
                     <div className="text-3xl">{competition.icon}</div>
-                    {/* Add German flag mini-element */}
+                    
                     <div className="h-1 w-12 flex rounded-full overflow-hidden">
                       <div className="flex-1 bg-black"></div>
                       <div className="flex-1 bg-red-700"></div>
@@ -86,7 +86,7 @@ export default function SubmissionsPage() {
                   <a href={`/submissions/${competition.id}`} className="absolute inset-x-0 bottom-0 inline-block mt-2 w-full px-4 py-2 bg-slate-700/70 hover:bg-slate-600/70 transition-colors rounded-lg text-center text-sm font-medium">Upload</a>
                 </div>
               )) }
-          </div>
+          </div> */}
       </div>
     </div>
   );

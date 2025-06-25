@@ -73,7 +73,7 @@ function CompetitionDetails() {
   
   // Left column - Competition info
   const leftColumn = document.createElement("div");
-  leftColumn.className = "lg:col-span-2 fade-in-element";
+  leftColumn.className = "lg:col-span-3 fade-in-element";
   
   const card = document.createElement("div");
   card.className = "backdrop-blur-sm bg-slate-800/40 border border-slate-700 rounded-xl p-8 shadow-2xl";
@@ -192,308 +192,308 @@ function CompetitionDetails() {
   leftColumn.appendChild(card);
 
   // Right column - Registration form
-  const rightColumn = document.createElement("div");
-  rightColumn.className = "lg:col-span-1 fade-in-element";
+  // const rightColumn = document.createElement("div");
+  // rightColumn.className = "lg:col-span-1 fade-in-element";
   
-  const formCard = document.createElement("div");
-  formCard.className = "backdrop-blur-sm bg-slate-800/40 border border-slate-700 rounded-xl p-8 shadow-2xl sticky top-24";
+  // const formCard = document.createElement("div");
+  // formCard.className = "backdrop-blur-sm bg-slate-800/40 border border-slate-700 rounded-xl p-8 shadow-2xl sticky top-24";
   
-  // Add German flag mini-element
-  const formFlagBar = document.createElement("div");
-  formFlagBar.className = "h-1 w-12 mb-6 flex rounded-full overflow-hidden";
-  formFlagBar.innerHTML = `
-    <div class="flex-1 bg-black"></div>
-    <div class="flex-1 bg-red-700"></div>
-    <div class="flex-1 bg-yellow-500"></div>
-  `;
+  // // Add German flag mini-element
+  // const formFlagBar = document.createElement("div");
+  // formFlagBar.className = "h-1 w-12 mb-6 flex rounded-full overflow-hidden";
+  // formFlagBar.innerHTML = `
+  //   <div class="flex-1 bg-black"></div>
+  //   <div class="flex-1 bg-red-700"></div>
+  //   <div class="flex-1 bg-yellow-500"></div>
+  // `;
   
-  const formTitle = document.createElement("h2");
-  formTitle.className = "text-xl font-bold mb-6";
-  formTitle.textContent = "Register for this Competition";
+  // const formTitle = document.createElement("h2");
+  // formTitle.className = "text-xl font-bold mb-6";
+  // formTitle.textContent = "Register for this Competition";
   
-  const registrationForm = document.createElement("form");
-  registrationForm.className = "space-y-4";
-  registrationForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  // const registrationForm = document.createElement("form");
+  // registrationForm.className = "space-y-4";
+  // registrationForm.addEventListener("submit", async (e) => {
+  //   e.preventDefault();
     
-    // Gather form data
-    const formData = new FormData(registrationForm);
-    const data = Object.fromEntries(formData.entries());
+  //   // Gather form data
+  //   const formData = new FormData(registrationForm);
+  //   const data = Object.fromEntries(formData.entries());
     
-    // Auto-detect category based on school selection
-    const schoolName = data.schoolName || '';
-    const selectedSchool = schools.schools.find(school => school.name === schoolName);
+  //   // Auto-detect category based on school selection
+  //   const schoolName = data.schoolName || '';
+  //   const selectedSchool = schools.schools.find(school => school.name === schoolName);
     
-    if (selectedSchool) {
-      data.category = selectedSchool.category;
-    } else {
-      data.category = 'Inter School'; // Default for unknown schools
-    }
+  //   if (selectedSchool) {
+  //     data.category = selectedSchool.category;
+  //   } else {
+  //     data.category = 'Inter School'; // Default for unknown schools
+  //   }
     
-    data.timestamp = serverTimestamp(); // Add timestamp
+  //   data.timestamp = serverTimestamp(); // Add timestamp
     
-    try {
-      // Save to Firestore in the competition-specific collection
-      const competitionRef = collection(db, "competitions", competitionId, "registrations");
-      await addDoc(competitionRef, data);
+  //   try {
+  //     // Save to Firestore in the competition-specific collection
+  //     const competitionRef = collection(db, "competitions", competitionId, "registrations");
+  //     await addDoc(competitionRef, data);
       
-      // Show success message and redirect to WhatsApp group
-      alertManager.show("Registration successful! Redirecting to WhatsApp group...", "success");
-      registrationForm.reset();
+  //     // Show success message and redirect to WhatsApp group
+  //     alertManager.show("Registration successful! Redirecting to WhatsApp group...", "success");
+  //     registrationForm.reset();
       
-      // Redirect to WhatsApp group after a short delay
-      setTimeout(() => {
-        // Use absolute URL construction for production
-        const baseUrl = window.location.origin;
-        const redirectUrl = `${baseUrl}/whatsapp/`;
-        // const redirectUrl = `${baseUrl}/whatsapp/${competitionId}`;
-        console.log('Redirecting to:', redirectUrl); // Debug log
-        window.location.href = redirectUrl;
-      }, 0);
-    } catch (error) {
-      console.error("Error saving registration: ", error);
-      alertManager.show("Failed to register. Please try again later.", "error");
-    }
-  });
+  //     // Redirect to WhatsApp group after a short delay
+  //     setTimeout(() => {
+  //       // Use absolute URL construction for production
+  //       const baseUrl = window.location.origin;
+  //       const redirectUrl = `${baseUrl}/whatsapp/`;
+  //       // const redirectUrl = `${baseUrl}/whatsapp/${competitionId}`;
+  //       console.log('Redirecting to:', redirectUrl); // Debug log
+  //       window.location.href = redirectUrl;
+  //     }, 0);
+  //   } catch (error) {
+  //     console.error("Error saving registration: ", error);
+  //     alertManager.show("Failed to register. Please try again later.", "error");
+  //   }
+  // });
   
-  // Form fields
-  const formFields = [
-    { type: "text", name: "fullName", label: "Full Name", required: true },
-    { 
-      type: "custom-select", 
-      name: "schoolName", 
-      label: "School/Institution", 
-      required: true,
-      options: [
-        { value: "", label: "Select your school" },
-        ...schools.schools
-          // .filter(school => {
-          //   // Exclude Royal College for TTC NOT NEEDED
-          //   if (competitionId === 'ttc' && school.name.toLowerCase().includes('royal college')) {
-          //     return false;
-          //   }
-          //   return true;
-          // })
-          .map(school => ({
-            value: school.name,
-            label: school.name
-          }))
-      ]
-    },
-    { type: "email", name: "email", label: "Email", required: true },
-    { type: "tel", name: "phone", label: "Phone Number (WhatsApp)", required: true },
-    // { 
-    //   type: "textarea", 
-    //   name: "experience", 
-    //   label: "Previous Experience", 
-    //   required: false,
-    //   placeholder: "Tell us about your background and experience with German language and culture"
-    // }
-  ];
+  // // Form fields
+  // const formFields = [
+  //   { type: "text", name: "fullName", label: "Full Name", required: true },
+  //   { 
+  //     type: "custom-select", 
+  //     name: "schoolName", 
+  //     label: "School/Institution", 
+  //     required: true,
+  //     options: [
+  //       { value: "", label: "Select your school" },
+  //       ...schools.schools
+  //         // .filter(school => {
+  //         //   // Exclude Royal College for TTC NOT NEEDED
+  //         //   if (competitionId === 'ttc' && school.name.toLowerCase().includes('royal college')) {
+  //         //     return false;
+  //         //   }
+  //         //   return true;
+  //         // })
+  //         .map(school => ({
+  //           value: school.name,
+  //           label: school.name
+  //         }))
+  //     ]
+  //   },
+  //   { type: "email", name: "email", label: "Email", required: true },
+  //   { type: "tel", name: "phone", label: "Phone Number (WhatsApp)", required: true },
+  //   // { 
+  //   //   type: "textarea", 
+  //   //   name: "experience", 
+  //   //   label: "Previous Experience", 
+  //   //   required: false,
+  //   //   placeholder: "Tell us about your background and experience with German language and culture"
+  //   // }
+  // ];
   
-  formFields.forEach(field => {
-    const formGroup = document.createElement("div");
+  // formFields.forEach(field => {
+  //   const formGroup = document.createElement("div");
     
-    if (field.type === "checkbox") {
-      formGroup.className = "flex items-center space-x-3";
+  //   if (field.type === "checkbox") {
+  //     formGroup.className = "flex items-center space-x-3";
       
-      const input = document.createElement("input");
-      input.type = field.type;
-      input.id = field.name;
-      input.name = field.name;
-      input.required = field.required;
-      input.className = "rounded text-yellow-500 focus:ring-2 focus:ring-yellow-400";
+  //     const input = document.createElement("input");
+  //     input.type = field.type;
+  //     input.id = field.name;
+  //     input.name = field.name;
+  //     input.required = field.required;
+  //     input.className = "rounded text-yellow-500 focus:ring-2 focus:ring-yellow-400";
       
-      const label = document.createElement("label");
-      label.htmlFor = field.name;
-      label.className = "text-sm text-white";
-      label.textContent = field.label;
+  //     const label = document.createElement("label");
+  //     label.htmlFor = field.name;
+  //     label.className = "text-sm text-white";
+  //     label.textContent = field.label;
       
-      formGroup.append(input, label);
-    } else if (field.type === "custom-select") {
-      formGroup.className = "space-y-1";
+  //     formGroup.append(input, label);
+  //   } else if (field.type === "custom-select") {
+  //     formGroup.className = "space-y-1";
       
-      const label = document.createElement("label");
-      label.htmlFor = field.name;
-      label.className = "block text-sm text-slate-300";
-      label.textContent = field.label;
+  //     const label = document.createElement("label");
+  //     label.htmlFor = field.name;
+  //     label.className = "block text-sm text-slate-300";
+  //     label.textContent = field.label;
       
-      // Create custom select container
-      const customSelect = document.createElement("div");
-      customSelect.className = "relative custom-select-container";
+  //     // Create custom select container
+  //     const customSelect = document.createElement("div");
+  //     customSelect.className = "relative custom-select-container";
       
-      // Selected option display
-      const selectedDisplay = document.createElement("div");
-      selectedDisplay.className = "flex items-center justify-between w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white cursor-pointer hover:bg-slate-600/50 transition-all custom-select-selected";
-      selectedDisplay.tabIndex = 0; // Make it focusable
+  //     // Selected option display
+  //     const selectedDisplay = document.createElement("div");
+  //     selectedDisplay.className = "flex items-center justify-between w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white cursor-pointer hover:bg-slate-600/50 transition-all custom-select-selected";
+  //     selectedDisplay.tabIndex = 0; // Make it focusable
       
-      // Text display
-      const selectedText = document.createElement("div");
-      selectedText.className = "selected-text";
-      selectedText.textContent = field.options[0].label;
-      selectedText.dataset.value = field.options[0].value;
+  //     // Text display
+  //     const selectedText = document.createElement("div");
+  //     selectedText.className = "selected-text";
+  //     selectedText.textContent = field.options[0].label;
+  //     selectedText.dataset.value = field.options[0].value;
       
-      // Arrow icon
-      const arrowIcon = document.createElement("div");
-      arrowIcon.className = "transform transition-transform duration-300";
-      arrowIcon.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      `;
+  //     // Arrow icon
+  //     const arrowIcon = document.createElement("div");
+  //     arrowIcon.className = "transform transition-transform duration-300";
+  //     arrowIcon.innerHTML = `
+  //       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  //         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+  //       </svg>
+  //     `;
       
-      selectedDisplay.appendChild(selectedText);
-      selectedDisplay.appendChild(arrowIcon);
+  //     selectedDisplay.appendChild(selectedText);
+  //     selectedDisplay.appendChild(arrowIcon);
       
-      // Options dropdown
-      const optionsContainer = document.createElement("div");
-      optionsContainer.className = "custom-select-options absolute top-full left-0 right-0 z-50 max-h-0 overflow-y-auto overflow-x-hidden opacity-0 rounded-lg backdrop-blur-md bg-slate-800/95 border border-slate-600 shadow-xl transition-all duration-300 transform translate-y-[-10px]";
+  //     // Options dropdown
+  //     const optionsContainer = document.createElement("div");
+  //     optionsContainer.className = "custom-select-options absolute top-full left-0 right-0 z-50 max-h-0 overflow-y-auto overflow-x-hidden opacity-0 rounded-lg backdrop-blur-md bg-slate-800/95 border border-slate-600 shadow-xl transition-all duration-300 transform translate-y-[-10px]";
       
-      // Add options
-      field.options.forEach((option, index) => {
-        if (option.value === "") return; // Skip the placeholder option
+  //     // Add options
+  //     field.options.forEach((option, index) => {
+  //       if (option.value === "") return; // Skip the placeholder option
         
-        const optionEl = document.createElement("div");
-        optionEl.className = "px-4 py-3 hover:bg-slate-600/50 cursor-pointer text-white border-b border-slate-700/30 last:border-b-0 transition-colors text-sm";
-        optionEl.textContent = option.label;
-        optionEl.dataset.value = option.value;
+  //       const optionEl = document.createElement("div");
+  //       optionEl.className = "px-4 py-3 hover:bg-slate-600/50 cursor-pointer text-white border-b border-slate-700/30 last:border-b-0 transition-colors text-sm";
+  //       optionEl.textContent = option.label;
+  //       optionEl.dataset.value = option.value;
         
-        optionEl.addEventListener("click", (e) => {
-          e.stopPropagation();
-          selectedText.textContent = option.label;
-          selectedText.dataset.value = option.value;
+  //       optionEl.addEventListener("click", (e) => {
+  //         e.stopPropagation();
+  //         selectedText.textContent = option.label;
+  //         selectedText.dataset.value = option.value;
           
-          // Update selected state for all options
-          optionsContainer.querySelectorAll('div').forEach(opt => {
-            opt.classList.remove('bg-slate-600/50');
-          });
-          optionEl.classList.add('bg-slate-600/50');
+  //         // Update selected state for all options
+  //         optionsContainer.querySelectorAll('div').forEach(opt => {
+  //           opt.classList.remove('bg-slate-600/50');
+  //         });
+  //         optionEl.classList.add('bg-slate-600/50');
           
-          // Close dropdown
-          optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
-          optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
-          arrowIcon.classList.remove("rotate-180");
+  //         // Close dropdown
+  //         optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
+  //         optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
+  //         arrowIcon.classList.remove("rotate-180");
           
-          // Create/update hidden input for form submission
-          const hiddenInput = customSelect.querySelector('input[type="hidden"]');
-          if (hiddenInput) {
-            hiddenInput.value = option.value;
-          }
+  //         // Create/update hidden input for form submission
+  //         const hiddenInput = customSelect.querySelector('input[type="hidden"]');
+  //         if (hiddenInput) {
+  //           hiddenInput.value = option.value;
+  //         }
           
-          // Remove focus from the select
-          selectedDisplay.blur();
-        });
+  //         // Remove focus from the select
+  //         selectedDisplay.blur();
+  //       });
         
-        optionsContainer.appendChild(optionEl);
-      });
+  //       optionsContainer.appendChild(optionEl);
+  //     });
       
-      // Toggle dropdown on click
-      selectedDisplay.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const isOpen = optionsContainer.classList.contains("opacity-100");
+  //     // Toggle dropdown on click
+  //     selectedDisplay.addEventListener("click", (e) => {
+  //       e.stopPropagation();
+  //       const isOpen = optionsContainer.classList.contains("opacity-100");
         
-        if (isOpen) {
-          // Close dropdown
-          optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
-          optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
-          arrowIcon.classList.remove("rotate-180");
-        } else {
-          // Open dropdown
-          optionsContainer.classList.remove("max-h-0", "opacity-0", "translate-y-[-10px]");
-          optionsContainer.classList.add("max-h-60", "opacity-100", "translate-y-0");
-          arrowIcon.classList.add("rotate-180");
-        }
-      });
+  //       if (isOpen) {
+  //         // Close dropdown
+  //         optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
+  //         optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
+  //         arrowIcon.classList.remove("rotate-180");
+  //       } else {
+  //         // Open dropdown
+  //         optionsContainer.classList.remove("max-h-0", "opacity-0", "translate-y-[-10px]");
+  //         optionsContainer.classList.add("max-h-60", "opacity-100", "translate-y-0");
+  //         arrowIcon.classList.add("rotate-180");
+  //       }
+  //     });
       
-      // Close dropdown when clicking outside
-      document.addEventListener("click", (e) => {
-        if (!customSelect.contains(e.target)) {
-          optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
-          optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
-          arrowIcon.classList.remove("rotate-180");
-        }
-      });
+  //     // Close dropdown when clicking outside
+  //     document.addEventListener("click", (e) => {
+  //       if (!customSelect.contains(e.target)) {
+  //         optionsContainer.classList.remove("max-h-60", "opacity-100", "translate-y-0");
+  //         optionsContainer.classList.add("max-h-0", "opacity-0", "translate-y-[-10px]");
+  //         arrowIcon.classList.remove("rotate-180");
+  //       }
+  //     });
       
-      // Also handle keyboard navigation
-      selectedDisplay.addEventListener("keydown", (e) => {
-        if (e.code === "Space" || e.code === "Enter") {
-          e.preventDefault();
-          selectedDisplay.click();
-        }
-      });
+  //     // Also handle keyboard navigation
+  //     selectedDisplay.addEventListener("keydown", (e) => {
+  //       if (e.code === "Space" || e.code === "Enter") {
+  //         e.preventDefault();
+  //         selectedDisplay.click();
+  //       }
+  //     });
       
-      // Hidden input for form submission
-      const hiddenInput = document.createElement("input");
-      hiddenInput.type = "hidden";
-      hiddenInput.name = field.name;
-      hiddenInput.id = field.name;
-      hiddenInput.value = field.options[0].value;
-      hiddenInput.required = field.required;
+  //     // Hidden input for form submission
+  //     const hiddenInput = document.createElement("input");
+  //     hiddenInput.type = "hidden";
+  //     hiddenInput.name = field.name;
+  //     hiddenInput.id = field.name;
+  //     hiddenInput.value = field.options[0].value;
+  //     hiddenInput.required = field.required;
       
-      customSelect.appendChild(selectedDisplay);
-      customSelect.appendChild(optionsContainer);
-      customSelect.appendChild(hiddenInput);
+  //     customSelect.appendChild(selectedDisplay);
+  //     customSelect.appendChild(optionsContainer);
+  //     customSelect.appendChild(hiddenInput);
       
-      formGroup.append(label, customSelect);
-    } else {
-      formGroup.className = "space-y-1";
+  //     formGroup.append(label, customSelect);
+  //   } else {
+  //     formGroup.className = "space-y-1";
       
-      const label = document.createElement("label");
-      label.htmlFor = field.name;
-      label.className = "block text-sm text-slate-300";
-      label.textContent = field.label;
+  //     const label = document.createElement("label");
+  //     label.htmlFor = field.name;
+  //     label.className = "block text-sm text-slate-300";
+  //     label.textContent = field.label;
       
-      let input;
+  //     let input;
       
-      if (field.type === "textarea") {
-        input = document.createElement("textarea");
-        input.className = "w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/50";
-        input.rows = 4;
-        if (field.placeholder) input.placeholder = field.placeholder;
-      } else {
-        input = document.createElement("input");
-        input.type = field.type;
-        input.className = "w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/50";
-        if (field.placeholder) input.placeholder = field.placeholder;
-      }
+  //     if (field.type === "textarea") {
+  //       input = document.createElement("textarea");
+  //       input.className = "w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/50";
+  //       input.rows = 4;
+  //       if (field.placeholder) input.placeholder = field.placeholder;
+  //     } else {
+  //       input = document.createElement("input");
+  //       input.type = field.type;
+  //       input.className = "w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500/50";
+  //       if (field.placeholder) input.placeholder = field.placeholder;
+  //     }
       
-      input.id = field.name;
-      input.name = field.name;
-      input.required = field.required;
+  //     input.id = field.name;
+  //     input.name = field.name;
+  //     input.required = field.required;
       
-      formGroup.append(label, input);
-    }
+  //     formGroup.append(label, input);
+  //   }
     
-    registrationForm.appendChild(formGroup);
-  });
+  //   registrationForm.appendChild(formGroup);
+  // });
   
-  // Submit button
-  const submitButton = document.createElement("button");
-  submitButton.type = "submit";
-  submitButton.className = "w-full py-3 px-6 mt-6 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-black font-bold rounded-lg transition-all duration-300 transform hover:translate-y-[-2px]";
-  submitButton.textContent = "Submit Application";
+  // // Submit button
+  // const submitButton = document.createElement("button");
+  // submitButton.type = "submit";
+  // submitButton.className = "w-full py-3 px-6 mt-6 bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-700 hover:to-yellow-600 text-black font-bold rounded-lg transition-all duration-300 transform hover:translate-y-[-2px]";
+  // submitButton.textContent = "Submit Application";
 
-  // Submissions redirect
-  const submissionsbtn = document.createElement("button");
-  submissionsbtn.onclick = () => {
-    setTimeout(() => {
-        // Use absolute URL construction for production
-        const redirectUrl = `/submissions/${competitionId}`;
-        console.log('Redirecting to:', redirectUrl); // Debug log
-        window.location.href = redirectUrl;
-      }, 0);
-  }
-  submissionsbtn.className = "w-full py-3 px-6 mt-6 bg-gradient-to-r from-slate-400 to-slate-500 hover:from-slate-400/80 hover:to-slate-500/80 text-black font-bold rounded-lg transition-all duration-300 transform hover:translate-y-[-2px]";
-  submissionsbtn.textContent = "Ready to upload your creation?";
+  // // Submissions redirect
+  // const submissionsbtn = document.createElement("button");
+  // submissionsbtn.onclick = () => {
+  //   setTimeout(() => {
+  //       // Use absolute URL construction for production
+  //       const redirectUrl = `/submissions/${competitionId}`;
+  //       console.log('Redirecting to:', redirectUrl); // Debug log
+  //       window.location.href = redirectUrl;
+  //     }, 0);
+  // }
+  // submissionsbtn.className = "w-full py-3 px-6 mt-6 bg-gradient-to-r from-slate-400 to-slate-500 hover:from-slate-400/80 hover:to-slate-500/80 text-black font-bold rounded-lg transition-all duration-300 transform hover:translate-y-[-2px]";
+  // submissionsbtn.textContent = "Ready to upload your creation?";
   
-  registrationForm.appendChild(submitButton);
-  registrationForm.appendChild(submissionsbtn);
+  // registrationForm.appendChild(submitButton);
+  // registrationForm.appendChild(submissionsbtn);
   
-  formCard.append(formFlagBar, formTitle, registrationForm);
-  rightColumn.appendChild(formCard);
+  // formCard.append(formFlagBar, formTitle, registrationForm);
+  // rightColumn.appendChild(formCard);
   
   // Assemble details section
-  detailsSection.append(leftColumn, rightColumn);
+  detailsSection.append(leftColumn);
   innerContent.appendChild(detailsSection);
   
   // Add content to page

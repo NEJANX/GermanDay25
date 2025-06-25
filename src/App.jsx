@@ -264,39 +264,21 @@ export default function App() {
             <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-0">
               {window.innerWidth > 639 && (
               <div className="sm:bg-gradient-to-r sm:from-black sm:from-25% sm:via-red-700 sm:via-50% sm:to-yellow-500 sm:to-75% rounded-md sm:w-[24rem] flex sm:overflow-hidden">
-                <a
-                  href="#competitions"
-                  className="w-full sm:w-1/2 bg-black sm:bg-transparent text-white text-center font-semibold px-8 py-3 rounded-md sm:rounded-none shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
+                <p
+                  className="w-full bg-black sm:bg-transparent text-white text-center font-semibold px-8 py-3 rounded-md sm:rounded-none shadow-lg transform"
                 >
-                  Register Now
-                </a>
-                <div className="w-[2px] bg-white opacity-40 my-1" />
-                <a
-                  href="/submissions"
-                  className="w-full sm:w-1/2 bg-yellow-500 sm:bg-transparent text-white text-center font-semibold px-8 py-3 rounded-md sm:rounded-none shadow-lg transform hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  Submit Creation
-                </a>
+                  Submissions Closed!
+                </p>
               </div>
               )}
               {window.innerWidth <= 639 && (
-                <div className="bg-gradient-to-b from-black via-red-700 to-yellow-500 flex flex-col rounded-md justify-center">
-                <a
-                  href="#competitions"
-                  className="text-white font-semibold px-8 py-3 rounded-t-md transform hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  Register Now
-                </a>
-
-                <div className="h-[2px] bg-white opacity-40 mx-6" />
-
-                <a
-                  href="/submissions"
-                  className="text-white font-semibold px-8 py-3 rounded-b-md transform hover:-translate-y-0.5 transition-all duration-300"
-                >
-                  Submit Creation
-                </a>
-              </div>
+                <div className="sm:bg-gradient-to-r sm:from-black sm:from-25% sm:via-red-700 sm:via-50% sm:to-yellow-500 sm:to-75% rounded-md sm:w-[24rem] flex sm:overflow-hidden">
+                  <p
+                    className="w-full bg-black sm:bg-transparent text-white text-center font-semibold px-8 py-3 rounded-md sm:rounded-none shadow-lg transform"
+                  >
+                    Submissions Closed!
+                  </p>
+                </div>
               )}
             </div>
             {window.innerWidth > 639 && (
