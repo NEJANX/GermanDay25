@@ -106,15 +106,15 @@ export default function AuthProvider({ children }) {
 // }, [adminData, currentUser]);
 
 
-//   // Sign out function
-//   const logout = async () => {
-//     try {
-//       await signOut(auth);
-//     } catch (err) {
-//       console.error('Logout error:', err);
-//       setError(err.message || 'Failed to logout');
-//     }
-//   };
+  // Sign out function
+  const logout = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error('Logout error:', err);
+      setError(err.message || 'Failed to logout');
+    }
+  };
 
   // Setup auth state observer
   useEffect(() => {
