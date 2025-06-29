@@ -574,7 +574,7 @@ export default function AdminDashboard() {
       )}
       
       {/* Add style for the animations */}
-      <style jsx>{`
+      {/* <style jsx>{`
         @keyframes float {
           0% { transform: translateY(0) rotate(0); }
           50% { transform: translateY(-20px) rotate(5deg); }
@@ -589,7 +589,7 @@ export default function AdminDashboard() {
         .animate-fadeIn {
           animation: fadeIn 0.3s ease-out forwards;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }
