@@ -267,7 +267,7 @@ export default function App() {
                 <p
                   className="w-full bg-black sm:bg-transparent text-white text-center font-semibold px-8 py-3 rounded-md sm:rounded-none shadow-lg transform"
                 >
-                  Submissions Closed!
+                  Submissions Reopened!
                 </p>
               </div>
               )}
@@ -276,7 +276,7 @@ export default function App() {
                   <p
                     className="w-full bg-black sm:bg-transparent text-white text-center font-semibold px-8 py-3 rounded-md sm:rounded-none shadow-lg transform"
                   >
-                    Submissions Closed!
+                    Submissions Reopened!
                   </p>
                 </div>
               )}
